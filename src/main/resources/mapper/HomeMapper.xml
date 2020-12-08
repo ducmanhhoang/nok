@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="homeMapper">
+	<select id="test" resultType="BaseVO">
+		SELECT 3 AS MATH_GRADE, 5 AS PHYSIC_GRADE FROM DUAL
+	</select>
+</mapper>
