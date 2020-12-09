@@ -264,5 +264,8 @@ jQuery(document).ready(fnObj.pageStart.delay(0.1));
             </div>
             <a href="test.do">Click here to test Exception handling</a>
             <a href="test2.do">Click here to test Exception handling</a>
+            
+            
+            <div class="ax-layer-1" id="ax_layer_1"></div>
 </body>
 </html>

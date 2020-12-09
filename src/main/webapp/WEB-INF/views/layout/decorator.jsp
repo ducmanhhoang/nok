@@ -21,24 +21,45 @@
 	
 	<div id="AXPage">
         <!-- AXPageBody -->
-        <div id="AXPageBody">
+        <div id="AXPageBody" style="clear: both; margin-top: 120px;">
             <div class="ax-wrap">
-                <div class="ax-layer-1" id="ax_layer_1"></div>
+                <sitemesh:write property='body' />
             </div>
         </div>
         <!-- AXPageBody -->
     </div>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/samples/page.js"></script>
+    
+    <script type="text/javascript">
+        isIndex = true;
+        jQuery(document).ready(function(){
+
+            new AXReq("samples/AXGrid/selectorData.php",
+                {pars:"", onsucc:function(res){
+                    trace(res);
+                }
+            });
 
 
-
-	<h1 class='title'><sitemesh:write property='title' /></h1>
-
-	<div class='mainBody'>
-		<sitemesh:write property='body' />
-	</div>
-
-	<div class='disclaimer'>Site disclaimer. This is an example.</div>
+            setTimeout(function(){
+                var po = [];
+                axf.each(sampleTree, function(){
+                    po.push('<div class="ax-col-3">');
+                    po.push('<div class="ax-unit secBlock">');
+                    po.push('<h3>', this.label,'</h3>');
+                    po.push('<ul id="comon">');
+                    axf.each(this.cn, function() {
+                        po.push('<li><a href="', this.url,'">', this.label,'</a></li>');
+                    });
+                    po.push('</ul>');
+                    po.push('</div>');
+                    po.push('</div>');
+                });
+                po.push('<div class="ax-clear"></div>');
+                $("#ax_layer_1").html(po.join(''));
+            }, 500);
+        });
+    </script>
 </body>
 </html>
