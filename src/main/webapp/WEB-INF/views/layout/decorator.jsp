@@ -21,7 +21,7 @@
 	
 	<div id="AXPage">
         <!-- AXPageBody -->
-        <div id="AXPageBody" style="clear: both; margin-top: 120px;">
+        <div id="AXPageBody">
             <div class="ax-wrap">
                 <sitemesh:write property='body' />
             </div>
@@ -30,36 +30,5 @@
     </div>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/samples/page.js"></script>
-    
-    <script type="text/javascript">
-        isIndex = true;
-        jQuery(document).ready(function(){
-
-            new AXReq("samples/AXGrid/selectorData.php",
-                {pars:"", onsucc:function(res){
-                    trace(res);
-                }
-            });
-
-
-            setTimeout(function(){
-                var po = [];
-                axf.each(sampleTree, function(){
-                    po.push('<div class="ax-col-3">');
-                    po.push('<div class="ax-unit secBlock">');
-                    po.push('<h3>', this.label,'</h3>');
-                    po.push('<ul id="comon">');
-                    axf.each(this.cn, function() {
-                        po.push('<li><a href="', this.url,'">', this.label,'</a></li>');
-                    });
-                    po.push('</ul>');
-                    po.push('</div>');
-                    po.push('</div>');
-                });
-                po.push('<div class="ax-clear"></div>');
-                $("#ax_layer_1").html(po.join(''));
-            }, 500);
-        });
-    </script>
 </body>
 </html>
