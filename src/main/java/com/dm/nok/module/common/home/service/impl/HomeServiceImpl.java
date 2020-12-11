@@ -10,15 +10,23 @@ import com.dm.nok.module.common.home.service.HomeService;
 
 @Service(value = "homeService")
 public class HomeServiceImpl implements HomeService {
-	
-	@Autowired
-	@Resource(name = "homeMapper")
-	private HomeMapper homeMapper;
 
-	@Override
-	public BaseVO hello() throws Exception {
-		// TODO Auto-generated method stub
-		return homeMapper.test();
-	}
+    @Autowired
+    @Resource(name = "homeMapper")
+    private HomeMapper homeMapper;
+
+    @Autowired
+    @Resource(name = "homeMapper1")
+    private HomeMapper1 homeMapper1;
+
+    @Override
+    public BaseVO hello() throws Exception {
+        // TODO Auto-generated method stub
+        return homeMapper.test();
+    }
+
+    public BaseVO hello2() throws Exception {
+        return homeMapper1.test();
+    }
 
 }

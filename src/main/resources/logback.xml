@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <!-- Setting Start -->
+    <property resource="logback.properties"/>
+    <!-- log packagename -->
+    <property name="LOG_PACKAGE_NAME" value="${log.config.packagename}" />
+    <!-- log file path
+    <property name="LOG_PATH" value="${log.config.path}" />
+    -->
+    <property name="LOG_PATH" value="${catalina.home}/uniLogs/logback" />
+    <!-- log file name -->
+    <property name="LOG_FILE_NAME" value="${log.config.filename}" />
+    <!-- log days -->
+    <property name="LOG_DAYS" value="${log.config.days}" />
+    <!-- log filesize log-->
+    <property name="LOG_FILESIZE_LOG" value="${log.config.filesizelog}" />
+    <!-- log filesize zip-->
+    <property name="LOG_FILESIZE_ZIP" value="${log.config.filesizezip}" />
+    <!-- log filesize total-->
+    <property name="LOG_TOTAL_FILESIZE" value="${log.config.totalfilesize}" />
+    <!-- log min count -->
+    <property name="LOG_FILE_MIN" value="${log.config.min}" />
+    <!-- log max count -->
+    <property name="LOG_FILE_MAX" value="${log.config.max}" />
+    <!-- pattern -->
+    <property name="LOG_PATTERN" value="%-5level %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger[%method:%line] - %msg%n"/>
+    <!-- Setting End -->
+
+    <!-- ConsoleAppender console output log -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="${LOG_FILE_NAME}_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Define log file Input location --> 
+        <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--  file size -->
+            <maxFileSize>${LOG_FILESIZE_LOG}</maxFileSize>
+            <!-- The history of the log is 30 days -->  
+            <maxHistory>${LOG_DAYS}</maxHistory>
+            <totalSizeCap>${LOG_TOTAL_FILESIZE}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+	
+    <!-- Log level TRACE -> DEBUG -> INFO -> WARN -> ERROR -> FATAL -->
+    <logger name="org.apache.commons" level="INFO" />
+    <logger name="org.apache.ibatis" level="INFO" />
+    <logger name="org.springframework" level="INFO" />
+    <logger name="org.hibernate" level="INFO" />
+    <logger name="org.mybatis.spring" level="INFO" />
+    <logger name="ch.qos.logback" level="INFO" />
+    <logger name="org.slf4j" level="INFO" />
+    <logger name="org.apache.log4j" level="INFO" />
+    <logger name="net.sf.ehcache" level="INFO" />
+    
+
+    <logger name="${LOG_PACKAGE_NAME}" level="DEBUG" />
+    <logger name="com.dm.nok" level="DEBUG" />
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="${LOG_FILE_NAME}_LOG"/>
+    </root>
+    <typeAliases></typeAliases>
+</configuration>

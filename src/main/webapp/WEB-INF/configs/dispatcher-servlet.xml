@@ -1,125 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing 
-		infrastructure -->
-	<!-- Enables the Spring MVC @Controller programming model -->
-	<mvc:annotation-driven />
-	<context:component-scan
-		base-package="com.dm.nok.module" />
+    <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+    <!-- Enables the Spring MVC @Controller programming model -->
+    <mvc:annotation-driven />
+    <context:component-scan base-package="com.dm.nok.module">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
 
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="jdbc" />
-	</bean>
+    <bean id="messageSource"
+              class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="jdbc" />
+    </bean>
 
-	<!-- DATABASE Setting, reading from PROPERTIES -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${DB.DRIVER}" />
-		<property name="url" value="${DB.URL}" />
-		<property name="username" value="${DB.USERNAME}" />
-		<property name="password" value="${DB.PASSWORD}" />
-	</bean>
+    <!-- DATABASE Setting, reading from PROPERTIES -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${DB.DRIVER}" />
+        <property name="url" value="${DB.URL}" />
+        <property name="username" value="${DB.USERNAME}" />
+        <property name="password" value="${DB.PASSWORD}" />
+    </bean>
 
-	<!-- MYBATIS Setting -->
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.dm.nok.module" />
-		<property name="mapperLocations">
-			<array>
-				<value>classpath:/mapper/*.xml</value>
-				<value>classpath:/mapper/**/*.xml</value>
-			</array>
-		</property>
-	</bean>
+    <!-- MYBATIS Setting -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="com.dm.nok.module" />
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:/mapper/*.xml</value>
+                <value>classpath:/mapper/**/*.xml</value>
+            </array>
+        </property>
+    </bean>
 
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate"
-		destroy-method="clearCache">
-		<constructor-arg index="0" ref="sqlSessionFactory" />
-	</bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
 
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="mapper" />
-	</bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.dm.nok.module.**.service.impl" />
+    </bean>
 
-	<tx:annotation-driven
-		transaction-manager="transactionManager" />
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
-		up static resources in the ${webappRoot}/resources directory -->
-	<mvc:resources mapping="/resources/**"
-		location="/WEB-INF/resources/" />
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
 
-	<!-- To define an implementation, create a bean with the id "multipartResolver" 
-		in a DispatcherServlet's application context. -->
-	<!-- In your xml configuration, the bean has the correct id of multipartResolver -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="utf-8" />
-		<!-- one of the properties available; the maximum file size in bytes -->
-		<!-- setting maximum upload size -->
-		<property name="maxUploadSize" value="40000000" />
-	</bean>
+    <!-- To define an implementation, create a bean with the id "multipartResolver" in a DispatcherServlet's application context. -->
+    <!-- In your xml configuration, the bean has the correct id of multipartResolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8" />
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="40000000" />
+    </bean>
 
-	<!-- JSON Support for Request and Response messages -->
-	<!-- <mvc:annotation-driven> <mvc:message-converters> <bean class="org.springframework.http.converter.StringHttpMessageConverter" 
-		/> <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" 
-		/> </mvc:message-converters> </mvc:annotation-driven> -->
+    <!-- JSON Support for Request and Response messages -->
+    <!-- 
+    <mvc:annotation-driven> 
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    -->
 
+    <!-- Configure to plugin JSON as request and response in method handler -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonMessageConverter" />
+                <ref bean="xmlMessageConverter" />
+            </list>
+        </property>
+    </bean>
 
-	<!-- Configure to plugin JSON as request and response in method handler -->
-	<bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="jsonMessageConverter" />
-				<ref bean="xmlMessageConverter" />
-			</list>
-		</property>
-	</bean>
+    <!-- Configure bean to convert JSON to POJO and vice versa -->
+    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 
-	<!-- Configure bean to convert JSON to POJO and vice versa -->
-	<bean id="jsonMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+    <bean id="xmlMessageConverter" class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
 
-	<bean id="xmlMessageConverter"
-		class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
-
-
-
-
-	<!-- PROPERTIES setting -->
-	<bean id="applicationProperties"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:properties/db.properties</value>
-				<value>classpath:properties/application.properties</value>
-			</list>
-		</property>
-	</bean>
+    <!-- PROPERTIES setting -->
+    <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:properties/db.properties</value>
+                <value>classpath:properties/application.properties</value>
+            </list>
+        </property>
+    </bean>
 </beans>
