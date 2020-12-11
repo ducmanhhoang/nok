@@ -232,14 +232,14 @@
             isIndex = true;
             jQuery(document).ready(function () {
 
-                new AXReq("test2.do",
+                new AXReq("test2.json",
                         {pars: "", onsucc: function (res) {
                                 trace(res);
                             }
                         });
 
 
-                new AXReq("test3.do",
+                new AXReq("test3.json",
                         {pars: "", onsucc: function (res) {
                                 trace(res);
                             }

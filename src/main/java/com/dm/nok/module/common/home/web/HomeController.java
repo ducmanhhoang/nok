@@ -46,7 +46,7 @@ public class HomeController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/test2.do")
+    @RequestMapping(value = "/test2.json")
     public ResultVO loadTest2(@ModelAttribute("userForm") Object userForm, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
@@ -55,7 +55,7 @@ public class HomeController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/test3.do")
+    @RequestMapping(value = "/test3.json")
     public ResultVO loadTest3(@ModelAttribute("userForm") Object userForm, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
