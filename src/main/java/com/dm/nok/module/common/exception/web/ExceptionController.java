@@ -11,7 +11,7 @@ public class ExceptionController {
     public ModelAndView exception(Exception e) {
         ModelAndView mav = new ModelAndView("module/common/error");
         mav.addObject("name", e.getClass().getSimpleName());
-        mav.addObject("message", e.getMessage());
+        mav.addObject("message", e.getCause());
         return mav;
     }
 }
