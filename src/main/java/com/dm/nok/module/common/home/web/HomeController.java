@@ -28,12 +28,6 @@ public class HomeController extends BaseController {
 
     @RequestMapping(value = {"default.do"})
     public String loadHome() throws Exception {
-        logger.debug("Hello Logback");
-        logger.trace("doStuff needed more information - {}", 4);
-        logger.debug("doStuff needed to debug - {}", 4);
-        logger.info("doStuff took input - {}", 4);
-        logger.warn("doStuff needed to warn - {}", 4);
-        logger.error("doStuff encountered an error with value - {}", 4);
         return "module/common/home";
     }
 
@@ -62,9 +56,14 @@ public class HomeController extends BaseController {
         }
         return addResult(homeService.hello2());
     }
-
-    @RequestMapping(value = {"decorator.do"})
-    public String loadDecorator() throws Exception {
-        return "layout/decorator";
+    
+    @RequestMapping(value = {"test1.do"})
+    public String loadTest1() throws Exception {
+        return "module/common/test1";
+    }
+    
+    @RequestMapping(value = {"test2.do"})
+    public String loadTest2() throws Exception {
+        return "module/common/test2";
     }
 }

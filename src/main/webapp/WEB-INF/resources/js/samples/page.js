@@ -144,7 +144,7 @@ var sampleTreeMenu = new AXTopDownMenu();
             jQuery("#AXPageBody").before(ho.join(""));
 
             var to = [];
-            to.push('<div id="myTab03"></div>');
+            to.push('<div id="demoPageTabTarget"></div>');
             to.push("<div class='ax-clear'></div>");
 
             jQuery(".themeInfo").append(to.join(""));
@@ -194,35 +194,27 @@ var sampleTreeMenu = new AXTopDownMenu();
             axdom("#devCentermobileMenu").bind("click", function () {
                 sampleMobileMenu.open();
             });
+            
+            var myTabOption = [
+                    {optionValue:"Default", optionText:"Default", addClass:"Blue", url:"test1.do"},
+                    {optionValue:"scriptTab", optionText:"Script Tab", addClass:"Blue", url:"test2.do"}
+            ];
+            
+            var pageTabChange = function(selectedObject, value){
+                    location.href = selectedObject.url;
+            };
+            
+            var myPageID = "";
+            try{
+                    myPageID = pageID;
+            }catch(e){
 
-            $("#myTab03").bindTab({
-                theme: "AXTabsSmall",
-                value: "1",
-                overflow: "scroll",
-                scrollAmount: 5,
-                options: [
-                    {optionValue: "1", optionText: "★☆★☆★☆ 1살 선택하기 ★☆★☆★☆"},
-                    {optionValue: "2", optionText: "2살 선택하기"},
-                    {optionValue: "3", optionText: "3살 선택하기", addClass: "Red"},
-                    {optionValue: "4", optionText: "4살 선택하기", addClass: "Blue"},
-                    {optionValue: "5", optionText: "5살 선택하기", addClass: "Green"},
-                    {optionValue: "6", optionText: "6살 선택하기", addClass: "Classic"},
-                    {optionValue: "7", optionText: "7살 선택하기"},
-                    {optionValue: "8", optionText: "8살 선택하기"},
-                    {optionValue: "9", optionText: "9살 선택하기"},
-                    {optionValue: "10", optionText: "★☆★☆★☆ 10살 선택하기 ★☆★☆★☆"},
-                    {optionValue: "11", optionText: "★☆★☆★☆ 11살 선택하기 ★☆★☆★☆"},
-                    {optionValue: "12", optionText: "★☆★☆★☆ 12살 선택하기 ★☆★☆★☆"},
-                    {optionValue: "13", optionText: "13살 선택하기"},
-                    {optionValue: "14", optionText: "14살 선택하기"},
-                    {optionValue: "15", optionText: "15살 선택하기"},
-                    {optionValue: "16", optionText: "16살 선택하기"}
-                ],
-                onchange: function (selectedObject, value) {
-                    //toast.push(Object.toJSON(this));
-                    //toast.push(Object.toJSON(selectedObject));
-                    toast.push(Object.toJSON(value));
-                }
+            }
+            $("#demoPageTabTarget").bindTab({
+                    value: (myPageID||""), 
+                    overflow: "scroll", 
+                    options: myTabOption, 
+                    onchange: pageTabChange
             });
         },
         incFooter: function () {
