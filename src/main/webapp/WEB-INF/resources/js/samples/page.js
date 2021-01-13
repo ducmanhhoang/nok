@@ -2,8 +2,8 @@ var isIndex = false;
 var pageObj;
 var sampleMobileMenu = new AXMobileMenu();
 var sampleTree = [
-    {menuID: "1", label: "Common", url: "javascript:pageObj.goLink('samples/AXCore/index.html');", cn: [
-            {menuID: "101", label: "AXCore", url: "javascript:pageObj.goLink('samples/AXCore/index.html');"},
+    {menuID: "1", label: "Common", url: "javascript:pageObj.goLink('common/docHome.do');", cn: [
+            {menuID: "101", label: "AXCore", url: "javascript:pageObj.goLink('common/docHome.do');"},
             {menuID: "102", label: "AXValidator", url: "javascript:pageObj.goLink('samples/AXValidator/index.html');"},
             {menuID: "103", label: "AXAddress", url: "javascript:pageObj.goLink('samples/AXAddress/index.html');"},
             {menuID: "104", label: "Table CSS Guide", url: "javascript:pageObj.goLink('samples/tableStyleGuide/index.html');"}
@@ -121,7 +121,7 @@ var sampleTreeMenu = new AXTopDownMenu();
             ho.push('           <div class="ax-col-12">');
             ho.push('               <div class="ax-unit">');
             ho.push('                   <nav class="navMenu ">');
-            ho.push('                       <h3><a href="' + pageObj.host + 'index.html"><img src="' + pageObj.host + 'resources/js/ui/AXJ-logo.png" style="width:110px; height:40px;" /></a></h3>');
+            ho.push('                       <h3><a href="' + pageObj.host + 'common/home.do"><img src="' + pageObj.host + 'resources/js/ui/AXJ-logo.png" style="width:110px; height:40px;" /></a></h3>');
             ho.push('                       <div id="sampleMenuBox"></div>');
             ho.push('                   </nav>');
             ho.push('               </div>');
@@ -195,6 +195,7 @@ var sampleTreeMenu = new AXTopDownMenu();
                 sampleMobileMenu.open();
             });
 
+/*
             var myTabOption = [
                 {optionValue: "Home", optionText: "Home", addClass: "Blue", url: "home.do"},
                 {optionValue:"Default", optionText:"Default", addClass:"Blue", url:"test1.do"},
@@ -217,6 +218,8 @@ var sampleTreeMenu = new AXTopDownMenu();
                 options: myTabOption,
                 onchange: pageTabChange
             });
+             * 
+ */
         },
         incFooter: function () {
             var fo = [];
