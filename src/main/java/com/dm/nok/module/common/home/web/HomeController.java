@@ -26,7 +26,7 @@ public class HomeController extends BaseController {
     @Resource(name = "homeService")
     private HomeService homeService;
 
-    @RequestMapping(value = {"default.do"})
+    @RequestMapping(value = {"home.do"})
     public String loadHome() throws Exception {
         return "module/common/home";
     }

@@ -194,27 +194,28 @@ var sampleTreeMenu = new AXTopDownMenu();
             axdom("#devCentermobileMenu").bind("click", function () {
                 sampleMobileMenu.open();
             });
-            
+
             var myTabOption = [
-                    {optionValue:"Default", optionText:"Default", addClass:"Blue", url:"test1.do"},
-                    {optionValue:"scriptTab", optionText:"Script Tab", addClass:"Blue", url:"test2.do"}
+                {optionValue: "Home", optionText: "Home", addClass: "Blue", url: "home.do"},
+                {optionValue:"Default", optionText:"Default", addClass:"Blue", url:"test1.do"},
+                {optionValue: "scriptTab", optionText: "Script Tab", addClass: "Blue", url: "test2.do"}
             ];
-            
-            var pageTabChange = function(selectedObject, value){
-                    location.href = selectedObject.url;
+
+            var pageTabChange = function (selectedObject, value) {
+                location.href = selectedObject.url;
             };
-            
+
             var myPageID = "";
-            try{
-                    myPageID = pageID;
-            }catch(e){
+            try {
+                myPageID = pageID;
+            } catch (e) {
 
             }
             $("#demoPageTabTarget").bindTab({
-                    value: (myPageID||""), 
-                    overflow: "scroll", 
-                    options: myTabOption, 
-                    onchange: pageTabChange
+                value: (myPageID || ""),
+                overflow: "scroll",
+                options: myTabOption,
+                onchange: pageTabChange
             });
         },
         incFooter: function () {

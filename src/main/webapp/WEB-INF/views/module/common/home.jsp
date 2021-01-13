@@ -7,7 +7,7 @@
 
         <script type="text/javascript">
             var myGrid = new AXGrid(); // instance
-            var pageID = "withAXUpload5";
+            var pageID = "Home";
             var myEditor = new AXEditor();
             var myUpload = new AXUpload5();
             var fnObj = {
