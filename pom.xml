@@ -229,7 +229,7 @@
 
         <!-- sitemesh -->
         <dependency>
-            <groupId>opensymphony</groupId>
+            <groupId>org.sitemesh</groupId>
             <artifactId>sitemesh</artifactId>
             <version>3.0.1</version>
         </dependency>

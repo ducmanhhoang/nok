@@ -4,6 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><sitemesh:write property='title' /></title>
+        
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/js/ui/axisj.ico" type="image/x-icon" />
         <link rel="icon" href="${pageContext.request.contextPath}/resources/js/ui/axisj.ico" type="image/x-icon" />
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${pageContext.request.contextPath}/resources/js/ui/AXJ.png" />
@@ -14,11 +15,12 @@
 
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dist/AXJ.min.js"></script>
+        
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/samples/page.js"></script>
 
-    <sitemesh:write property='head' />
-</head>
+        <sitemesh:write property='head' />
+    </head>
 <body>
-
     <div id="AXPage">
         <!-- AXPageBody -->
         <div id="AXPageBody">
@@ -28,7 +30,5 @@
         </div>
         <!-- AXPageBody -->
     </div>
-
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/samples/page.js"></script>
 </body>
 </html>

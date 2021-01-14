@@ -200,7 +200,6 @@ var sampleTreeMenu = new AXTopDownMenu();
                 sampleMobileMenu.open();
             });
 
-/*
             var myTabOption = [
                 {optionValue: "grade01Home", optionText: "Home", addClass: "Blue", url: "doc/grade01/grade01Home.do"},
                 {optionValue:"Default", optionText:"Default", addClass:"Blue", url:"doc/grade01/test1.do"},
@@ -223,8 +222,6 @@ var sampleTreeMenu = new AXTopDownMenu();
                 options: myTabOption,
                 onchange: pageTabChange
             });
-             * 
- */
         },
         incFooter: function () {
             var fo = [];
