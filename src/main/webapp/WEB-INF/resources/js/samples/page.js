@@ -2,8 +2,8 @@ var isIndex = false;
 var pageObj;
 var sampleMobileMenu = new AXMobileMenu();
 var sampleTree = [
-    {menuID: "1", label: "Common", url: "javascript:pageObj.goLink('samples/AXCore/index.html');", cn: [
-            {menuID: "101", label: "AXCore", url: "javascript:pageObj.goLink('samples/AXCore/index.html');"},
+    {menuID: "1", label: "Common", url: "javascript:pageObj.goLink('common/docHome.do');", cn: [
+            {menuID: "101", label: "AXCore", url: "javascript:pageObj.goLink('common/docHome.do');"},
             {menuID: "102", label: "AXValidator", url: "javascript:pageObj.goLink('samples/AXValidator/index.html');"},
             {menuID: "103", label: "AXAddress", url: "javascript:pageObj.goLink('samples/AXAddress/index.html');"},
             {menuID: "104", label: "Table CSS Guide", url: "javascript:pageObj.goLink('samples/tableStyleGuide/index.html');"}
@@ -200,6 +200,7 @@ var sampleTreeMenu = new AXTopDownMenu();
                 sampleMobileMenu.open();
             });
 
+/*
             var myTabOption = [
                 {optionValue: "grade01Home", optionText: "Home", addClass: "Blue", url: "doc/grade01/grade01Home.do"},
                 {optionValue:"Default", optionText:"Default", addClass:"Blue", url:"doc/grade01/test1.do"},
@@ -222,6 +223,8 @@ var sampleTreeMenu = new AXTopDownMenu();
                 options: myTabOption,
                 onchange: pageTabChange
             });
+             * 
+ */
         },
         incFooter: function () {
             var fo = [];

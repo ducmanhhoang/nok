@@ -26,10 +26,15 @@ public class HomeController extends BaseController {
     @Autowired
     @Resource(name = "homeService")
     private HomeService homeService;
-
+    
     @RequestMapping(value = {"home.do"})
     public String loadHome() throws Exception {
         return "module/common/home";
+    }
+    
+    @RequestMapping(value = {"docHome.do"})
+    public String loadDocHome() throws Exception {
+        return "module/common/docHome";
     }
 
     @RequestMapping(value = "/test.do")
