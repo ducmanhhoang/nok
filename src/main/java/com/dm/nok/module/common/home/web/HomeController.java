@@ -18,6 +18,7 @@ import com.dm.nok.module.common.base.web.BaseController;
 import com.dm.nok.module.common.home.service.HomeService;
 
 @Controller
+@RequestMapping(value = "/common/")
 public class HomeController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -57,13 +58,5 @@ public class HomeController extends BaseController {
         return addResult(homeService.hello2());
     }
     
-    @RequestMapping(value = {"test1.do"})
-    public String loadTest1() throws Exception {
-        return "module/common/test1";
-    }
     
-    @RequestMapping(value = {"test2.do"})
-    public String loadTest2() throws Exception {
-        return "module/common/test2";
-    }
 }

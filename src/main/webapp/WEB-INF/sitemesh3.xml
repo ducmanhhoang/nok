@@ -6,9 +6,10 @@
     <mime-type>application/xhtml+xml</mime-type>
 
     <!-- Default decorator, when the following paths do not match, enable the decorator to decorate -->
-    <mapping path="/*" decorator="/decorator.do"/>
+    <mapping path="/*" decorator="/layout/homeLayout.do"/>
 
     <!--Different matching paths use different decorative pages-->
+    <mapping path="/doc/**.do*" decorator="/layout/pageLayout.do"/>
     <mapping path="/admin/*" decorator="/another-decorator.html"/>
     <mapping path="/*.special.jsp" decorator="/special-decorator.html"/>
 
@@ -22,4 +23,5 @@
 
     <!-- Satisfied that the matching path will not be decorated -->
     <mapping path="/login.htm" exclue="true" />
+    <mapping path="/layout/**.do" exclue="true" />
 </sitemesh>

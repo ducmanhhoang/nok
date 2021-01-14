@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.common.decoration.web;
+package com.dm.nok.module.doc.grade01.home.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
- * @author HOANG DUC MANH
+ * @author Hoang Duc Manh
  */
 @Controller
-public class DecorationController {
+@RequestMapping(value = "/doc/grade01/")
+public class Grade01HomeController {
     
-    @RequestMapping(value = {"decorator.do"})
-    public String loadDecorator() throws Exception {
-        return "layout/decorator";
+    @RequestMapping(value = {"grade01Home.do"})
+    public String loadHomeLayout() throws Exception {
+        return "module/doc/grade01/grade01Home";
     }
 }

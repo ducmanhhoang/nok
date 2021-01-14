@@ -199,29 +199,6 @@ var sampleTreeMenu = new AXTopDownMenu();
             axdom("#devCentermobileMenu").bind("click", function () {
                 sampleMobileMenu.open();
             });
-
-            var myTabOption = [
-                {optionValue: "grade01Home", optionText: "Home", addClass: "Blue", url: "doc/grade01/grade01Home.do"},
-                {optionValue:"Default", optionText:"Default", addClass:"Blue", url:"doc/grade01/test1.do"},
-                {optionValue: "scriptTab", optionText: "Script Tab", addClass: "Blue", url: "doc/grade01/test2.do"}
-            ];
-
-            var pageTabChange = function (selectedObject, value) {
-                location.href = "../../" + selectedObject.url;
-            };
-
-            var myPageID = "";
-            try {
-                myPageID = pageID;
-            } catch (e) {
-
-            }
-            $("#demoPageTabTarget").bindTab({
-                value: (myPageID || ""),
-                overflow: "scroll",
-                options: myTabOption,
-                onchange: pageTabChange
-            });
         },
         incFooter: function () {
             var fo = [];
