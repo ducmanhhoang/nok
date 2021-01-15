@@ -18,7 +18,7 @@ new AXReq("../../common/auth/selectAuthMenuTopList.json",
 var myTabOption = [];
 new AXReq("../../common/auth/selectAuthMenuTabList.json",
         {
-            pars: {systemId: 'EDU'},
+            pars: {systemId: 'EDU', langCd: 'vn', menuId: menuId},
             onsucc: function (res) {
                 //trace(res);
                 myTabOption = res.data;
@@ -127,14 +127,14 @@ var sampleTreeMenu = new AXTopDownMenu();
             var pageTabChange = function (selectedObject, value) {
                 location.href = "../../" + selectedObject.url;
             };
-            var myPageID = "";
+            var myMenuId = "";
             try {
-                myPageID = pageID;
+                myMenuId = menuId;
             } catch (e) {
 
             }
             $("#demoPageTabTarget").bindTab({
-                value: (myPageID || ""),
+                value: (myMenuId || ""),
                 overflow: "scroll",
                 options: myTabOption,
                 onchange: pageTabChange

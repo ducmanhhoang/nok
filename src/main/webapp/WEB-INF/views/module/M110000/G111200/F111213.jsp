@@ -7,7 +7,7 @@
 
         <script type="text/javascript">
             var myGrid = new AXGrid(); // instance
-            var menuId = "F111113";
+            var menuId = "F111213";
             var myEditor = new AXEditor();
             var myUpload = new AXUpload5();
             var fnObj = {

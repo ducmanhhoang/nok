@@ -99,7 +99,9 @@
             CONCAT(URL, '.do') AS URL
         FROM
             MENU
-        WHERE LEVEL = 3
+        WHERE 
+            LEVEL = 3
+            AND UP_MENU_ID = (SELECT UP_MENU_ID FROM AUTH_MENU WHERE MENU_ID = #{menuId})
         ORDER BY
             URL
     </select>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.M110000.G111100.F111111.web;
+package com.dm.nok.module.M110000.G111200.F111211.web;
 
 import com.dm.nok.module.common.base.web.BaseController;
 import org.springframework.stereotype.Controller;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Hoang Duc Manh
  */
 @Controller
-@RequestMapping(value = "/M110000/G111100/")
-public class F111111Controller extends BaseController {
+@RequestMapping(value = "/M110000/G111200/")
+public class F111211Controller extends BaseController {
     
-    @RequestMapping(value = {"F111111.do"})
+    @RequestMapping(value = {"F111211.do"})
     public String loadF111111(Model model) throws Exception {
-        return "module/M110000/G111100/F111111";
+        return "module/M110000/G111200/F111211";
     }
 }

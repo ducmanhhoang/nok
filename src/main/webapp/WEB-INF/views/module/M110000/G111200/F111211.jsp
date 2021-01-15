@@ -17,11 +17,11 @@
              * Javascript 	: AXJ.js, AXTab.js
              * CSS			: AXTabs.css
              */
-            var menuId = "F111111";
+            var menuId = "F111211";
             var fnObj = {
                 pageStart: function () {
                     new AXReq("test2.json",
-                            {pars: {langCd: '${langCd}'}, onsucc: function (res) {
+                            {pars: "", onsucc: function (res) {
                                     trace(res);
                                 }
                             });
