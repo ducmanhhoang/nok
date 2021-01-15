@@ -11,61 +11,55 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script>
-	/**
-	 * Require Files for AXISJ UI Component...
-	 * Based		: jQuery
-	 * Javascript 	: AXJ.js, AXTab.js
-	 * CSS			: AXTabs.css
-	 */	
-	var pageID = "grade01Home";
-	var fnObj = {
-		pageStart: function(){
+            /**
+             * Require Files for AXISJ UI Component...
+             * Based		: jQuery
+             * Javascript 	: AXJ.js, AXTab.js
+             * CSS			: AXTabs.css
+             */
+            var pageID = "grade01Home";
+            var fnObj = {
+                pageStart: function () {
+                    new AXReq("test2.json",
+                            {pars: "", onsucc: function (res) {
+                                    trace(res);
+                                }
+                            });
 
-		}
-	};
-	jQuery(document.body).ready(function(){fnObj.pageStart()});
-	</script>
+
+                    new AXReq("test3.json",
+                            {pars: "", onsucc: function (res) {
+                                    trace(res);
+                                }
+                            });
+
+
+                    setTimeout(function () {
+                        var po = [];
+                        axf.each(sampleTree, function () {
+                            po.push('<div class="ax-col-3">');
+                            po.push('<div class="ax-unit secBlock">');
+                            po.push('<h3>', this.label, '</h3>');
+                            po.push('<ul id="comon">');
+                            axf.each(this.cn, function () {
+                                po.push('<li><a href="', this.url, '">', this.label, '</a></li>');
+                            });
+                            po.push('</ul>');
+                            po.push('</div>');
+                            po.push('</div>');
+                        });
+                        po.push('<div class="ax-clear"></div>');
+                        $("#ax_layer_1").html(po.join(''));
+                    }, 500);
+
+                }
+            };
+            jQuery(document.body).ready(function () {
+                fnObj.pageStart()
+            });
+        </script>
     </head>
     <body>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
-        <h1>Hello World! Test 1</h1>
+        <div class="ax-layer-1" id="ax_layer_1"></div>
     </body>
 </html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dm.nok.module.common.auth.menu.service.impl.AuthMenuMapper">
+    <select id="selectAuthMenuTreeList" resultType="AuthMenuVO">
+        WITH RECURSIVE MENU (MENU_ID,
+        MENU_DESC,
+        UP_MENU_ID, LEVEL, PATH, URL) AS (
+        SELECT
+            AM.MENU_ID ,
+            AM.MENU_DESC ,
+            AM.UP_MENU_ID,
+            1 AS LEVEL,
+            CONVERT(AM.MENU_ID, CHAR) AS PATH,
+            AM.URL
+        FROM
+            AUTH_MENU AM
+        WHERE
+            UP_MENU_ID IS NULL AND AM.SYSTEM_ID = 'EDU'
+        UNION ALL
+        SELECT
+            AM2.MENU_ID ,
+            AM2.MENU_DESC ,
+            AM2.UP_MENU_ID,
+            M.LEVEL + 1 AS LEVEL,
+            CONCAT(M.PATH, '/' , CONVERT(AM2.MENU_ID, CHAR)) AS PATH,
+            AM2.URL
+        FROM
+            AUTH_MENU AM2
+        INNER JOIN MENU M ON
+            AM2.UP_MENU_ID = M.MENU_ID 
+        AND AM2.SYSTEM_ID = 'EDU')
+        SELECT
+            MENU_ID,
+            MENU_DESC AS LABEL,
+            URL,
+            UP_MENU_ID
+        FROM
+            MENU
+        WHERE LEVEL <![CDATA[<]]> 3
+        ORDER BY PATH
+    </select>
+    
+    <select id="selectAuthMenuUpList" resultType="AuthMenuVO" parameterType="AuthMenuVO">
+        SELECT
+            AM.MENU_ID,
+            AM.MENU_DESC AS LABEL,
+            AM.UP_MENU_ID,
+            1 AS LEVEL,
+            CONVERT(AM.MENU_ID, CHAR) AS PATH,
+            CONCAT('javascript:pageObj.goLink(\'', AM.URL, '\');') AS URL,
+            AM.SYSTEM_ID
+        FROM
+            AUTH_MENU AM
+        WHERE
+            UP_MENU_ID IS NULL
+            AND AM.SYSTEM_ID = #{systemId}
+    </select>
+    
+    <select id="selectAuthMenuList" resultType="AuthMenuVO" parameterType="AuthMenuVO">
+        SELECT
+            AM.MENU_ID,
+            AM.MENU_DESC AS LABEL,
+            AM.UP_MENU_ID,
+            1 AS LEVEL,
+            CONVERT(AM.MENU_ID, CHAR) AS PATH,
+            CONCAT('javascript:pageObj.goLink(\'', AM.URL, '\');') AS URL,
+            AM.SYSTEM_ID
+        FROM
+            AUTH_MENU AM
+        WHERE
+            UP_MENU_ID = #{upMenuId}
+            AND AM.SYSTEM_ID = #{systemId}
+    </select>
+</mapper>

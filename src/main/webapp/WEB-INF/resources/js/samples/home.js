@@ -48,62 +48,25 @@ var sampleTree = [
             {menuID: "503", url: "javascript:pageObj.goLink('doc/grade01/grade03Home.do');", label: "Grade 3"}
         ]}
 ];
+
+new AXReq("../../common/auth/selectAuthMenuList.json",
+        {
+            pars: {systemId: 'EDU'},
+            onsucc: function (res) {
+                //trace(res);
+                sampleTree = res.data;
+            },
+            async: false,
+            onerr: function (res) {
+                alert("onFail:" + req.responseText);
+            }
+        });
+
 var sampleTreeMenu = new AXTopDownMenu();
 
 (function () {
     pageObj = {
         host: "",
-        theme: "arongi",
-        themeData: {
-            arongi: {
-                ver: "1.0",
-                developer: "Jowrney Kim",
-                mail: "jowrney@axisj.com",
-                support: ["DX", "MX"]
-            },
-            bulldog: {
-                ver: "1.0",
-                developer: "Dongyoung Kim",
-                mail: "young@axisj.com",
-                support: ["DX"]
-            },
-            flybasket: {
-                ver: "1.0",
-                developer: "Jowrney Kim",
-                mail: "jowrney@axisj.com",
-                support: ["DX"]
-            },
-            kakao: {
-                ver: "1.0",
-                developer: "Jowrney Kim",
-                mail: "jowrney@axisj.com",
-                support: ["DX"]
-            },
-            cocker: {
-                ver: "0.1 Beta",
-                developer: "Jowrney Kim",
-                mail: "jowrney@axisj.com",
-                support: ["DX"]
-            },
-            cocker2: {
-                ver: "0.1 Beta",
-                developer: "Jowrney Kim",
-                mail: "jowrney@axisj.com",
-                support: ["DX"]
-            },
-            cocker3: {
-                ver: "0.1 Beta",
-                developer: "Jowrney Kim",
-                mail: "jowrney@axisj.com",
-                support: ["DX"]
-            },
-            cocker4: {
-                ver: "0.1 Beta",
-                developer: "Jowrney Kim",
-                mail: "jowrney@axisj.com",
-                support: ["DX"]
-            }
-        },
         goLink: function (url) {
             if (!isIndex) {
                 url = "../../" + url;
