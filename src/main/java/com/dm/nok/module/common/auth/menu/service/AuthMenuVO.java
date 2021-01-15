@@ -12,35 +12,54 @@ import java.util.List;
  * @author Hoang Duc Manh
  */
 public class AuthMenuVO {
-    private int menuId;
-    private String label;
-    private int upMenuId;
-    private String url;
+    private String menuId;
+    private String menuDesc;
+    private String upMenuId;
     private String systemId;
+    
+    private int level;
+    private String url;
+    private String label;
     private List<AuthMenuVO> cn;
 
-    public int getMenuId() {
+    public String getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(int menuId) {
+    public void setMenuId(String menuId) {
         this.menuId = menuId;
     }
 
-    public String getLabel() {
-        return label;
+    public String getMenuDesc() {
+        return menuDesc;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setMenuDesc(String menuDesc) {
+        this.menuDesc = menuDesc;
     }
 
-    public int getUpMenuId() {
+    public String getUpMenuId() {
         return upMenuId;
     }
 
-    public void setUpMenuId(int upMenuId) {
+    public void setUpMenuId(String upMenuId) {
         this.upMenuId = upMenuId;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public String getUrl() {
@@ -51,12 +70,12 @@ public class AuthMenuVO {
         this.url = url;
     }
 
-    public String getSystemId() {
-        return systemId;
+    public String getLabel() {
+        return label;
     }
 
-    public void setSystemId(String systemId) {
-        this.systemId = systemId;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public List<AuthMenuVO> getCn() {

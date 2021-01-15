@@ -30,11 +30,20 @@ public class AuthMenuController extends BaseController {
     private AuthMenuService authMenuService;
     
     @ResponseBody
-    @RequestMapping(value = "selectAuthMenuList.json")
-    public ResultVO selectAuthMenuList(AuthMenuVO param, BindingResult bindingResult) throws Exception {
+    @RequestMapping(value = "selectAuthMenuTopList.json")
+    public ResultVO selectAuthMenuTopList(AuthMenuVO param, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
-        return addResult(authMenuService.selectAuthMenuTreeList(param));
+        return addResult(authMenuService.selectAuthMenuTopList(param));
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "selectAuthMenuTabList.json")
+    public ResultVO selectAuthMenuTabList(AuthMenuVO param, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
+        }
+        return addResult(authMenuService.selectAuthMenuTabList(param));
     }
 }

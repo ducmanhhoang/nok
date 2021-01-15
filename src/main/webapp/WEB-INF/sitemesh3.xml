@@ -9,7 +9,7 @@
     <mapping path="/*" decorator="/layout/homeLayout.do"/>
 
     <!--Different matching paths use different decorative pages-->
-    <mapping path="/doc/**.do" decorator="/layout/pageLayout.do"/>
+    <mapping path="/M110000/**.do" decorator="/layout/pageLayout.do"/>
     <mapping path="/admin/*" decorator="/another-decorator.html"/>
     <mapping path="/*.special.jsp" decorator="/special-decorator.html"/>
 

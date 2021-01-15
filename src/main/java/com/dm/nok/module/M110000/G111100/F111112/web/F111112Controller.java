@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.doc.grade01.test2.web;
+package com.dm.nok.module.M110000.G111100.F111112.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Hoang Duc Manh
  */
 @Controller
-@RequestMapping(value = "/doc/grade01/")
-public class Test2Controller {
+@RequestMapping(value = "/M110000/G111100/")
+public class F111112Controller {
     
-    
-    @RequestMapping(value = {"test2.do"})
-    public String loadTest2() throws Exception {
-        return "module/doc/grade01/test2";
+    @RequestMapping(value = {"F111112.do"})
+    public String loadF111112() throws Exception {
+        return "module/M110000/G111100/F111112";
     }
 }

@@ -7,7 +7,7 @@
 
         <script type="text/javascript">
             var myGrid = new AXGrid(); // instance
-            var pageID = "Home";
+            var pageID = "F111113";
             var myEditor = new AXEditor();
             var myUpload = new AXUpload5();
             var fnObj = {
@@ -76,7 +76,7 @@
                     myEditor.setConfig({
                         targetID: "AXEditorTarget",
                         lang: "kr",
-                height: 30        0,
+                        height: 300,
                         frameSrc: "${pageContext.request.contextPath}/resources/js/lib/AXEditor.html",
                         editorFontFamily: "Nanum Gothic",
                         fonts: ["Nanum Gothic", "Malgun Gothic", "Gulim", "Dotum", "궁서"],
@@ -224,46 +224,7 @@
                     });
                 }
             };
-            jQuery(document).ready(fnObj.pageStart.delay(0.1));
-        </script>
-
-
-        <script type="text/javascript">
-            isIndex = true;
-            jQuery(document).ready(function () {
-
-                new AXReq("test2.json",
-                        {pars: "", onsucc: function (res) {
-                                trace(res);
-                            }
-                        });
-
-
-                new AXReq("test3.json",
-                        {pars: "", onsucc: function (res) {
-                                trace(res);
-                            }
-                        });
-
-
-                setTimeout(function () {
-                    var po = [];
-                    axf.each(sampleTree, function () {
-                        po.push('<div class="ax-col-3">');
-                        po.push('<div class="ax-unit secBlock">');
-                        po.push('<h3>', this.label, '</h3>');
-                        po.push('<ul id="comon">');
-                        axf.each(this.cn, function () {
-                            po.push('<li><a href="', this.url, '">', this.label, '</a></li>');
-                        });
-                        po.push('</ul>');
-                        po.push('</div>');
-                        po.push('</div>');
-                    });
-                    po.push('<div class="ax-clear"></div>');
-                    $("#ax_layer_1").html(po.join(''));
-                }, 500);
-            });
+            jQuery(document).ready(fnObj.pageStart());
         </script>
     </head>
     <body>
@@ -303,8 +264,5 @@
         </div>
         <a href="test.do">Click here to test Exception handling</a>
         <a href="test2.do">Click here to test Exception handling</a>
-
-
-        <div class="ax-layer-1" id="ax_layer_1"></div>
     </body>
 </html>

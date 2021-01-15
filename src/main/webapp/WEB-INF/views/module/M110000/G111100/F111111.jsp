@@ -17,7 +17,7 @@
              * Javascript 	: AXJ.js, AXTab.js
              * CSS			: AXTabs.css
              */
-            var pageID = "grade01Home";
+            var pageID = "F111111";
             var fnObj = {
                 pageStart: function () {
                     new AXReq("test2.json",
@@ -50,7 +50,7 @@
                         });
                         po.push('<div class="ax-clear"></div>');
                         $("#ax_layer_1").html(po.join(''));
-                    }, 500);
+                    }, 0);
 
                 }
             };
