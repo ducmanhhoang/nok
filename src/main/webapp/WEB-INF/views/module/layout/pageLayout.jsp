@@ -28,6 +28,7 @@
     <div id="AXPage">
         <!-- AXPageBody -->
         <div id="AXPageBody">
+            <div id="demoPageTabTarget" class="AXdemoPageTabTarget"></div>
             <div class="ax-wrap">
                 <sitemesh:write property='body' />
             </div>

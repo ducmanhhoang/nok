@@ -121,9 +121,7 @@ img {
   width: 100%;
 }
 #AXPage #AXPageHead {
-  position: fixed;
-  top: 0px;
-  width: 100%;
+  position: relative;
   z-index: 10;
 }
 #AXPage #AXPageHead .ax-layer-1 {
@@ -243,7 +241,7 @@ img {
 #AXPage #AXPageHead .ax-layer-2 .ax-unit .themeInfo {
   display: block;
   background: #d4d4d4;
-  height: 30px;
+  height: 70px;
 }
 #AXPage #AXPageHead .ax-layer-2 .ax-unit .themeInfo .logo {
   overflow: hidden;
@@ -264,12 +262,12 @@ img {
   color: #565b61;
 }
 #AXPage #AXPageHead .ax-layer-2 .ax-unit .themeInfo h1 .support {
-  font-size: 14px;
+  font-size: 10px;
   background: #e8e8e8;
   color: #565b61;
   border-radius: 10px;
   padding: 2px 6px;
-  margin-left: 5px;
+  margin-left: 2px;
 }
 #AXPage #AXPageHead .ax-layer-2 .ax-unit .themeInfo h2 {
   position: absolute;
@@ -316,9 +314,6 @@ img {
   position: absolute;
   top: 0px;
   right: 0px;
-}
-#AXPage #AXPageBody {
-  margin-top: 75px;
 }
 #AXPage #AXPageBody .title h1 {
   text-indent: 10px;
