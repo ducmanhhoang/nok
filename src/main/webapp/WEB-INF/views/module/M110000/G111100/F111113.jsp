@@ -6,8 +6,9 @@
         <title>Insert title here</title>
 
         <script type="text/javascript">
-            var myGrid = new AXGrid(); // instance
             var menuId = "F111113";
+            var langCd = '${langCd}';
+            var myGrid = new AXGrid(); // instance
             var myEditor = new AXEditor();
             var myUpload = new AXUpload5();
             var fnObj = {

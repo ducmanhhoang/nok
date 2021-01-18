@@ -18,7 +18,7 @@ new AXReq("../../common/auth/selectAuthMenuTopList.json",
 var myTabOption = [];
 new AXReq("../../common/auth/selectAuthMenuTabList.json",
         {
-            pars: {systemId: 'EDU', langCd: 'vn', menuId: menuId},
+            pars: {systemId: 'EDU', langCd: langCd, menuId: menuId},
             onsucc: function (res) {
                 //trace(res);
                 myTabOption = res.data;

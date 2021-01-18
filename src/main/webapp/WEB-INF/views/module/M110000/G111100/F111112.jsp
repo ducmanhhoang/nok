@@ -18,6 +18,7 @@
 	 * CSS			: AXTabs.css
 	 */	
 	var menuId = "F111112";
+        var langCd = '${langCd}';
 	var fnObj = {
 		pageStart: function(){
 
