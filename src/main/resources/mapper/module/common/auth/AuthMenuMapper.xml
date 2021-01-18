@@ -21,7 +21,7 @@
                 AM.MENU_DESC AS LABEL,
                 AM.SYSTEM_ID
             FROM
-                AUTH_MENU AM
+                A_MENU AM
             WHERE
                 UP_MENU_ID IS NULL
                 AND AM.SYSTEM_ID = #{systemId}
@@ -35,23 +35,26 @@
                 AM2.MENU_DESC AS LABEL,
                 AM2.SYSTEM_ID
             FROM
-                AUTH_MENU AM2
+                A_MENU AM2
             INNER JOIN MENU M ON
                 AM2.UP_MENU_ID = M.MENU_ID
                 AND AM2.SYSTEM_ID = #{systemId}
         )
         SELECT
-            MENU_ID,
-            MENU_DESC,
-            UP_MENU_ID,
-            LEVEL,
-            URL,
-            LABEL,
-            SYSTEM_ID
+            M.MENU_ID,
+            M.MENU_DESC,
+            M.UP_MENU_ID,
+            M.LEVEL,
+            M.URL,
+            CASE WHEN AM.MENU_NM IS NULL THEN M.LABEL ELSE AM.MENU_NM END AS LABEL,
+            M.SYSTEM_ID
         FROM
-            MENU
+            MENU M
+        LEFT JOIN A_MENU_LANG AM ON
+            M.MENU_ID = AM.MENU_ID
+            AND AM.LANG_CD = #{langCd}
         ORDER BY
-            URL
+            M.URL
     </select>
     
     <select id="selectAuthMenuTabList" resultType="BaseVO" parameterType="AuthMenuVO">
@@ -73,7 +76,7 @@
                 AM.MENU_DESC AS LABEL,
                 AM.SYSTEM_ID
             FROM
-                AUTH_MENU AM
+                A_MENU AM
             WHERE
                 UP_MENU_ID IS NULL
                 AND AM.SYSTEM_ID = #{systemId}
@@ -87,22 +90,25 @@
                 AM2.MENU_DESC AS LABEL,
                 AM2.SYSTEM_ID
             FROM
-                AUTH_MENU AM2
+                A_MENU AM2
             INNER JOIN MENU M ON
                 AM2.UP_MENU_ID = M.MENU_ID
                 AND AM2.SYSTEM_ID = #{systemId}
         )
         SELECT
-            MENU_ID AS OPTION_VALUE,
-            MENU_DESC AS OPTION_TEXT,
+            M.MENU_ID AS OPTION_VALUE,
+            CASE WHEN AM.MENU_NM IS NULL THEN M.LABEL ELSE AM.MENU_NM END AS OPTION_TEXT,
             'Blue' AS ADD_CLASS,
-            CONCAT(URL, '.do') AS URL
+            CONCAT(M.URL, '.do') AS URL
         FROM
-            MENU
+            MENU M
+        LEFT JOIN A_MENU_LANG AM ON
+            M.MENU_ID = AM.MENU_ID
+            AND AM.LANG_CD = #{langCd}
         WHERE 
-            LEVEL = 3
-            AND UP_MENU_ID = (SELECT UP_MENU_ID FROM AUTH_MENU WHERE MENU_ID = #{menuId})
+            M.LEVEL = 3
+            AND M.UP_MENU_ID = (SELECT UP_MENU_ID FROM A_MENU WHERE MENU_ID = #{menuId})
         ORDER BY
-            URL
+            M.URL
     </select>
 </mapper>

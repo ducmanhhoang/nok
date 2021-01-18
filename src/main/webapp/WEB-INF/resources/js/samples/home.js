@@ -5,7 +5,7 @@ var sampleMobileMenu = new AXMobileMenu();
 var sampleTree = [];
 new AXReq("../../common/auth/selectAuthMenuTopList.json",
         {
-            pars: {systemId: 'EDU'},
+            pars: {},
             onsucc: function (res) {
                 //trace(res);
                 sampleTree = res.data;

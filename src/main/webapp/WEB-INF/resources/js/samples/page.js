@@ -4,7 +4,7 @@ var sampleMobileMenu = new AXMobileMenu();
 var sampleTree = [];
 new AXReq("../../common/auth/selectAuthMenuTopList.json",
         {
-            pars: {systemId: 'EDU'},
+            pars: {},
             onsucc: function (res) {
                 //trace(res);
                 sampleTree = res.data;
@@ -18,7 +18,7 @@ new AXReq("../../common/auth/selectAuthMenuTopList.json",
 var myTabOption = [];
 new AXReq("../../common/auth/selectAuthMenuTabList.json",
         {
-            pars: {systemId: 'EDU', langCd: langCd, menuId: menuId},
+            pars: {menuId: menuId},
             onsucc: function (res) {
                 //trace(res);
                 myTabOption = res.data;

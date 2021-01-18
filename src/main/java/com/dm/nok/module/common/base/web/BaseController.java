@@ -1,5 +1,6 @@
 package com.dm.nok.module.common.base.web;
 
+import com.dm.nok.module.common.base.service.BaseSaveVO;
 import com.dm.nok.module.common.base.service.ResultVO;
 import java.util.Locale;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -19,5 +20,12 @@ public class BaseController {
     public String getLangCd() throws Exception {
         Locale inLocale = LocaleContextHolder.getLocale();
         return inLocale.getLanguage();
+    }
+    
+    public final <T extends BaseSaveVO> T bindAuditData(T param) {
+        Locale inLocale = LocaleContextHolder.getLocale();
+        param.setLangCd(inLocale.getLanguage());
+        param.setSystemId("EDU");
+        return param;
     }
 }

@@ -35,7 +35,7 @@ public class AuthMenuController extends BaseController {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
-        return addResult(authMenuService.selectAuthMenuTopList(param));
+        return addResult(authMenuService.selectAuthMenuTopList(bindAuditData(param)));
     }
     
     @ResponseBody
@@ -44,6 +44,6 @@ public class AuthMenuController extends BaseController {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
-        return addResult(authMenuService.selectAuthMenuTabList(param));
+        return addResult(authMenuService.selectAuthMenuTabList(bindAuditData(param)));
     }
 }
