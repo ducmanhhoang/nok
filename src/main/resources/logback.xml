@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="60 seconds">
 
     <!-- Setting Start -->
-    <property resource="logback.properties"/>
+    <property resource="properties/${SERVER_MODE}/logback.properties"/>
     <!-- log packagename -->
     <property name="LOG_PACKAGE_NAME" value="${log.config.packagename}" />
     <!-- log file path -->

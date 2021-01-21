@@ -52,7 +52,7 @@
         <property name="logFormatter">
             <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
                 <property name="loggingType" value="MULTI_LINE" />
-                <property name="sqlPrefix" value="NOTHING_SQL>>>" />
+                <property name="sqlPrefix" value="NOK_SQL>>>" />
             </bean>
         </property>
     </bean>
