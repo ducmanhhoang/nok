@@ -95,44 +95,6 @@
         <property name="basename" value="jdbc" />
     </bean>
 
-    <!-- DATABASE Setting, reading from PROPERTIES -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${DB.DRIVER}" />
-        <property name="url" value="${DB.URL}" />
-        <property name="username" value="${DB.USERNAME}" />
-        <property name="password" value="${DB.PASSWORD}" />
-    </bean>
-
-    <!-- MYBATIS Setting -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="typeAliasesPackage" value="com.dm.nok.module" />
-        <property name="mapperLocations">
-            <array>
-                <value>classpath:/mapper/*.xml</value>
-                <value>classpath:/mapper/**/*.xml</value>
-            </array>
-        </property>
-        <property name="configuration">
-            <bean class="org.apache.ibatis.session.Configuration">
-                <property name="mapUnderscoreToCamelCase" value="true"/>
-            </bean>
-        </property>
-    </bean>
-
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-        <constructor-arg index="0" ref="sqlSessionFactory" />
-    </bean>
-
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.dm.nok.module.**.service.impl" />
-    </bean>
-
-    <tx:annotation-driven transaction-manager="transactionManager" />
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
 
@@ -143,15 +105,5 @@
         <!-- one of the properties available; the maximum file size in bytes -->
         <!-- setting maximum upload size -->
         <property name="maxUploadSize" value="40000000" />
-    </bean>
-
-    <!-- PROPERTIES setting -->
-    <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:properties/db.properties</value>
-                <value>classpath:properties/application.properties</value>
-            </list>
-        </property>
     </bean>
 </beans>

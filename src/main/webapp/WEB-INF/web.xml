@@ -4,6 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <display-name>nok.web</display-name>
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
     <!-- Add Spring MVC DispatcherServlet as front controller -->
     <servlet>
@@ -12,7 +16,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-                /WEB-INF/configs/dispatcher-servlet.xml
+                classpath:configs/dispatcher-*.xml
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
@@ -33,9 +37,6 @@
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
 
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
 
     <jsp-config>
         <jsp-property-group>
@@ -77,7 +78,7 @@
 	
     <context-param>
         <param-name>logbackConfigLocation</param-name>
-        <param-value>classpath:logback.xml</param-value>
+        <param-value>classpath:properties/logback.xml</param-value>
     </context-param>
     <listener>
         <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>

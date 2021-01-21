@@ -53,17 +53,18 @@
     <!-- Log level TRACE -> DEBUG -> INFO -> WARN -> ERROR -> FATAL -->
     <logger name="org.apache.commons" level="INFO" />
     <logger name="org.apache.ibatis" level="INFO" />
-    <logger name="org.springframework" level="DEBUG" />
+    <logger name="org.springframework" level="INFO" />
     <logger name="org.hibernate" level="INFO" />
     <logger name="org.mybatis.spring" level="INFO" />
     <logger name="ch.qos.logback" level="INFO" />
     <logger name="org.slf4j" level="INFO" />
     <logger name="org.apache.log4j" level="INFO" />
     <logger name="net.sf.ehcache" level="INFO" />
-        
+    <logger name="jdbc.resultset" level="WARN" />
+    <logger name="jdbc.audit" level="INFO" />
     <logger name="${LOG_PACKAGE_NAME}" level="DEBUG" />
-    <logger name="com.dm.nok" level="DEBUG" />
-    <root level="TRACE">
+    
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="${LOG_FILE_NAME}_LOG"/>
     </root>
