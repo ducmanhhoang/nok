@@ -61,8 +61,8 @@
     <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:properties/db.properties</value>
-                <value>classpath:properties/application.properties</value>
+                <value>classpath:properties/${SERVER_MODE}/db.properties</value>
+                <value>classpath:properties/${SERVER_MODE}/application.properties</value>
             </list>
         </property>
     </bean>
