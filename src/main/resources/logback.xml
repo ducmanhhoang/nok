@@ -5,10 +5,8 @@
     <property resource="logback.properties"/>
     <!-- log packagename -->
     <property name="LOG_PACKAGE_NAME" value="${log.config.packagename}" />
-    <!-- log file path
+    <!-- log file path -->
     <property name="LOG_PATH" value="${log.config.path}" />
-    -->
-    <property name="LOG_PATH" value="${catalina.home}/uniLogs/logback" />
     <!-- log file name -->
     <property name="LOG_FILE_NAME" value="${log.config.filename}" />
     <!-- log days -->
