@@ -58,11 +58,11 @@
     </bean>
 
     <!-- PROPERTIES setting -->
-    <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="databaseProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:properties/${SERVER_MODE}/database.properties</value>
-                <value>classpath:properties/${SERVER_MODE}/application.properties</value>
+                <!-- Can add more value here -->
             </list>
         </property>
     </bean>

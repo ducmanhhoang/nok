@@ -13,6 +13,11 @@ public class BaseSaveVO {
     private String langCd;
     private String systemId;
     private String menuId;
+    
+    private String insrtUserId;
+    private String insrtDt;
+    private String updtUserId;
+    private String updtDt;
 
     public String getLangCd() {
         return langCd;
@@ -36,5 +41,37 @@ public class BaseSaveVO {
 
     public void setMenuId(String menuId) {
         this.menuId = menuId;
+    }
+
+    public String getInsrtUserId() {
+        return insrtUserId;
+    }
+
+    public void setInsrtUserId(String insrtUserId) {
+        this.insrtUserId = insrtUserId;
+    }
+
+    public String getInsrtDt() {
+        return insrtDt;
+    }
+
+    public void setInsrtDt(String insrtDt) {
+        this.insrtDt = insrtDt;
+    }
+
+    public String getUpdtUserId() {
+        return updtUserId;
+    }
+
+    public void setUpdtUserId(String updtUserId) {
+        this.updtUserId = updtUserId;
+    }
+
+    public String getUpdtDt() {
+        return updtDt;
+    }
+
+    public void setUpdtDt(String updtDt) {
+        this.updtDt = updtDt;
     }
 }

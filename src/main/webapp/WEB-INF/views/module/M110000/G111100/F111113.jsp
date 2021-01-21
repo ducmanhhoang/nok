@@ -13,19 +13,19 @@
             var myUpload = new AXUpload5();
             var fnObj = {
                 pageStart: function () {
-
+/*
                     myGrid.setConfig({
                         targetID: "AXGridTarget",
                         theme: "AXGrid",
-                        autoChangeGridView: {// autoChangeGridView by browser width
-                            mobile: [0, 600], grid: [600]
-                        },
+                        //autoChangeGridView: {// autoChangeGridView by browser width
+                            //mobile: [0, 600], grid: [600]
+                        //},
                         colGroup: [
-                            {key: "no", label: "No.", width: "40", align: "center", formatter: "money"},
-                            {key: "title", label: "Title", width: "200"},
-                            {key: "writer", label: "Writer", width: "100", align: "center"},
-                            {key: "date", label: "Date.", width: "100", align: "center"},
-                            {key: "desc", label: "Etc.", width: "*"}
+                            //{key: "no", label: "No.", width: "40", align: "center", formatter: "money"},
+                            //{key: "title", label: "Title", width: "200"},
+                            //{key: "writer", label: "Writer", width: "100", align: "center"},
+                            //{key: "date", label: "Date.", width: "100", align: "center"},
+                            //{key: "desc", label: "Etc.", width: "*"}
                         ],
                         body: {
                             onclick: function () {
@@ -230,7 +230,7 @@
     </head>
     <body>
         <h1>AXGrid RWD</h1>
-        <div id="AXGridTarget"></div>
+        <div id="AXGridTarget" style="height:300px;"></div>
         <h3>option script 지정방식 (#AXSelect4)</h3>
         <select name="" class="AXSelect" id="AXSelect4" style="width:100px;" tabindex="4"></select>
         <button type="button" class="AXButton" onclick="alert($('#AXSelect4').val())">valueCheck</button>
