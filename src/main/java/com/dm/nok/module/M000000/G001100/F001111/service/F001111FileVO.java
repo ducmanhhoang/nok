@@ -16,9 +16,11 @@ public class F001111FileVO extends BaseSaveVO {
     private String name;
     private String type;
     private String saveName;
-    private long fileSize;
+    private String fileSize;
     private String uploadedPath;
     private String thumbUrl;
+    private String thumbPath;
+    private int id;
 
     public int getFileId() {
         return fileId;
@@ -52,11 +54,11 @@ public class F001111FileVO extends BaseSaveVO {
         this.saveName = saveName;
     }
 
-    public long getFileSize() {
+    public String getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(long fileSize) {
+    public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
     }
 
@@ -74,6 +76,22 @@ public class F001111FileVO extends BaseSaveVO {
 
     public void setThumbUrl(String thumbUrl) {
         this.thumbUrl = thumbUrl;
+    }
+
+    public String getThumbPath() {
+        return thumbPath;
+    }
+
+    public void setThumbPath(String thumbPath) {
+        this.thumbPath = thumbPath;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

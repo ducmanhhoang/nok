@@ -5,7 +5,9 @@
  */
 package com.dm.nok.module.M000000.G001100.F001111.web;
 
+import com.dm.nok.module.M000000.G001100.F001111.service.F001111FileVO;
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111Service;
+import com.dm.nok.module.M000000.G001200.F001211.service.impl.F001211DownloadViewUtil;
 import com.dm.nok.module.common.base.service.ResultVO;
 import com.dm.nok.module.common.base.web.BaseController;
 import javax.annotation.Resource;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +35,10 @@ public class F001111Controller extends BaseController {
     @Autowired
     @Resource(name = "f001111Service")
     private F001111Service f001111Service;
+    
+    @Autowired
+    @Resource(name = "f001211DownloadViewUtil")
+    private F001211DownloadViewUtil f001211DownloadViewUtil;
 
     @RequestMapping(value = {"F001111.do"})
     public String loadF001111(Model model) throws Exception {
@@ -42,5 +49,21 @@ public class F001111Controller extends BaseController {
     @RequestMapping(value = "F001111/uploadFile.do")
     public ResultVO uploadFile(@RequestParam("fileData") MultipartFile param) throws Exception {
         return addResult(f001111Service.uploadFile(param));
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "F001111/downloadFile.do")
+    public F001211DownloadViewUtil downloadFile(@RequestParam("name") String name, @RequestParam("saveName") String saveName, ModelMap modelMap) {
+        try {
+            modelMap.put("file", f001111Service.downloadFile(name, saveName));
+        } catch (Exception e) {
+        }
+        return f001211DownloadViewUtil;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "F001111/selectFileList.do")
+    public ResultVO selectFileList(F001111FileVO param) throws Exception {
+        return addResult(f001111Service.selectFileList(param));
     }
 }
