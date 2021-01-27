@@ -104,7 +104,7 @@
 
                         // 서버에 저장된 파일 목록을 불러와 업로드된 목록에 추가 합니다. ----------------------------- s
                         var url = "F001111/selectFileList.do";
-                        var pars = "dummy=" + AXUtil.timekey();
+                        var pars = {dummy: AXUtil.timekey(), fileId: 1};
                         new AXReq(url, {pars: pars, onsucc: function (res) {
                                 if (!res.error) {
                                     myUpload.setUploadedList(res.data);

@@ -13,6 +13,7 @@ import com.dm.nok.module.common.base.service.BaseSaveVO;
  */
 public class F001111FileVO extends BaseSaveVO {
     private int fileId;
+    private int seq;
     private String name;
     private String type;
     private String saveName;
@@ -26,6 +27,14 @@ public class F001111FileVO extends BaseSaveVO {
 
     public void setFileId(int fileId) {
         this.fileId = fileId;
+    }
+
+    public int getSeq() {
+        return seq;
+    }
+
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 
     public String getName() {

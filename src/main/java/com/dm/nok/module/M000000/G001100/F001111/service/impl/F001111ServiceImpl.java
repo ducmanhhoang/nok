@@ -8,9 +8,8 @@ package com.dm.nok.module.M000000.G001100.F001111.service.impl;
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111FileVO;
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111Service;
 import com.dm.nok.module.M000000.G001200.F001211.service.impl.F001211DateUtil;
-import com.dm.nok.module.M000000.G001200.F001211.service.impl.F001211DownloadViewUtil;
+import com.dm.nok.module.common.base.service.BaseVO;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.annotation.Resource;
@@ -34,8 +33,8 @@ public class F001111ServiceImpl implements F001111Service {
     private Properties applicationProperties;
     
     @Autowired
-    @Resource(name = "f001211DownloadViewUtil")
-    private F001211DownloadViewUtil f001211DownloadViewUtil;
+    @Resource(name = "f001111Mapper")
+    private F001111Mapper f001111Mapper;
 
     public F001111FileVO uploadFile(MultipartFile param) throws Exception {
         String rootDir = System.getProperty("catalina.home") + File.separator + applicationProperties.getProperty("FILE.DIR") + File.separator + System.getProperty("SERVER_MODE");
@@ -79,11 +78,13 @@ public class F001111ServiceImpl implements F001111Service {
         return file;
     }
 
-    public List<F001111FileVO> selectFileList(F001111FileVO ffvo) throws Exception {
-        List<F001111FileVO> fileList = new ArrayList<F001111FileVO>();
+    public List<BaseVO> selectFileList(F001111FileVO ffvo) throws Exception {
+        List<BaseVO> fileList = f001111Mapper.selectFileList(ffvo);
+        /*
         for (int i = 0; i < 2; i ++) {
             ffvo = new F001111FileVO();
-            ffvo.setFileId(i);
+            ffvo.setFileId(0);
+            ffvo.setSeq(i);
             ffvo.setName("MF_AX_" + i +".jpg");
             ffvo.setSaveName("MF_AX_" + i +".jpg");
             ffvo.setType(".jpg");
@@ -91,7 +92,7 @@ public class F001111ServiceImpl implements F001111Service {
             ffvo.setUploadedPath("/samples/AXUpload5/files/");
             ffvo.setThumbPath("../../M000000/G001100/F001111/downloadFile.do?name=20210127011242283&saveName=20210127011242283");
             fileList.add(ffvo);
-        }
+        }*/
         return fileList;
     }
 }
