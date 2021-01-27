@@ -48,14 +48,13 @@ public class F001111ServiceImpl implements F001111Service {
 
         // Set file property values
         F001111FileVO file = new F001111FileVO();
-        file.setId_(0);
+        file.setFileId(0);
         file.setName(param.getOriginalFilename());
         file.setType(param.getOriginalFilename().substring(param.getOriginalFilename().lastIndexOf(".") + 1));
         file.setSaveName(F001211DateUtil.getTimeStamp());
         file.setFileSize(String.valueOf(param.getSize()));
         file.setUploadedPath(uploadedPath);
         //file.setThumbUrl(file.getUploadedPath() + File.separator + file.getSaveName());
-        file.setThumbUrl("/common/file/imgSrc.do");
         file.setThumbPath("/common/file/imgSrc.do");
 
         // Save file into the server disk
@@ -70,30 +69,27 @@ public class F001111ServiceImpl implements F001111Service {
         String rootDir = System.getProperty("catalina.home") + File.separator + applicationProperties.getProperty("FILE.DIR") + File.separator + System.getProperty("SERVER_MODE");
         F001111FileVO file = new F001111FileVO();
         String uploadedPath = rootDir + File.separator + saveName.substring(0, 8);
-        file.setId_(0);
+        file.setFileId(0);
         file.setName(name);
         file.setType(null);
         file.setSaveName(saveName);
         file.setFileSize(null);
         file.setUploadedPath(uploadedPath);
-        file.setThumbUrl(null);
         file.setThumbPath(null);
         return file;
     }
 
     public List<F001111FileVO> selectFileList(F001111FileVO ffvo) throws Exception {
         List<F001111FileVO> fileList = new ArrayList<F001111FileVO>();
-        for (int i = 0; i < 1; i ++) {
+        for (int i = 0; i < 2; i ++) {
             ffvo = new F001111FileVO();
-            ffvo.setId_(i);
-            ffvo.setId("MF_AX_" + i);
+            ffvo.setFileId(i);
             ffvo.setName("MF_AX_" + i +".jpg");
             ffvo.setSaveName("MF_AX_" + i +".jpg");
             ffvo.setType(".jpg");
             ffvo.setFileSize("500");
             ffvo.setUploadedPath("/samples/AXUpload5/files/");
-            ffvo.setThumbUrl("http://localhost:89/samples/AXUpload5/files/");
-            ffvo.setMainImage(i == 0);
+            ffvo.setThumbPath("../../M000000/G001100/F001111/downloadFile.do?name=20210127011242283&saveName=20210127011242283");
             fileList.add(ffvo);
         }
         return fileList;

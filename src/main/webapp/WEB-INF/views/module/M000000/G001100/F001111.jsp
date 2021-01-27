@@ -11,15 +11,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>AXUpload5 - AXISJ</title>
         <script>
-
-            var menuId = "F001111";
-            var langCd = '${langCd}'
             /**
              * Require Files for AXISJ UI Component...
              * Based		: jQuery
              * Javascript 	: AXJ.js, AXUpload5.js
              * CSS			: AXJ.css, AXButton.css, AXUpload5.css
              */
+            
+            var menuId = "F001111";
+            var langCd = '${langCd}'
             var myUpload = new AXUpload5();
 
             var fnObj = {
@@ -61,7 +61,7 @@
                                 saveName: "saveName",
                                 fileSize: "fileSize",
                                 uploadedPath: "uploadedPath",
-                                thumbPath: "thumbUrl" // 서버에서 키값을 다르게 설정 할 수 있다는 것을 확인 하기 위해 이름을 다르게 처리한 예제 입니다.
+                                thumbPath: "thumbPath" // 서버에서 키값을 다르게 설정 할 수 있다는 것을 확인 하기 위해 이름을 다르게 처리한 예제 입니다.
                             },
 
                             formatter: function (f) {
@@ -136,49 +136,39 @@
                 }
             };
             jQuery(document.body).ready(function () {
-                fnObj.pageStart()});
+                fnObj.pageStart()
+            });
         </script>
-
-        <style type="text/css">
-
-        </style>
     </head>
 
     <body>
-        <div id="AXPage">
-            <!-- s.AXPageBody -->
-            <div id="AXPageBody" class="SampleAXSelect">
-                <div id="demoPageTabTarget" class="AXdemoPageTabTarget"></div>
-                <div class="AXdemoPageContent">
-                    <div class="title"><h1>AXUpload5 (Manual Upload)</h1></div>
+        <div id="demoPageTabTarget" class="AXdemoPageTabTarget"></div>
+        <div class="AXdemoPageContent">
+            <div class="title"><h1>AXUpload5 (Manual Upload)</h1></div>
 
-                    <div class="AXUpload5" id="AXUpload5"></div>
+            <div class="AXUpload5" id="AXUpload5"></div>
 
-                    <div class="H10"></div>
+            <div class="H10"></div>
 
-                    <div id="uploadQueueBox" class="AXUpload5QueueBox" style="height:188px;"></div>
+            <div id="uploadQueueBox" class="AXUpload5QueueBox" style="height:188px;"></div>
 
-                    <div class="H10"></div>
+            <div class="H10"></div>
 
-                    <div>
-                        <input type="button" value="업로드" class="AXButton" onclick="myUpload.uploadQueue(true);" />
+            <div>
+                <input type="button" value="업로드" class="AXButton" onclick="myUpload.uploadQueue(true);" />
 
-                        <input type="button" value="전송중지" class="AXButton" id="uploadCancelBtn" disabled="disabled" onclick="myUpload.cancelUpload();" />
-                        <input type="button" value="선택삭제" class="AXButton" onclick="myUpload.deleteSelect();" />
-                        <input type="button" value="모두삭제" class="AXButton" onclick="myUpload.deleteSelect('all');" />
+                <input type="button" value="전송중지" class="AXButton" id="uploadCancelBtn" disabled="disabled" onclick="myUpload.cancelUpload();" />
+                <input type="button" value="선택삭제" class="AXButton" onclick="myUpload.deleteSelect();" />
+                <input type="button" value="모두삭제" class="AXButton" onclick="myUpload.deleteSelect('all');" />
 
-                        <input type="button" value="Get Object" class="AXButton" onclick="fnObj.upload.printMethodReturn('getUploadedList', 'object');" />
-                        <input type="button" value="Get Param" class="AXButton" onclick="fnObj.upload.printMethodReturn('getUploadedList', 'param');" />
+                <input type="button" value="Get Object" class="AXButton" onclick="fnObj.upload.printMethodReturn('getUploadedList', 'object');" />
+                <input type="button" value="Get Param" class="AXButton" onclick="fnObj.upload.printMethodReturn('getUploadedList', 'param');" />
 
-                        <input type="button" value="Get Select Object" class="AXButton" onclick="fnObj.upload.printMethodReturn('getSelectUploadedList', 'object')" />
-                        <input type="button" value="Get Select Param" class="AXButton" onclick="fnObj.upload.printMethodReturn('getSelectUploadedList', 'param')" />
-                    </div>
-
-                    <div class="H20"></div>
-
-                </div>
+                <input type="button" value="Get Select Object" class="AXButton" onclick="fnObj.upload.printMethodReturn('getSelectUploadedList', 'object')" />
+                <input type="button" value="Get Select Param" class="AXButton" onclick="fnObj.upload.printMethodReturn('getSelectUploadedList', 'param')" />
             </div>
-            <!-- e.AXPageBody -->
+
+            <div class="H20"></div>
 
         </div>
 

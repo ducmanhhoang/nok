@@ -12,23 +12,20 @@ import com.dm.nok.module.common.base.service.BaseSaveVO;
  * @author Hoang Duc Manh
  */
 public class F001111FileVO extends BaseSaveVO {
-    private int _id_;
+    private int fileId;
     private String name;
     private String type;
     private String saveName;
     private String fileSize;
     private String uploadedPath;
-    private String thumbUrl;
     private String thumbPath;
-    private String id;
-    private boolean mainImage;
 
-    public int getId_() {
-        return _id_;
+    public int getFileId() {
+        return fileId;
     }
 
-    public void setId_(int _id_) {
-        this._id_ = _id_;
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
     }
 
     public String getName() {
@@ -71,35 +68,11 @@ public class F001111FileVO extends BaseSaveVO {
         this.uploadedPath = uploadedPath;
     }
 
-    public String getThumbUrl() {
-        return thumbUrl;
-    }
-
-    public void setThumbUrl(String thumbUrl) {
-        this.thumbUrl = thumbUrl;
-    }
-
     public String getThumbPath() {
         return thumbPath;
     }
 
     public void setThumbPath(String thumbPath) {
         this.thumbPath = thumbPath;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public boolean isMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(boolean mainImage) {
-        this.mainImage = mainImage;
     }
 }
