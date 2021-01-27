@@ -48,7 +48,7 @@ public class F001111ServiceImpl implements F001111Service {
 
         // Set file property values
         F001111FileVO file = new F001111FileVO();
-        file.setFileId(0);
+        file.setId_(0);
         file.setName(param.getOriginalFilename());
         file.setType(param.getOriginalFilename().substring(param.getOriginalFilename().lastIndexOf(".") + 1));
         file.setSaveName(F001211DateUtil.getTimeStamp());
@@ -70,7 +70,7 @@ public class F001111ServiceImpl implements F001111Service {
         String rootDir = System.getProperty("catalina.home") + File.separator + applicationProperties.getProperty("FILE.DIR") + File.separator + System.getProperty("SERVER_MODE");
         F001111FileVO file = new F001111FileVO();
         String uploadedPath = rootDir + File.separator + saveName.substring(0, 8);
-        file.setFileId(0);
+        file.setId_(0);
         file.setName(name);
         file.setType(null);
         file.setSaveName(saveName);
@@ -83,8 +83,17 @@ public class F001111ServiceImpl implements F001111Service {
 
     public List<F001111FileVO> selectFileList(F001111FileVO ffvo) throws Exception {
         List<F001111FileVO> fileList = new ArrayList<F001111FileVO>();
-        for (int i = 0; i < 4; i ++) {
-            ffvo.setId(i);
+        for (int i = 0; i < 1; i ++) {
+            ffvo = new F001111FileVO();
+            ffvo.setId_(i);
+            ffvo.setId("MF_AX_" + i);
+            ffvo.setName("MF_AX_" + i +".jpg");
+            ffvo.setSaveName("MF_AX_" + i +".jpg");
+            ffvo.setType(".jpg");
+            ffvo.setFileSize("500");
+            ffvo.setUploadedPath("/samples/AXUpload5/files/");
+            ffvo.setThumbUrl("http://localhost:89/samples/AXUpload5/files/");
+            ffvo.setMainImage(i == 0);
             fileList.add(ffvo);
         }
         return fileList;
