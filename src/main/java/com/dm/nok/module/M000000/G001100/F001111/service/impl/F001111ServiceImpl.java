@@ -139,7 +139,7 @@ public class F001111ServiceImpl implements F001111Service {
         String uploadedPath = rootDir + File.separator + param.getSaveName().substring(0, 8);
         File myObj = new File(uploadedPath + File.separator + param.getSaveName().substring(0, 17));
         if(!myObj.delete()) {
-            throw new Exception(param.getSaveName());
+            throw new Exception("100004");
         }
         return param;
     }
