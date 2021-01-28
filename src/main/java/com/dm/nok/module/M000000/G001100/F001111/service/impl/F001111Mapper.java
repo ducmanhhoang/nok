@@ -6,7 +6,7 @@
 package com.dm.nok.module.M000000.G001100.F001111.service.impl;
 
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111FileVO;
-import com.dm.nok.module.common.base.service.BaseVO;
+import com.dm.nok.module.common.base.service.ResultVO;
 import java.util.List;
 
 /**
@@ -20,5 +20,13 @@ public interface F001111Mapper {
      * @return
      * @throws Exception 
      */
-    public List<BaseVO> selectFileList(F001111FileVO param) throws Exception;
+    public List<ResultVO> selectFileList(F001111FileVO param) throws Exception;
+    
+    /**
+     * Insert File
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int insertFile(F001111FileVO param) throws Exception;
 }

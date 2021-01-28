@@ -1,44 +1,37 @@
 package com.dm.nok.module.common.base.service;
 
-public class ResultVO {
+import org.apache.commons.collections.map.ListOrderedMap;
 
-    private boolean error;
-    private Object data;
-    private String message;
+public class ResultVO extends ListOrderedMap {
 
-    public ResultVO(Object data) {
-        this.data = data;
-        this.error = false;
-        this.message = null;
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public Object put(Object key, Object value) {
+        return super.put(convert2CamelCase((String) key), value);
     }
 
-    public ResultVO(boolean error, String message) {
-        this.data = null;
-        this.error = error;
-        this.message = message;
-    }
+    public String convert2CamelCase(String underScore) {
+        if (underScore.indexOf('_') < 0 && Character.isLowerCase(underScore.charAt(0))) {
+            return underScore;
+        }
+        StringBuilder result = new StringBuilder();
+        boolean nextUpper = false;
+        int len = underScore.length();
 
-    public boolean isError() {
-        return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+        for (int i = 0; i < len; i++) {
+            char currentChar = underScore.charAt(i);
+            if (currentChar == '_') {
+                nextUpper = true;
+            } else {
+                if (nextUpper) {
+                    result.append(Character.toUpperCase(currentChar));
+                    nextUpper = false;
+                } else {
+                    result.append(Character.toLowerCase(currentChar));
+                }
+            }
+        }
+        return result.toString();
     }
 }

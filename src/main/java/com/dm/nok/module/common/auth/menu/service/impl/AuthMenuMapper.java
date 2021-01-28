@@ -6,7 +6,7 @@
 package com.dm.nok.module.common.auth.menu.service.impl;
 
 import com.dm.nok.module.common.auth.menu.service.AuthMenuVO;
-import com.dm.nok.module.common.base.service.BaseVO;
+import com.dm.nok.module.common.base.service.ResultVO;
 import java.util.List;
 
 /**
@@ -28,5 +28,5 @@ public interface AuthMenuMapper {
      * @return
      * @throws Exception 
      */
-    public List<BaseVO> selectAuthMenuTabList(AuthMenuVO param) throws Exception;
+    public List<ResultVO> selectAuthMenuTabList(AuthMenuVO param) throws Exception;
 }

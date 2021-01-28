@@ -5,13 +5,13 @@
  */
 package com.dm.nok.module.M000000.G001100.F001111.service;
 
-import com.dm.nok.module.common.base.service.BaseSaveVO;
+import com.dm.nok.module.common.base.service.BaseVO;
 
 /**
  *
  * @author Hoang Duc Manh
  */
-public class F001111FileVO extends BaseSaveVO {
+public class F001111FileVO extends BaseVO {
     private int fileId;
     private int seq;
     private String name;

@@ -9,7 +9,7 @@ new AXReq("../../common/auth/selectAuthMenuTopList.json",
             pars: {},
             onsucc: function (res) {
                 //trace(res);
-                sampleTree = res.data;
+                sampleTree = res;
             },
             async: false,
             onerr: function (res) {
@@ -23,7 +23,7 @@ new AXReq("../../common/auth/selectAuthMenuTabList.json",
             pars: {menuId: menuId},
             onsucc: function (res) {
                 //trace(res);
-                myTabOption = res.data;
+                myTabOption = res;
             },
             async: false,
             onerr: function (res) {

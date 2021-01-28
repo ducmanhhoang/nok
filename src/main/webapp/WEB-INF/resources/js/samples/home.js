@@ -9,7 +9,7 @@ new AXReq("../../common/auth/selectAuthMenuTopList.json",
             pars: {},
             onsucc: function (res) {
                 //trace(res);
-                sampleTree = res.data;
+                sampleTree = res;
             },
             async: false,
             onerr: function (res) {

@@ -10,6 +10,7 @@ import com.dm.nok.module.M000000.G001100.F001111.service.F001111Service;
 import com.dm.nok.module.M000000.G001200.F001211.service.impl.F001211DownloadViewUtil;
 import com.dm.nok.module.common.base.service.ResultVO;
 import com.dm.nok.module.common.base.web.BaseController;
+import java.util.List;
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +48,8 @@ public class F001111Controller extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "F001111/uploadFile.do")
-    public ResultVO uploadFile(@RequestParam("fileData") MultipartFile param) throws Exception {
-        return addResult(f001111Service.uploadFile(param));
+    public F001111FileVO uploadFile(@RequestParam("fileData") MultipartFile param) throws Exception {
+        return f001111Service.uploadFile(param);
     }
     
     @ResponseBody
@@ -63,7 +64,7 @@ public class F001111Controller extends BaseController {
     
     @ResponseBody
     @RequestMapping(value = "F001111/selectFileList.do")
-    public ResultVO selectFileList(F001111FileVO param) throws Exception {
-        return addResult(f001111Service.selectFileList(param));
+    public List<ResultVO> selectFileList(F001111FileVO param) throws Exception {
+        return f001111Service.selectFileList(param);
     }
 }

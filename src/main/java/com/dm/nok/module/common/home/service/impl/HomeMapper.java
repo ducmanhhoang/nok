@@ -1,8 +1,8 @@
 package com.dm.nok.module.common.home.service.impl;
 
-import com.dm.nok.module.common.base.service.BaseVO;
+import com.dm.nok.module.common.base.service.ResultVO;
 
 public interface HomeMapper {
 
-    public BaseVO test() throws Exception;
+    public ResultVO test() throws Exception;
 }

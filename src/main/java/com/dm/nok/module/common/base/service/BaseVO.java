@@ -1,37 +1,87 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.dm.nok.module.common.base.service;
 
-import org.apache.commons.collections.map.ListOrderedMap;
+/**
+ *
+ * @author Hoang Duc Manh
+ */
+public class BaseVO {
+    private String langCd;
+    private String systemId;
+    private String menuId;
+    
+    private String insrtUserId;
+    private String insrtDt;
+    private String updtUserId;
+    private String updtDt;
+    
+    private String _CUD;
 
-public class BaseVO extends ListOrderedMap {
-
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    public Object put(Object key, Object value) {
-        return super.put(convert2CamelCase((String) key), value);
+    public String getLangCd() {
+        return langCd;
     }
 
-    public String convert2CamelCase(String underScore) {
-        if (underScore.indexOf('_') < 0 && Character.isLowerCase(underScore.charAt(0))) {
-            return underScore;
-        }
-        StringBuilder result = new StringBuilder();
-        boolean nextUpper = false;
-        int len = underScore.length();
+    public void setLangCd(String langCd) {
+        this.langCd = langCd;
+    }
 
-        for (int i = 0; i < len; i++) {
-            char currentChar = underScore.charAt(i);
-            if (currentChar == '_') {
-                nextUpper = true;
-            } else {
-                if (nextUpper) {
-                    result.append(Character.toUpperCase(currentChar));
-                    nextUpper = false;
-                } else {
-                    result.append(Character.toLowerCase(currentChar));
-                }
-            }
-        }
-        return result.toString();
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
+    }
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
+
+    public String getInsrtUserId() {
+        return insrtUserId;
+    }
+
+    public void setInsrtUserId(String insrtUserId) {
+        this.insrtUserId = insrtUserId;
+    }
+
+    public String getInsrtDt() {
+        return insrtDt;
+    }
+
+    public void setInsrtDt(String insrtDt) {
+        this.insrtDt = insrtDt;
+    }
+
+    public String getUpdtUserId() {
+        return updtUserId;
+    }
+
+    public void setUpdtUserId(String updtUserId) {
+        this.updtUserId = updtUserId;
+    }
+
+    public String getUpdtDt() {
+        return updtDt;
+    }
+
+    public void setUpdtDt(String updtDt) {
+        this.updtDt = updtDt;
+    }
+
+    public String getCUD() {
+        return _CUD;
+    }
+
+    public void setCUD(String _CUD) {
+        this._CUD = _CUD;
     }
 }

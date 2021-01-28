@@ -5,7 +5,7 @@
  */
 package com.dm.nok.module.M000000.G001100.F001111.service;
 
-import com.dm.nok.module.common.base.service.BaseVO;
+import com.dm.nok.module.common.base.service.ResultVO;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,5 +36,12 @@ public interface F001111Service {
      * @return
      * @throws Exception 
      */
-    public List<BaseVO> selectFileList(F001111FileVO param) throws Exception;
+    public List<ResultVO> selectFileList(F001111FileVO param) throws Exception;
+    
+    /**
+     * Save File
+     * @param param
+     * @throws Exception 
+     */
+    public void saveFile(F001111FileVO param) throws Exception;
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dm.nok.module.M000000.G001100.F001111.service.impl.F001111Mapper">
-    <select id="selectFileList" resultType="BaseVO" parameterType="F001111FileVO">
+    <select id="selectFileList" resultType="ResultVO" parameterType="F001111FileVO">
         SELECT
             FILE_ID,
             SEQ,
@@ -14,6 +14,28 @@
             THUMB_PATH
         FROM
             A_FILE
-        WHERE FILE_ID = #{fileId}
+        WHERE
+            FILE_ID = #{fileId}
     </select>
+    
+    <insert id="insertFile" parameterType="F001111FileVO">
+        INSERT INTO A_FILE (
+            FILE_ID,
+            SEQ,
+            NAME,
+            TYPE,
+            SAVE_NAME,
+            FILE_SIZE,
+            UPLOADED_PATH,
+            THUMB_PATH
+        ) SELECT
+            #{fileId} AS FILE_ID,
+            (SELECT (IFNULL(MAX(SEQ), 0) + 1) FROM A_FILE WHERE FILE_ID = #{fileId}) AS SEQ,
+            #{name} AS NAME,
+            #{type} AS TYPE,
+            #{saveName} AS SAVE_NAME,
+            #{fileSize} AS FILE_SIZE,
+            #{uploadedPath} AS UPLOADED_PATH,
+            #{thumbPath} AS THUMB_PATH
+    </insert>
 </mapper>

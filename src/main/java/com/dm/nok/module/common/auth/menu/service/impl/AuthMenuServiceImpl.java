@@ -7,7 +7,7 @@ package com.dm.nok.module.common.auth.menu.service.impl;
 
 import com.dm.nok.module.common.auth.menu.service.AuthMenuService;
 import com.dm.nok.module.common.auth.menu.service.AuthMenuVO;
-import com.dm.nok.module.common.base.service.BaseVO;
+import com.dm.nok.module.common.base.service.ResultVO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
@@ -71,7 +71,7 @@ public class AuthMenuServiceImpl implements AuthMenuService {
         return authMenuModuleList;
     }
 
-    public List<BaseVO> selectAuthMenuTabList(AuthMenuVO amvo) throws Exception {
+    public List<ResultVO> selectAuthMenuTabList(AuthMenuVO amvo) throws Exception {
         return authMenuMapper.selectAuthMenuTabList(amvo);
     }
 }

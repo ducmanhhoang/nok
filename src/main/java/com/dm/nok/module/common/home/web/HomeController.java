@@ -51,7 +51,7 @@ public class HomeController extends BaseController {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
-        return addResult(homeService.hello());
+        return homeService.hello();
     }
 
     @ResponseBody
@@ -60,7 +60,7 @@ public class HomeController extends BaseController {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
-        return addResult(homeService.hello2());
+        return homeService.hello2();
     }
     
     

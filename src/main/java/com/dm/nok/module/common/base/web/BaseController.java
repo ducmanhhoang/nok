@@ -1,20 +1,11 @@
 package com.dm.nok.module.common.base.web;
 
-import com.dm.nok.module.common.base.service.BaseSaveVO;
-import com.dm.nok.module.common.base.service.ResultVO;
+import com.dm.nok.module.common.base.service.BaseVO;
 import java.util.Locale;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 public class BaseController {
-
-    public final ResultVO addResult(Object data) {
-        return new ResultVO(data);
-    }
-
-    public final ResultVO addResult(Exception e) {
-        return new ResultVO(true, e.getMessage());
-    }
     
     @ModelAttribute("langCd")
     public String getLangCd() throws Exception {
@@ -22,7 +13,7 @@ public class BaseController {
         return inLocale.getLanguage();
     }
     
-    public final <T extends BaseSaveVO> T bindAuditData(T param) {
+    public final <T extends BaseVO> T bindAuditData(T param) {
         Locale inLocale = LocaleContextHolder.getLocale();
         param.setLangCd(inLocale.getLanguage());
         param.setSystemId("EDU");

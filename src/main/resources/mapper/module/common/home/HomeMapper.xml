@@ -2,7 +2,7 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dm.nok.module.common.home.service.impl.HomeMapper">
-    <select id="test" resultType="BaseVO">
+    <select id="test" resultType="ResultVO">
         SELECT 3 AS MATH_GRADE, 5 AS PHYSIC_GRADE FROM DUAL
     </select>
 </mapper>

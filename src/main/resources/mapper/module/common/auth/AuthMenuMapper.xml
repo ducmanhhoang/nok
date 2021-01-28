@@ -57,7 +57,7 @@
             M.URL
     </select>
     
-    <select id="selectAuthMenuTabList" resultType="BaseVO" parameterType="AuthMenuVO">
+    <select id="selectAuthMenuTabList" resultType="ResultVO" parameterType="AuthMenuVO">
         WITH RECURSIVE MENU (
             MENU_ID,
             MENU_DESC,

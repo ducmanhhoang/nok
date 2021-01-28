@@ -17,7 +17,7 @@
              * Javascript 	: AXJ.js, AXUpload5.js
              * CSS			: AXJ.css, AXButton.css, AXUpload5.css
              */
-            
+
             var menuId = "F001111";
             var langCd = '${langCd}'
             var myUpload = new AXUpload5();
@@ -107,7 +107,7 @@
                         var pars = {dummy: AXUtil.timekey(), fileId: 1};
                         new AXReq(url, {pars: pars, onsucc: function (res) {
                                 if (!res.error) {
-                                    myUpload.setUploadedList(res.data);
+                                    myUpload.setUploadedList(res);
                                 } else {
                                     alert(res.msg.dec());
                                 }

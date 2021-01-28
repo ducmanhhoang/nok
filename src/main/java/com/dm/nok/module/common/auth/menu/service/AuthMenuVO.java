@@ -5,14 +5,14 @@
  */
 package com.dm.nok.module.common.auth.menu.service;
 
-import com.dm.nok.module.common.base.service.BaseSaveVO;
+import com.dm.nok.module.common.base.service.BaseVO;
 import java.util.List;
 
 /**
  *
  * @author Hoang Duc Manh
  */
-public class AuthMenuVO extends BaseSaveVO {
+public class AuthMenuVO extends BaseVO {
     private String menuId;
     private String menuDesc;
     private String upMenuId;

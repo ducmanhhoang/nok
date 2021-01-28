@@ -10,6 +10,7 @@ import com.dm.nok.module.common.auth.menu.service.AuthMenuVO;
 import com.dm.nok.module.common.base.service.ResultVO;
 import com.dm.nok.module.common.base.web.BaseController;
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,19 +32,19 @@ public class AuthMenuController extends BaseController {
     
     @ResponseBody
     @RequestMapping(value = "selectAuthMenuTopList.json")
-    public ResultVO selectAuthMenuTopList(AuthMenuVO param, BindingResult bindingResult) throws Exception {
+    public List<AuthMenuVO> selectAuthMenuTopList(AuthMenuVO param, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
-        return addResult(authMenuService.selectAuthMenuTopList(bindAuditData(param)));
+        return authMenuService.selectAuthMenuTopList(bindAuditData(param));
     }
     
     @ResponseBody
     @RequestMapping(value = "selectAuthMenuTabList.json")
-    public ResultVO selectAuthMenuTabList(AuthMenuVO param, BindingResult bindingResult) throws Exception {
+    public List<ResultVO> selectAuthMenuTabList(AuthMenuVO param, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
-        return addResult(authMenuService.selectAuthMenuTabList(bindAuditData(param)));
+        return authMenuService.selectAuthMenuTabList(bindAuditData(param));
     }
 }
