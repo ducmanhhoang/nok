@@ -29,4 +29,12 @@ public interface F001111Mapper {
      * @throws Exception 
      */
     public int insertFile(F001111FileVO param) throws Exception;
+    
+    /**
+     * Select File sequence
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int selectFileSeq(F001111FileVO param) throws Exception;
 }

@@ -28,14 +28,23 @@
             FILE_SIZE,
             UPLOADED_PATH,
             THUMB_PATH
-        ) SELECT
-            #{fileId} AS FILE_ID,
-            (SELECT (IFNULL(MAX(SEQ), 0) + 1) FROM A_FILE WHERE FILE_ID = #{fileId}) AS SEQ,
-            #{name} AS NAME,
-            #{type} AS TYPE,
-            #{saveName} AS SAVE_NAME,
-            #{fileSize} AS FILE_SIZE,
-            #{uploadedPath} AS UPLOADED_PATH,
-            #{thumbPath} AS THUMB_PATH
+        ) VALUES (
+            #{fileId},
+            #{seq},
+            #{name},
+            #{type},
+            #{saveName},
+            #{fileSize},
+            #{uploadedPath},
+            #{thumbPath}
+        )
     </insert>
+    
+    <select id="selectFileSeq" resultType="int" parameterType="F001111FileVO">
+        SELECT
+            (IFNULL(MAX(SEQ), 0) + 1) AS SEQ
+        FROM
+            A_FILE WHERE
+        FILE_ID = #{fileId}
+    </select>
 </mapper>

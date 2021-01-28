@@ -43,12 +43,12 @@ public class F001111ServiceImpl implements F001111Service {
         // Set file property values
         F001111FileVO file = new F001111FileVO();
         file.setFileId(1);
-        file.setSeq(0);
+        file.setSeq(f001111Mapper.selectFileSeq(file));
         file.setName(param.getOriginalFilename());
         file.setType(param.getOriginalFilename().substring(param.getOriginalFilename().lastIndexOf(".") + 1));
         file.setSaveName(F001211DateUtil.getTimeStamp());
         file.setFileSize(String.valueOf(param.getSize()));
-        file.setUploadedPath(uploadedPath);
+        file.setUploadedPath("../../M000000/G001100/F001111/downloadFile.do?name=" + file.getName() + "&saveName=");
         file.setThumbPath("../../M000000/G001100/F001111/downloadFile.do?name=" + file.getName() + "&saveName=" + file.getSaveName());
         file.setCUD("C");
         saveFile(file);
@@ -64,7 +64,7 @@ public class F001111ServiceImpl implements F001111Service {
         if (!"".equals(param.getOriginalFilename())) {
             param.transferTo(new File(uploadedPath + File.separator + file.getSaveName()));
         }
-
+        
         return file;
     }
 
