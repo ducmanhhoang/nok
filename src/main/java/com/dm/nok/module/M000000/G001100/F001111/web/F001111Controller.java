@@ -67,4 +67,10 @@ public class F001111Controller extends BaseController {
     public List<ResultVO> selectFileList(F001111FileVO param) throws Exception {
         return f001111Service.selectFileList(param);
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "F001111/deleteFile.do")
+    public F001111FileVO deleteFile(F001111FileVO param) throws Exception {
+        return f001111Service.deleteFile(param);
+    }
 }

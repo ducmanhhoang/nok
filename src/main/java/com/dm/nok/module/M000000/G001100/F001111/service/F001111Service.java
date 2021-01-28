@@ -44,4 +44,12 @@ public interface F001111Service {
      * @throws Exception 
      */
     public void saveFile(F001111FileVO param) throws Exception;
+    
+    /**
+     * Delete File
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public F001111FileVO deleteFile(F001111FileVO param) throws Exception;
 }

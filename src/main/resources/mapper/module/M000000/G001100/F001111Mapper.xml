@@ -44,7 +44,15 @@
         SELECT
             (IFNULL(MAX(SEQ), 0) + 1) AS SEQ
         FROM
-            A_FILE WHERE
-        FILE_ID = #{fileId}
+            A_FILE 
+        WHERE
+            FILE_ID = #{fileId}
     </select>
+    
+    <delete id="deleteFile" parameterType="F001111FileVO">
+        DELETE FROM A_FILE
+        WHERE
+            FILE_ID = #{fileId}
+            AND SEQ = #{seq}
+    </delete>
 </mapper>

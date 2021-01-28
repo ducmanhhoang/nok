@@ -25,13 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service(value = "f001111Service")
 public class F001111ServiceImpl implements F001111Service {
-    
+
     private Logger logger = LoggerFactory.getLogger(F001111ServiceImpl.class);
 
     @Autowired
     @Resource(name = "applicationProperties")
     private Properties applicationProperties;
-    
+
     @Autowired
     @Resource(name = "f001111Mapper")
     private F001111Mapper f001111Mapper;
@@ -39,7 +39,7 @@ public class F001111ServiceImpl implements F001111Service {
     public F001111FileVO uploadFile(MultipartFile param) throws Exception {
         String rootDir = System.getProperty("catalina.home") + File.separator + applicationProperties.getProperty("FILE.DIR") + File.separator + System.getProperty("SERVER_MODE");
         String uploadedPath = rootDir + File.separator + F001211DateUtil.getDate(applicationProperties.getProperty("DATE.FORMAT"));
-        
+
         // Set file property values
         F001111FileVO file = new F001111FileVO();
         file.setFileId(1);
@@ -52,8 +52,7 @@ public class F001111ServiceImpl implements F001111Service {
         file.setThumbPath("../../M000000/G001100/F001111/downloadFile.do?name=" + file.getName() + "&saveName=" + file.getSaveName());
         file.setCUD("C");
         saveFile(file);
-        
-        
+
         // Creating directory
         File rootDirCheck = new File(uploadedPath);
         if (!rootDirCheck.exists()) {
@@ -64,7 +63,7 @@ public class F001111ServiceImpl implements F001111Service {
         if (!"".equals(param.getOriginalFilename())) {
             param.transferTo(new File(uploadedPath + File.separator + file.getSaveName()));
         }
-        
+
         return file;
     }
 
@@ -108,26 +107,40 @@ public class F001111ServiceImpl implements F001111Service {
                 case "C":
                     count = f001111Mapper.insertFile(param);
                     if (count == 0) {
-                        throw new Exception(cud);
+                        throw new Exception("100000");
                     }
                     break;
                 case "U":
                     count = 0;
                     if (count == 0) {
-                        throw new Exception(cud);
+                        throw new Exception("100001");
                     }
                     break;
                 case "D":
                     count = 0;
                     if (count == 0) {
-                        throw new Exception(cud);
+                        throw new Exception("100002");
                     }
                     break;
                 default:
-                    throw new Exception(cud);
+                    throw new Exception("100003");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public F001111FileVO deleteFile(F001111FileVO param) throws Exception {
+        if (f001111Mapper.deleteFile(param) == 0) {
+            throw new Exception("100002");
+        }
+        String rootDir = System.getProperty("catalina.home") + File.separator + applicationProperties.getProperty("FILE.DIR") + File.separator + System.getProperty("SERVER_MODE");
+        String uploadedPath = rootDir + File.separator + param.getSaveName().substring(0, 8);
+        File myObj = new File(uploadedPath + File.separator + param.getSaveName().substring(0, 17));
+        if(!myObj.delete()) {
+            throw new Exception(param.getSaveName());
+        }
+        return param;
     }
 }

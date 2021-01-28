@@ -52,7 +52,7 @@
                             uploadMaxFileCount: 5, // 업로드될 파일갯수 제한 0 은 무제한
                             uploadUrl: "F001111/uploadFile.do",
                             uploadPars: {userID: 'tom', userName: '액시스'},
-                            deleteUrl: "fileDelete.php",
+                            deleteUrl: "F001111/deleteFile.do",
                             deletePars: {userID: 'tom', userName: '액시스'},
 
                             fileKeys: {// 서버에서 리턴하는 json key 정의 (id는 예약어 사용할 수 없음)

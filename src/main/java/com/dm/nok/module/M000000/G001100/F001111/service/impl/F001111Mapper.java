@@ -37,4 +37,12 @@ public interface F001111Mapper {
      * @throws Exception 
      */
     public int selectFileSeq(F001111FileVO param) throws Exception;
+    
+    /**
+     * Delete File
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int deleteFile(F001111FileVO param) throws Exception;
 }
