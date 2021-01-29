@@ -31,6 +31,7 @@
             <div id="demoPageTabTarget" class="AXdemoPageTabTarget"></div>
             <div class="ax-wrap">
                 <sitemesh:write property='body' />
+                <div id="AXProgress" class="AXLoading2"></div>
             </div>
         </div>
         <!-- AXPageBody -->

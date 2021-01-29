@@ -30,6 +30,7 @@
         <div id="AXPageBody">
             <div class="ax-wrap">
                 <sitemesh:write property='body' />
+                <div id="AXProgress" class="AXLoading2"></div>
             </div>
         </div>
         <!-- AXPageBody -->

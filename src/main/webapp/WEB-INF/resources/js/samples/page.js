@@ -2,6 +2,7 @@ var isIndex = false;
 var pageObj;
 var sampleMobileMenu = new AXMobileMenu();
 var sampleTreeMenu = new AXTopDownMenu();
+var progressObj = $('#AXProgress');
 
 var sampleTree = [];
 new AXReq("../../common/auth/selectAuthMenuTopList.json",
@@ -235,5 +236,8 @@ new AXReq("../../common/auth/selectAuthMenuTabList.json",
     jQuery(document).ready(function () {
         pageObj.incHeader();
         pageObj.incFooter();
+        $(window).on('load', function () {
+            progressObj.hide();
+        });
     });
 })();
