@@ -1,6 +1,6 @@
-package com.dm.nok.module.common.base.web;
+package com.dm.nok.module.M000000.G000000.F000000.web;
 
-import com.dm.nok.module.common.base.service.BaseVO;
+import com.dm.nok.module.M000000.G000000.F000000.service.BaseVO;
 import java.util.Locale;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;

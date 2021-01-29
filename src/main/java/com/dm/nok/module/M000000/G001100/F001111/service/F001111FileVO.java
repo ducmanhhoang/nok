@@ -5,7 +5,7 @@
  */
 package com.dm.nok.module.M000000.G001100.F001111.service;
 
-import com.dm.nok.module.common.base.service.BaseVO;
+import com.dm.nok.module.M000000.G000000.F000000.service.BaseVO;
 
 /**
  *

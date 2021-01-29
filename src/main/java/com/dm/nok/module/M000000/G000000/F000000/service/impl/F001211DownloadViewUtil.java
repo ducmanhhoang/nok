@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.M000000.G001200.F001211.service.impl;
+package com.dm.nok.module.M000000.G000000.F000000.service.impl;
 
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111FileVO;
 import java.io.BufferedInputStream;

@@ -7,9 +7,9 @@ package com.dm.nok.module.M000000.G001100.F001111.web;
 
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111FileVO;
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111Service;
-import com.dm.nok.module.M000000.G001200.F001211.service.impl.F001211DownloadViewUtil;
-import com.dm.nok.module.common.base.service.ResultVO;
-import com.dm.nok.module.common.base.web.BaseController;
+import com.dm.nok.module.M000000.G000000.F000000.service.impl.F001211DownloadViewUtil;
+import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
+import com.dm.nok.module.M000000.G000000.F000000.web.BaseController;
 import java.util.List;
 import javax.annotation.Resource;
 import org.slf4j.Logger;

@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.common.auth.menu.service;
+package com.dm.nok.module.M000000.G001300.F001311.service;
 
-import com.dm.nok.module.common.base.service.ResultVO;
+import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import java.util.List;
 
 /**
  *
  * @author Hoang Duc Manh
  */
-public interface AuthMenuService {
+public interface F001311Service {
     /**
      * Select Authentication Menu list
      * @return
      * @throws Exception 
      */
-    public List<AuthMenuVO> selectAuthMenuTopList(AuthMenuVO param) throws Exception;
+    public List<F001311MenuVO> selectAuthMenuTopList(F001311MenuVO param) throws Exception;
     
     /**
      * Select Authentication Menu Tab list
@@ -26,5 +26,5 @@ public interface AuthMenuService {
      * @return
      * @throws Exception 
      */
-    public List<ResultVO> selectAuthMenuTabList(AuthMenuVO param) throws Exception;
+    public List<ResultVO> selectAuthMenuTabList(F001311MenuVO param) throws Exception;
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.common.base.service;
+package com.dm.nok.module.M000000.G000000.F000000.service;
 
 /**
  *

@@ -1,4 +1,4 @@
-package com.dm.nok.module.M000000.G001200.F001211.service.impl;
+package com.dm.nok.module.M000000.G000000.F000000.service.impl;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;

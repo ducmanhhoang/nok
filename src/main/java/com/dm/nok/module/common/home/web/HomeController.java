@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dm.nok.module.common.base.service.ResultVO;
-import com.dm.nok.module.common.base.web.BaseController;
+import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
+import com.dm.nok.module.M000000.G000000.F000000.web.BaseController;
 import com.dm.nok.module.common.home.service.HomeService;
 
 @Controller

@@ -3,36 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.common.auth.menu.service.impl;
+package com.dm.nok.module.M000000.G001300.F001311.service.impl;
 
-import com.dm.nok.module.common.auth.menu.service.AuthMenuService;
-import com.dm.nok.module.common.auth.menu.service.AuthMenuVO;
-import com.dm.nok.module.common.base.service.ResultVO;
+import com.dm.nok.module.M000000.G001300.F001311.service.F001311MenuVO;
+import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import com.dm.nok.module.M000000.G001300.F001311.service.F001311Service;
 
 /**
  *
  * @author Hoang Duc Manh
  */
-@Service(value = "authMenuService")
-public class AuthMenuServiceImpl implements AuthMenuService {
+@Service(value = "f001311Service")
+public class F001311ServiceImpl implements F001311Service {
 
     @Autowired
-    @Resource(name = "authMenuMapper")
-    private AuthMenuMapper authMenuMapper;
+    @Resource(name = "f001311Mapper")
+    private F001311Mapper f001311Mapper;
 
-    public List<AuthMenuVO> selectAuthMenuTopList(AuthMenuVO param) throws Exception {
-        List<AuthMenuVO> authMenuTreeList = authMenuMapper.selectAuthMenuTreeList(param);
-        List<AuthMenuVO> authMenuModuleList = new ArrayList<AuthMenuVO>();
-        List<AuthMenuVO> authMenuGroupAllList = new ArrayList<AuthMenuVO>();
-        List<AuthMenuVO> authMenuFunctionAllList = new ArrayList<AuthMenuVO>();
+    public List<F001311MenuVO> selectAuthMenuTopList(F001311MenuVO param) throws Exception {
+        List<F001311MenuVO> authMenuTreeList = f001311Mapper.selectAuthMenuTreeList(param);
+        List<F001311MenuVO> authMenuModuleList = new ArrayList<F001311MenuVO>();
+        List<F001311MenuVO> authMenuGroupAllList = new ArrayList<F001311MenuVO>();
+        List<F001311MenuVO> authMenuFunctionAllList = new ArrayList<F001311MenuVO>();
 
-        for (AuthMenuVO item : authMenuTreeList) {
+        for (F001311MenuVO item : authMenuTreeList) {
             item.setUrl("javascript:pageObj.goLink('" + item.getUrl() + ".do');");
             if (item.getLevel() == 1) {
                 authMenuModuleList.add(item);
@@ -45,14 +44,14 @@ public class AuthMenuServiceImpl implements AuthMenuService {
             }
         }
 
-        for (AuthMenuVO item : authMenuModuleList) {
-            List<AuthMenuVO> authMenuGroupList = new ArrayList<AuthMenuVO>();
-            for (AuthMenuVO item2 : authMenuGroupAllList) {
+        for (F001311MenuVO item : authMenuModuleList) {
+            List<F001311MenuVO> authMenuGroupList = new ArrayList<F001311MenuVO>();
+            for (F001311MenuVO item2 : authMenuGroupAllList) {
                 if (item.getMenuId().equals(item2.getUpMenuId())) {
                     authMenuGroupList.add(item2);
                 }
-                List<AuthMenuVO> authMenuFunctionList = new ArrayList<AuthMenuVO>();
-                for (AuthMenuVO item3 : authMenuFunctionAllList) {
+                List<F001311MenuVO> authMenuFunctionList = new ArrayList<F001311MenuVO>();
+                for (F001311MenuVO item3 : authMenuFunctionAllList) {
                     if (item2.getMenuId().equals(item3.getUpMenuId())) {
                         authMenuFunctionList.add(item3);
                     }
@@ -71,7 +70,7 @@ public class AuthMenuServiceImpl implements AuthMenuService {
         return authMenuModuleList;
     }
 
-    public List<ResultVO> selectAuthMenuTabList(AuthMenuVO amvo) throws Exception {
-        return authMenuMapper.selectAuthMenuTabList(amvo);
+    public List<ResultVO> selectAuthMenuTabList(F001311MenuVO amvo) throws Exception {
+        return f001311Mapper.selectAuthMenuTabList(amvo);
     }
 }

@@ -5,7 +5,7 @@
  */
 package com.dm.nok.module.M110000.G111200.F111211.web;
 
-import com.dm.nok.module.common.base.web.BaseController;
+import com.dm.nok.module.M000000.G000000.F000000.web.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.dm.nok.module.common.base.service;
+package com.dm.nok.module.M000000.G000000.F000000.service;
 
 import org.apache.commons.collections.map.ListOrderedMap;
 

@@ -5,7 +5,7 @@
  */
 package com.dm.nok.module.common.home.service.impl;
 
-import com.dm.nok.module.common.base.service.ResultVO;
+import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

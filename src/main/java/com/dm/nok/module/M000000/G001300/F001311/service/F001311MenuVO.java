@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.common.auth.menu.service;
+package com.dm.nok.module.M000000.G001300.F001311.service;
 
-import com.dm.nok.module.common.base.service.BaseVO;
+import com.dm.nok.module.M000000.G000000.F000000.service.BaseVO;
 import java.util.List;
 
 /**
  *
  * @author Hoang Duc Manh
  */
-public class AuthMenuVO extends BaseVO {
+public class F001311MenuVO extends BaseVO {
     private String menuId;
     private String menuDesc;
     private String upMenuId;
@@ -21,7 +21,7 @@ public class AuthMenuVO extends BaseVO {
     private int level;
     private String url;
     private String label;
-    private List<AuthMenuVO> cn;
+    private List<F001311MenuVO> cn;
 
     public String getMenuId() {
         return menuId;
@@ -79,11 +79,11 @@ public class AuthMenuVO extends BaseVO {
         this.label = label;
     }
 
-    public List<AuthMenuVO> getCn() {
+    public List<F001311MenuVO> getCn() {
         return cn;
     }
 
-    public void setCn(List<AuthMenuVO> cn) {
+    public void setCn(List<F001311MenuVO> cn) {
         this.cn = cn;
     }
 }

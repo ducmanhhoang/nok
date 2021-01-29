@@ -5,7 +5,7 @@ var sampleTreeMenu = new AXTopDownMenu();
 var progressObj = $('#AXProgress');
 
 var sampleTree = [];
-new AXReq("../../common/auth/selectAuthMenuTopList.json",
+new AXReq("../../M000000/G001300/F001311/selectAuthMenuTopList.json",
         {
             pars: {},
             onsucc: function (res) {
@@ -19,7 +19,7 @@ new AXReq("../../common/auth/selectAuthMenuTopList.json",
         });
 
 var myTabOption = [];
-new AXReq("../../common/auth/selectAuthMenuTabList.json",
+new AXReq("../../M000000/G001300/F001311/selectAuthMenuTabList.json",
         {
             pars: {menuId: menuId},
             onsucc: function (res) {

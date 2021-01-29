@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.common.auth.menu.service.impl;
+package com.dm.nok.module.M000000.G001300.F001311.service.impl;
 
-import com.dm.nok.module.common.auth.menu.service.AuthMenuVO;
-import com.dm.nok.module.common.base.service.ResultVO;
+import com.dm.nok.module.M000000.G001300.F001311.service.F001311MenuVO;
+import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import java.util.List;
 
 /**
  *
  * @author Hoang Duc Manh
  */
-public interface AuthMenuMapper {
+public interface F001311Mapper {
     /**
      * Select Authentication Menu Tree list
      * @param param
      * @return
      * @throws Exception 
      */
-    public List<AuthMenuVO> selectAuthMenuTreeList(AuthMenuVO param) throws Exception;
+    public List<F001311MenuVO> selectAuthMenuTreeList(F001311MenuVO param) throws Exception;
     
     /**
      * Select Authentication Menu Tab list
@@ -28,5 +28,5 @@ public interface AuthMenuMapper {
      * @return
      * @throws Exception 
      */
-    public List<ResultVO> selectAuthMenuTabList(AuthMenuVO param) throws Exception;
+    public List<ResultVO> selectAuthMenuTabList(F001311MenuVO param) throws Exception;
 }

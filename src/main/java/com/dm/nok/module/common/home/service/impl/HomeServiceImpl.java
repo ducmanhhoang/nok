@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dm.nok.module.common.base.service.ResultVO;
+import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import com.dm.nok.module.common.home.service.HomeService;
 
 @Service(value = "homeService")
