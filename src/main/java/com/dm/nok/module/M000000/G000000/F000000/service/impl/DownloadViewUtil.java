@@ -22,8 +22,8 @@ import org.springframework.web.servlet.view.AbstractView;
  *
  * @author Hoang Duc Manh
  */
-@Component("f001211DownloadViewUtil")
-public class F001211DownloadViewUtil extends AbstractView {
+@Component("downloadViewUtil")
+public class DownloadViewUtil extends AbstractView {
 
     @Override
     protected void renderMergedOutputModel(Map<String, Object> map, HttpServletRequest req, HttpServletResponse res) throws Exception {

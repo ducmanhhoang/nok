@@ -1,4 +1,6 @@
 Module Common: M000000
+    Group Base: G000000
+        Function Base: F000000
     Group Sample: G001100
         Function Upload & Download file: F001111
     Group Base: G001200

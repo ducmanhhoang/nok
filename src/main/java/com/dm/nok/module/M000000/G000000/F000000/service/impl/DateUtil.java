@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class F001211DateUtil {
+public class DateUtil {
 
     /**
      * Getting current date in the pattern yyyy-MM-dd

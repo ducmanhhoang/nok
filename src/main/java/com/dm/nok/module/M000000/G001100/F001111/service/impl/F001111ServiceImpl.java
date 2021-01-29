@@ -7,7 +7,7 @@ package com.dm.nok.module.M000000.G001100.F001111.service.impl;
 
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111FileVO;
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111Service;
-import com.dm.nok.module.M000000.G000000.F000000.service.impl.F001211DateUtil;
+import com.dm.nok.module.M000000.G000000.F000000.service.impl.DateUtil;
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import java.io.File;
 import java.util.List;
@@ -38,7 +38,7 @@ public class F001111ServiceImpl implements F001111Service {
 
     public F001111FileVO uploadFile(MultipartFile param) throws Exception {
         String rootDir = System.getProperty("catalina.home") + File.separator + applicationProperties.getProperty("FILE.DIR") + File.separator + System.getProperty("SERVER_MODE");
-        String uploadedPath = rootDir + File.separator + F001211DateUtil.getDate(applicationProperties.getProperty("DATE.FORMAT"));
+        String uploadedPath = rootDir + File.separator + DateUtil.getDate(applicationProperties.getProperty("DATE.FORMAT"));
 
         // Set file property values
         F001111FileVO file = new F001111FileVO();
@@ -46,7 +46,7 @@ public class F001111ServiceImpl implements F001111Service {
         file.setSeq(f001111Mapper.selectFileSeq(file));
         file.setName(param.getOriginalFilename());
         file.setType(param.getOriginalFilename().substring(param.getOriginalFilename().lastIndexOf(".") + 1));
-        file.setSaveName(F001211DateUtil.getTimeStamp());
+        file.setSaveName(DateUtil.getTimeStamp());
         file.setFileSize(String.valueOf(param.getSize()));
         file.setUploadedPath("../../M000000/G001100/F001111/downloadFile.do?name=" + file.getName() + "&saveName=");
         file.setThumbPath("../../M000000/G001100/F001111/downloadFile.do?name=" + file.getName() + "&saveName=" + file.getSaveName());

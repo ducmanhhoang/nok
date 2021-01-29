@@ -7,7 +7,7 @@ package com.dm.nok.module.M000000.G001100.F001111.web;
 
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111FileVO;
 import com.dm.nok.module.M000000.G001100.F001111.service.F001111Service;
-import com.dm.nok.module.M000000.G000000.F000000.service.impl.F001211DownloadViewUtil;
+import com.dm.nok.module.M000000.G000000.F000000.service.impl.DownloadViewUtil;
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import com.dm.nok.module.M000000.G000000.F000000.web.BaseController;
 import java.util.List;
@@ -38,8 +38,8 @@ public class F001111Controller extends BaseController {
     private F001111Service f001111Service;
     
     @Autowired
-    @Resource(name = "f001211DownloadViewUtil")
-    private F001211DownloadViewUtil f001211DownloadViewUtil;
+    @Resource(name = "downloadViewUtil")
+    private DownloadViewUtil downloadViewUtil;
 
     @RequestMapping(value = {"F001111.do"})
     public String loadF001111(Model model) throws Exception {
@@ -54,12 +54,12 @@ public class F001111Controller extends BaseController {
     
     @ResponseBody
     @RequestMapping(value = "F001111/downloadFile.do")
-    public F001211DownloadViewUtil downloadFile(@RequestParam("name") String name, @RequestParam("saveName") String saveName, ModelMap modelMap) {
+    public DownloadViewUtil downloadFile(@RequestParam("name") String name, @RequestParam("saveName") String saveName, ModelMap modelMap) {
         try {
             modelMap.put("file", f001111Service.downloadFile(name, saveName));
         } catch (Exception e) {
         }
-        return f001211DownloadViewUtil;
+        return downloadViewUtil;
     }
     
     @ResponseBody
