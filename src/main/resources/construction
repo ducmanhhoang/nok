@@ -3,6 +3,7 @@ Module Common: M000000
         Function Base: F000000
         Function Home layout: F000011
         Function Page Layout: F000012
+        Function Home: F000013
     Group Sample: G001100
         Function Upload & Download file: F001111
         Function Grid: F001112

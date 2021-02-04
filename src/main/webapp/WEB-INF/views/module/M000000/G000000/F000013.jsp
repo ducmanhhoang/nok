@@ -9,14 +9,14 @@
             var pageID = "Home";
             var fnObj = {
                 pageStart: function () {
-                    new AXReq("test2.json",
+                    new AXReq("../../M000000/G000000/F000013/test.json",
                             {pars: "", onsucc: function (res) {
                                     trace(res);
                                 }
                             });
 
 
-                    new AXReq("test3.json",
+                    new AXReq("../../M000000/G000000/F000013/test1.json",
                             {pars: "", onsucc: function (res) {
                                     trace(res);
                                 }
