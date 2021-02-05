@@ -4,6 +4,9 @@ var sampleMobileMenu = new AXMobileMenu();
 var sampleTreeMenu = new AXTopDownMenu();
 var progressObj = $('#AXProgress');
 
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+
 var sampleTree = [];
 new AXReq("../../M000000/G001300/F001311/selectAuthMenuTopList.json",
         {
@@ -15,6 +18,9 @@ new AXReq("../../M000000/G001300/F001311/selectAuthMenuTopList.json",
             async: false,
             onerr: function (res) {
                 alert("onFail:" + req.responseText);
+            },
+            beforeSend: function( xhr ) {
+                xhr.setRequestHeader(header, token);
             }
         });
 

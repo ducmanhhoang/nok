@@ -9,6 +9,12 @@
             var pageID = "Home";
             var fnObj = {
                 pageStart: function () {
+                    console.log(token);
+                    console.log(header);
+                    
+                    
+                    
+                    
                     new AXReq("../../M000000/G000000/F000013/test.json",
                             {pars: "", onsucc: function (res) {
                                     trace(res);
