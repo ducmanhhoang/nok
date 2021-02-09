@@ -19,6 +19,7 @@
         <sec:access-denied-handler ref="accessDeniedHandler"/>
         
         <sec:intercept-url pattern="/login.do" access="permitAll()" />
+        <sec:intercept-url pattern="/logout" access="permitAll()" />
         
         <!--
             You need to make an explicit .permitAll() for /favicon.* in your security configuration if it isn't stored in /, /resources/**, /detail/** or /post/** or if you don't have a favicon at all.

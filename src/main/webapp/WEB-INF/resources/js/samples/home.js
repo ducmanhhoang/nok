@@ -19,7 +19,7 @@ new AXReq("../../M000000/G001300/F001311/selectAuthMenuTopList.json",
             onerr: function (res) {
                 alert("onFail:" + req.responseText);
             },
-            beforeSend: function( xhr ) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             }
         });
@@ -91,7 +91,7 @@ new AXReq("../../M000000/G001300/F001311/selectAuthMenuTopList.json",
             to.push("<h2>Theme Developer. <a href='mailto:" + tdata.mail + "'>" + tdata.developer + "</a></h2>");
             to.push("<a href='http://www.axisj.com' target='_blank' class='facebook'>Website</a>");
             to.push("<a href='https://github.com/axisj/axisj' target='_blank' class='github'>Github</a>");
-            to.push("<a href='http://jdoc.axisj.com' target='_blank' class='api'>API</a>");
+            to.push("<a href='javascript:pageObj.logout()' class='api'>Logout</a>");
             to.push("<div class='ax-clear'></div>");
             jQuery(".themeInfo").append(to.join(""));
 
@@ -206,6 +206,23 @@ new AXReq("../../M000000/G001300/F001311/selectAuthMenuTopList.json",
         changeThemeButton: function (tm) {
             $(".themeSelector").removeClass("on");
             $("#" + tm).addClass("on");
+        },
+        logout: function () {
+            new AXReq("../../logout",
+                    {
+                        pars: {},
+                        onsucc: function (res) {
+                            console.log(res);
+                        },
+                        async: false,
+                        onerr: function (res) {
+                            alert("onFail:" + req.responseText);
+                        },
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader(header, token);
+                        }
+                    });
+            window.location.reload();
         }
     };
 
