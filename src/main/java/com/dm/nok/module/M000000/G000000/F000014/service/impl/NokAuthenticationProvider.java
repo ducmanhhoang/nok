@@ -14,6 +14,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Hoang Duc Manh
  */
-@Component
+@Component(value="nokAuthenticationProvider")
 public class NokAuthenticationProvider implements AuthenticationProvider {
 
     private Logger logger = LoggerFactory.getLogger(NokAuthenticationProvider.class);
@@ -34,15 +35,18 @@ public class NokAuthenticationProvider implements AuthenticationProvider {
         logger.debug("{Username: " + auth.getName() + ", Password: " + auth.getCredentials() + ", IP Address: " + wad.getRemoteAddress() + ", Session: " + wad.getSessionId() + "}");
 
         LoginVO login = new LoginVO();
-
-        try {
+        
             String username = auth.getName();
             String password = (String)auth.getCredentials();
             String passwordMd5 = EncryptUtil.encryptMD5(password).toUpperCase();
-
-            if (username != null && !"".equals(username) && password != null && !"".equals(password)) {
+            
+            
                 login.setLoginId(username);
                 login.setLoginPwd(passwordMd5);
+
+        try {
+
+            if (username != null && !"".equals(username) && password != null && !"".equals(password)) {
                 //loginVO = loginService.loginAction(loginParam, ip, Consts.SYSTEM.SYSTEM_CD);
             } else {
                 throw new BadCredentialsException("Please enter your credential!");
@@ -59,7 +63,7 @@ public class NokAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException(e.getMessage(), e);
         }
 
-        return new UsernamePasswordAuthenticationToken(login, "", null);
+        return new UsernamePasswordAuthenticationToken(login, passwordMd5, AuthorityUtils.createAuthorityList("ROLE_USER"));
     }
 
     @Override

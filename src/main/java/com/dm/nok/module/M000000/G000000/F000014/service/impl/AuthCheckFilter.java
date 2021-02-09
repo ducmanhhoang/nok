@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Hoang Duc Manh
  */
-@Component
+@Component(value="authCheckFilter")
 public class AuthCheckFilter implements Filter {
 
     private Logger logger = LoggerFactory.getLogger(AuthCheckFilter.class);
@@ -46,7 +46,7 @@ public class AuthCheckFilter implements Filter {
 
         WebAuthenticationDetails wad = (WebAuthenticationDetails) auth.getDetails();
 
-        logger.debug("{Remote Host: " + req.getRemoteHost() + ", Remote Address: " + req.getRemoteAddr() + ", Username: " + auth.getName() + ", Password: " + auth.getCredentials() + ", IP Address: " + wad.getRemoteAddress() + ", Session: " + wad.getSessionId() + "}");
+        logger.debug("{URL: " + httpReq.getRequestURL() + ",Remote Host: " + req.getRemoteHost() + ", Remote Address: " + req.getRemoteAddr() + ", Username: " + auth.getName() + ", Password: " + auth.getCredentials() + ", IP Address: " + wad.getRemoteAddress() + ", Session: " + wad.getSessionId() + "}");
 
         boolean pass = true;
 
@@ -56,10 +56,8 @@ public class AuthCheckFilter implements Filter {
             pass = true;
         }
         if (!pass) {
-            logger.debug("44444444444444444444444444444444444444");
-            httpRes.sendError(HttpServletResponse.SC_FORBIDDEN);
+            httpRes.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
-            logger.debug("55555555555555555555555555555555555555");
             fc.doFilter(httpReq, httpRes);
         }
     }
