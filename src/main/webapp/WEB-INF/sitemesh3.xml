@@ -23,7 +23,7 @@
     </mapping>-->
 
     <!-- Satisfied that the matching path will not be decorated -->
-    <mapping path="/login" exclue="true" />
+    <mapping path="/login.do" exclue="true" />
     <mapping path="/logout" exclue="true" />
     <mapping path="/M000000/G000000/**.do" exclue="true" />
 </sitemesh>

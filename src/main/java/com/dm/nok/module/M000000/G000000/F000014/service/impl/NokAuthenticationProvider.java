@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Hoang Duc Manh
  */
-@Component(value="nokAuthenticationProvider")
+@Component(value = "nokAuthenticationProvider")
 public class NokAuthenticationProvider implements AuthenticationProvider {
 
     private Logger logger = LoggerFactory.getLogger(NokAuthenticationProvider.class);
@@ -35,19 +35,26 @@ public class NokAuthenticationProvider implements AuthenticationProvider {
         logger.debug("{Username: " + auth.getName() + ", Password: " + auth.getCredentials() + ", IP Address: " + wad.getRemoteAddress() + ", Session: " + wad.getSessionId() + "}");
 
         LoginVO login = new LoginVO();
-        
-            String username = auth.getName();
-            String password = (String)auth.getCredentials();
-            String passwordMd5 = EncryptUtil.encryptMD5(password).toUpperCase();
-            
-            
-                login.setLoginId(username);
-                login.setLoginPwd(passwordMd5);
+
+        String username = auth.getName();
+        String password = (String) auth.getCredentials();
+        String passwordMd5 = EncryptUtil.encryptMD5(password).toUpperCase();
+
+        //login.setLoginId(username);
+        //login.setLoginPwd(passwordMd5);
 
         try {
 
             if (username != null && !"".equals(username) && password != null && !"".equals(password)) {
                 //loginVO = loginService.loginAction(loginParam, ip, Consts.SYSTEM.SYSTEM_CD);
+                
+                if (username.equals("dev")) {
+                    login.setLoginId(username);
+                    login.setLoginPwd(passwordMd5);
+                } else {
+                    login = null;
+                }
+                
             } else {
                 throw new BadCredentialsException("Please enter your credential!");
             }

@@ -1,105 +1,89 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page session="true"%>
 <html>
     <head>
-        <!-- META -->
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <!-- TITLE -->
-        <title>Login</title>
-        <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/js/ui/axisj.ico" type="image/x-icon" />
-        <link rel="icon" href="${pageContext.request.contextPath}/resources/js/ui/axisj.ico" type="image/x-icon" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${pageContext.request.contextPath}/resources/js/ui/AXJ.png" />
-        <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/resources/js/ui/AXJ.png" />
+        <title>Login Page</title>
+        <style>
+            .error {
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                color: #a94442;
+                background-color: #f2dede;
+                border-color: #ebccd1;
+            }
 
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/js/ui/arongi/page.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/js/ui/arongi/AXJ.min.css" />
+            .msg {
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                color: #31708f;
+                background-color: #d9edf7;
+                border-color: #bce8f1;
+            }
 
-        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dist/AXJ.min.js"></script>
-
-        <script language="JavaScript">
-            window.toast = new AXNotification();
-            toast.setConfig({ eatUpTime: 1000, targetID: "basicToast", type: "toast" });
-            $(window).load(function () {
-
-                if ($(window.parent.document).find('iframe').length > 0) {
-                    console.log('reload');
-                    window.parent.location.reload();
-                }
-
+            #login-box {
+                width: 300px;
+                padding: 20px;
+                margin: 100px auto;
+                background: #fff;
+                -webkit-border-radius: 2px;
+                -moz-border-radius: 2px;
+                border: 1px solid #000;
+            }
+        </style>
+        <script type="text/javascript">
+            window.onload = function () {
                 var msg = '<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>';
             <c:remove scope="session" var="SPRING_SECURITY_LAST_EXCEPTION"/>
-
                 if (msg != null && msg != '' && msg != 'null') {
-                    alert(msg);
+                    document.getElementById("msg").innerHTML = msg;
                 }
 
-                $('body').keypress(function (event) {
-                    if (event.keyCode == 13) {
-                        event.preventDefault();
-                        login();
-                    }
-                });
-            });
+                document.addEventListener('keydown', logKey);
+                document.loginForm.username.focus();
+            }
 
+            function logKey(e) {
+                if (e.code === 'Enter') {
+                    login();
+                }
+            }
 
             function login() {
-                if ($('#loginId').val() == '' || $('#loginPwd').val() == '') {
-                    toast.push({eatUpTime:1000, body:'<b>Warning</b> Please enter your credential !!', type:'Warning'});
-                    return;
-                }
-                document.f000014LoginForm.method = "post";
-                document.f000014LoginForm.action = "<c:url value='/login'/>";
-                document.f000014LoginForm.submit();
+                document.loginForm.submit();
             }
         </script>
     </head>
     <body>
-        <form id="f000014LoginForm" name="f000014LoginForm">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <div id="AXModelControlTarget2" style="width:300px; margin: 80px auto;">
-                <table class="AXFormTable">
-                    <colgroup>
-                        <col width="80">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr class="reserved">
-                            <th>
-                                <div class="tdRel">Login ID</div>
-                            </th>
-                            <td class="last guestSelected">
-                                <div class="tdRel">
-                                    <div class="wrapInput">
-                                        <input class="AXInput W200" id="loginId" type="text" maxlength="50">
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="reserved">
-                            <th>
-                                <div class="tdRel">Password</div>
-                            </th>
-                            <td class="last guestSelected">
-                                <div class="tdRel">
-                                    <div class="wrapInput">
-                                        <input class="AXInput W200" id="loginPwd" type="password" maxlength="50">
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="last" colspan="2">
-                                <button type="button" class="AXButton" onclick="login();">Sign in</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>			
-            </div>
-        </form>
+        <div id="login-box">
+            <h3>Sign in</h3>
+
+            <c:if test="${param.error}">
+                <div class="error" id="msg"></div>
+            </c:if>
+
+            <form name='loginForm' action="${pageContext.request.contextPath}/authenticate" method='POST'>
+                <table>
+                    <tr>
+                        <td>User:</td>
+                        <td><input type='text' name='username'></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type='password' name='password' /></td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>
+                            <button type="button" onclick="login();">Sign in</button>
+                        </td>
+                    </tr>
+                </table>
+
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
+        </div>
     </body>
 </html>

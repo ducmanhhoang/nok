@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Hoang Duc Manh
  */
 @Controller
-@RequestMapping(value = "/M000000/G000000/")
+@RequestMapping(value = "/")
 public class F000014Controller extends BaseController {
     
-    @RequestMapping(value = "F000014.do")
+    @RequestMapping(value = "login.do")
     public String loadF000014() throws Exception {
         return "/module/M000000/G000000/F000014";
     }

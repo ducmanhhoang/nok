@@ -18,7 +18,7 @@
         <sec:csrf disabled="false"/>
         <sec:access-denied-handler ref="accessDeniedHandler"/>
         
-        <sec:intercept-url pattern="/login" access="permitAll()" />
+        <sec:intercept-url pattern="/login.do" access="permitAll()" />
         
         <!--
             You need to make an explicit .permitAll() for /favicon.* in your security configuration if it isn't stored in /, /resources/**, /detail/** or /post/** or if you don't have a favicon at all.
@@ -38,7 +38,7 @@
         <security:intercept-url pattern="/signup" access="permitAll" />
         <security:intercept-url pattern="/**" access="isAuthenticated()" />-->
         
-        
+        <sec:form-login login-page="/login.do" default-target-url="/" authentication-failure-url="/login.do?error=true" login-processing-url="/authenticate" />
         
         <sec:logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID" />
         
