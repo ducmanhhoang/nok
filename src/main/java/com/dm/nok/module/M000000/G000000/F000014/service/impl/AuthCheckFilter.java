@@ -49,12 +49,17 @@ public class AuthCheckFilter implements Filter {
         logger.debug("{URL: " + httpReq.getRequestURL() + ",Remote Host: " + req.getRemoteHost() + ", Remote Address: " + req.getRemoteAddr() + ", Username: " + auth.getName() + ", Password: " + auth.getCredentials() + ", IP Address: " + wad.getRemoteAddress() + ", Session: " + wad.getSessionId() + "}");
 
         boolean pass = true;
+        
+        String uri = httpReq.getRequestURI();
 
         if (authObject instanceof LoginVO && req != null) {
-            pass = true;
+            if (uri.indexOf("G001100") > 0) {
+                pass = false;
+            }
         } else {
             pass = true;
         }
+        
         if (!pass) {
             httpRes.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
