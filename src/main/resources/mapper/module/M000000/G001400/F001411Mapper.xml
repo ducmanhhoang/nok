@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dm.nok.module.M000000.G001400.F001411.service.impl.F001411Mapper">
+    <select id="selectCodeList" resultType="ResultVO" parameterType="F001411CodeVO">
+        SELECT
+            AC.CODE_ID,
+            (
+            SELECT
+                CODE_NM
+            FROM
+                A_CODE_LANG ACL
+            WHERE
+                ACL.CODE_GROUP_ID = ACG.CODE_GROUP_ID
+                AND ACL.CODE_ID = AC.CODE_ID
+                AND LANG_CD = #{langCd}) AS CODE_NM
+        FROM
+            A_CODE_GROUP ACG
+        INNER JOIN A_CODE AC ON
+            ACG.CODE_GROUP_ID = AC.CODE_GROUP_ID
+        WHERE
+            ACG.USE_YN = 'Y'
+            AND ACG.CODE_GROUP_ID = #{codeGroupId}
+        ORDER BY
+            AC.SEQ
+    </select>
+</mapper>

@@ -4,6 +4,7 @@ Module Common: M000000
         Function Home layout: F000011
         Function Page Layout: F000012
         Function Home: F000013
+        Function Login: F000014
     Group Sample: G001100
         Function Upload & Download file: F001111
         Function Grid: F001112
@@ -11,6 +12,8 @@ Module Common: M000000
         Function Utility: F001211-------------
     Group Menu: G001300
         Function authentication menu: F001311
+    Group Code: G001400
+        Function Code group management: F001411
 Module document: M110000
     Group Grade 1: G111100
         Function Home: F111111

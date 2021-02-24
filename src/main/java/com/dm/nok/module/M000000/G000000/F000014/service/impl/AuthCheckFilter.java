@@ -53,7 +53,7 @@ public class AuthCheckFilter implements Filter {
         String uri = httpReq.getRequestURI();
 
         if (authObject instanceof LoginVO && req != null) {
-            if (uri.indexOf("G001100") > 0) {
+            if (uri.indexOf("F001112") > 0) {
                 pass = false;
             }
         } else {
