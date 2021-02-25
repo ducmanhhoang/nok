@@ -17,7 +17,7 @@
              * Javascript 	: AXJ.js, AXInput.js, AXSelect.js
              * CSS		: AXJ.css, AXInput.css, AXSelect.css
              */
-            var menuId = "F001113";
+            var menuId = "F001211";
             var langCd = '${langCd}';
 
             var fnObj = {

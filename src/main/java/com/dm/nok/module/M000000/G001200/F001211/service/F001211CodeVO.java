@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dm.nok.module.M000000.G001400.F001411.service;
+package com.dm.nok.module.M000000.G001200.F001211.service;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.BaseVO;
 
@@ -11,7 +11,7 @@ import com.dm.nok.module.M000000.G000000.F000000.service.BaseVO;
  *
  * @author Hoang Duc Manh
  */
-public class F001411CodeVO extends BaseVO {
+public class F001211CodeVO extends BaseVO {
     private String codeId;
     private String codeGroupId;
     private String option1;

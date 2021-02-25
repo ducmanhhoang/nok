@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dm.nok.module.M000000.G001400.F001411.service.impl.F001411Mapper">
-    <select id="selectCodeList" resultType="ResultVO" parameterType="F001411CodeVO">
+<mapper namespace="com.dm.nok.module.M000000.G001200.F001211.service.impl.F001211Mapper">
+    <select id="selectCodeList" resultType="ResultVO" parameterType="F001211CodeVO">
         SELECT
             AC.CODE_ID,
             (

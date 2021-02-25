@@ -1,26 +1,33 @@
-Module Common: M000000
-    Group Base: G000000
+1. Module Common: M000000
+
+    1.1. Group Base: G000000
         Function Base: F000000
         Function Home layout: F000011
         Function Page Layout: F000012
         Function Home: F000013
         Function Login: F000014
-    Group Sample: G001100
-        Function Upload & Download file: F001111
+
+    1.2. Group Sample: G001100
+        Function Up & Download: F001111
         Function Grid: F001112
-    Group Base: G001200-------
-        Function Utility: F001211-------------
-    Group Menu: G001300
+        Function Select: F001113
+
+    1.3. Group System Mng: G001200
+        Function Code Mng: F001211
+
+    1.4. Group Menu: G001300
         Function authentication menu: F001311
-    Group Code: G001400
-        Function Code group management: F001411
-Module document: M110000
-    Group Grade 1: G111100
+
+2. Module document: M110000
+
+    2.1. Group Grade 1: G111100
         Function Home: F111111
         Function Books: F111112
         Function References: F111113
-    Group Grade 2: G111200
+
+    2.2. Group Grade 2: G111200
         Function Home: F111211
         Function Books: F111212
         Function References: F111213
-    Group Grade 3: G111300
+
+    2.3. Group Grade 3: G111300
