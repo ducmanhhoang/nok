@@ -6,6 +6,7 @@
 package com.dm.nok.module.M000000.G001200.F001211.service.impl;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import java.util.List;
 
@@ -21,4 +22,20 @@ public interface F001211Mapper {
      * @throws Exception 
      */
     public List<ResultVO> selectCodeList(F001211CodeVO param) throws Exception;
+    
+    /**
+     * Select Code group list
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public List<ResultVO> selectCodeGroupList(F001211CodeGroupVO param) throws Exception;
+    
+    /**
+     * Select Code group ID existed
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public List<ResultVO> selectCodeGroupIdExisted(F001211CodeGroupVO param) throws Exception;
 }

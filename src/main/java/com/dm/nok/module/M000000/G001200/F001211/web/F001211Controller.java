@@ -7,6 +7,7 @@ package com.dm.nok.module.M000000.G001200.F001211.web;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultListVO;
 import com.dm.nok.module.M000000.G000000.F000000.web.BaseController;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211Service;
 import java.io.IOException;
@@ -35,12 +36,33 @@ public class F001211Controller extends BaseController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/F001211/selectCodeList.do")
+    @RequestMapping(value = "F001211/selectCodeList.do")
     public ResultListVO selectCodeList(F001211CodeVO param, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
         
         return this.addResult(f001211Service.selectCodeList(bindAuditData(param)));
+    }
+    
+    
+    @ResponseBody
+    @RequestMapping(value = "F001211/selectCodeGroupList.do")
+    public ResultListVO selectCodeGroupList(F001211CodeGroupVO param, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
+        }
+        
+        return this.addResult(f001211Service.selectCodeGroupList(bindAuditData(param)));
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "F001211/selectCodeGroupIdExisted.do")
+    public ResultListVO selectCodeGroupIdExisted(F001211CodeGroupVO param, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
+        }
+        
+        return this.addResult(f001211Service.selectCodeGroupIdExisted(bindAuditData(param)));
     }
 }

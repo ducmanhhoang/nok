@@ -20,4 +20,20 @@ public interface F001211Service {
      * @throws Exception 
      */
     public List<ResultVO> selectCodeList(F001211CodeVO param) throws Exception;
+    
+    /**
+     * Select Code group list
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public List<ResultVO> selectCodeGroupList(F001211CodeGroupVO param) throws Exception;
+    
+    /**
+     * Select Code group ID existed
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public List<ResultVO> selectCodeGroupIdExisted(F001211CodeGroupVO param) throws Exception;
 }

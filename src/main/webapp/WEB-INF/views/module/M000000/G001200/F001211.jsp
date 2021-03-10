@@ -20,15 +20,16 @@
             var menuId = "F001211";
             var fnObj = {
                 pageStart: function () {
-                    fnObj.grid.bind();
+                    fnObj.gridCode.bind();
+                    fnObj.gridCodeGroup.bind();
                 },
-                grid: {
+                gridCode: {
                     target: new AXGrid(),
                     bind: function () {
-                        window.myGrid = fnObj.grid.target;
+                        window.myGridCode = fnObj.gridCode.target;
 
-                        myGrid.setConfig({
-                            targetID: "AXGridTarget",
+                        myGridCode.setConfig({
+                            targetID: "AXGridTargetCode",
                             sort: false,
                             fixedColSeq: 3,
                             colGroup: [
@@ -40,7 +41,7 @@
                                     key: "string", label: "String", width: "200",
                                     formatter: function (val) {
                                         if (Object.isObject(this.value)) {
-                                            return this.value.NM;
+                                            return this.value.codeGroupNm;
                                         } else {
                                             return this.value;
                                         }
@@ -50,10 +51,10 @@
                                         config: {
                                             reserveKeys: {
                                                 options: "list",
-                                                optionValue: "CD",
-                                                optionText: "NM"
+                                                optionValue: "codeGroupId",
+                                                optionText: "codeGroupNm"
                                             },
-                                            ajaxUrl: "selectData-01.php",
+                                            ajaxUrl: "F001211/selectCodeGroupList.do",
                                             ajaxPars: "",
                                             onchange: function () {
                                                 // inline editor 에 선언한 onchange함수는 AXGrid내부에서 사용하는 onchange 함수로 변경되어 사용할 수 없습니다.
@@ -245,7 +246,7 @@
                         var list = [
                             {
                                 no: 1,
-                                string: "AXGrid 첫번째 줄 입니다.",
+                                string: {codeGroupId: 'A_PROGRAM_TYPE', codeGroupNm: 'Program type'},
                                 combobox: 1,
                                 combobox1: {CD: '1', NM: '김기영', options: [{CD: 1, NM: "김기영"}, {CD: 2, NM: "장기영"}, {CD: 3, NM: "장서우"}]},
                                 combobox2: {CD: 1, NM: "김기영"},
@@ -283,12 +284,12 @@
                                 finder: "선택"
                             }
                         ];
-                        myGrid.setList(list);
-                        //trace(myGrid.getSortParam());
+                        myGridCode.setList(list);
+                        //trace(myGridCode.getSortParam());
 
                     },
                     getExcel: function (type) {
-                        var obj = myGrid.getExcelFormat(type, function () {
+                        var obj = myGridCode.getExcelFormat(type, function () {
                             return this.key != "no" && this.key != "finder";
                         });
                         $("#printout").html(obj);
@@ -319,14 +320,234 @@
                     }
                     ,
                     remove: function () {
-                        var checkedList = myGrid.getCheckedListWithIndex(0);// colSeq
+                        var checkedList = myGridCode.getCheckedListWithIndex(0);// colSeq
                         if (checkedList.length == 0) {
                             alert("선택된 목록이 없습니다. 삭제하시려는 목록을 체크하세요");
                             return;
                         }
                         this.target.removeListIndex(checkedList);
-                        // 전달한 개체와 비교하여 일치하는 대상을 제거 합니다. 이때 고유한 값이 아닌 항목을 전달 할 때에는 에러가 발생 할 수 있습니다.
                     }
+                },
+                gridCodeGroup: {
+                    target: new AXGrid(),
+                    bind: function () {
+                        window.myGridCodeGroup = fnObj.gridCodeGroup.target;
+
+                        myGridCodeGroup.setConfig({
+                            targetID: "AXGridTargetCodeGroup",
+                            theme: "AXGrid",
+                            sort: false,
+                            fixedColSeq: 4,
+                            //fitToWidth:true,
+                            height: 300,
+                            colGroup: [
+                                {key: "no", label: "번호", width: "50", align: "center", formatter: "checkbox"},
+                                {
+                                    key: "_CUD", label: "상태", width: "50", align: "center"
+                                },
+                                {
+                                    key: "codeGroupId", label: "Code Group ID", width: "200",
+                                    formatter: function (val) {
+                                        if (Object.isObject(this.value)) {
+                                            return this.value.codeGroupNm;
+                                        } else {
+                                            return this.value;
+                                        }
+                                    },
+
+                                    editor: {
+                                        type: "text",
+                                        disabled: function () {
+                                            if (this.item._CUD == 'C') {
+                                                return false;
+                                            } else {
+                                                return true;
+                                            }
+                                        },
+                                        beforeUpdate: function (val) {
+                                            console.log(val);
+
+                                            var valid = true;
+
+                                            new AXReq("F001211/selectCodeGroupIdExisted.do",
+                                                    {pars: {codeGroupId: val},
+                                                        onsucc: function (res) {
+                                                            trace(res);
+                                                            if (!axf.isEmpty(res.list) && res.list.length != 0) {
+                                                                valid = false;
+                                                                toast.push({eatUpTime:1000, body:'<b>Warning</b>, The input is not valid!', type:'Warning'});
+                                                            }
+                                                        }, async: false
+                                                    });
+
+                                            console.log(valid);
+
+                                            if (valid)
+                                                return val;
+                                            else
+                                                return "";
+                                        },
+                                        afterUpdate: function (val) {
+                                            var _this = this;
+                                            var pars = new Object();
+                                            pars.codeGrpId = _this.item.codeGroupId;
+                                            pars.code = val;
+                                            console.log(pars);
+                                        },
+                                        notEmpty: true,
+                                        maxLength: 50,
+                                        updateWith: ["_CUD"]
+                                    }
+                                },
+                                {
+                                    key: "vn", label: "Vietnamese", width: "300",
+                                    formatter: function () {
+                                        return this.value;
+                                    },
+                                    editor: {
+                                        type: "text",
+                                        disabled: function () {
+                                            return false;
+                                        },
+                                        beforeUpdate: function (val) {
+                                            console.log(val);
+                                            if (val != null || val != '')
+                                                return val;
+                                            else
+                                                return "";
+                                        },
+                                        afterUpdate: function (val) {
+                                            var pars = new Object();
+                                            console.log(this.item);
+                                            pars.codeGrpId = this.item.codeGroupId;
+                                            pars.code = val;
+                                            console.log(pars);
+                                        },
+                                        required: true,
+                                        maxLength: 50,
+                                        updateWith: ["_CUD"]
+                                    }
+                                },
+                                {
+                                    key: "en", label: "English", width: "300",
+                                    formatter: function () {
+                                        return this.value;
+                                    },
+                                    editor: {
+                                        type: "text",
+                                        disabled: function () {
+                                            return false;
+                                        },
+                                        beforeUpdate: function (val) {
+                                            // 선택된 값은
+                                            console.log(val);
+                                            return val;
+                                        },
+                                        afterUpdate: function (val) {
+                                            var _this = this;
+                                            var pars = new Object();
+                                            pars.codeGrpId = _this.item.codeGrpId;
+                                            pars.code = val;
+                                            console.log(pars);
+                                        },
+                                        required: true,
+                                        maxLength: 50,
+                                        updateWith: ["_CUD"]
+                                    }
+                                },
+                                {
+                                    key: "useYn", label: "Use Y/N", width: "80", align: "center",
+                                    editor: {
+                                        type: "checkbox",
+                                        beforeUpdate: function (val) {
+                                            return (val == true) ? "Y" : "N";
+                                        }
+                                    }
+                                }
+                            ],
+                            colHeadAlign: "center",
+                            colHead: {
+                                heights: [30, 30],
+                                rows: [
+                                    [
+                                        {key: "no", rowspan: 2},
+                                        {key: "_CUD", rowspan: 2},
+                                        {key: "codeGroupId", rowspan: 2},
+                                        {colspan: 2, label: "Language", align: "center", valign: "middle"}, // 3,4
+                                        {key: "useYn", rowspan: 2}
+                                    ],
+                                    [
+                                        {key: 'vn'},
+                                        {key: 'en'}
+                                    ]
+                                ],
+                                onclick: function () {
+                                    toast.push(Object.toJSON({index: this.index, r: this.r, c: this.c, colHead: this.colHead, page: this.page}));
+                                }
+                            },
+                            body: {
+                                onclick: function () {
+                                    //trace(this.index);
+                                }
+                            }
+                            ,
+                            page: {
+                                paging: false
+                            }
+                        }
+                        );
+
+                        myGridCodeGroup.setList({
+                            ajaxUrl: "F001211/selectCodeGroupList.do",
+                            ajaxPars: {
+                                "param1": "액시스제이",
+                                "param2": "AXU4J"
+                            },
+                            onLoad: function () {
+                                //trace(this);
+                                //myGrid.setFocus(this.list.length - 1);
+                            }
+                        });
+                        trace(myGridCodeGroup.getSortParam());
+                    },
+                    getExcel: function (type) {
+                        var obj = myGridCodeGroup.getExcelFormat(type, function () {
+                            return this.key != "no" && this.key != "finder";
+                        });
+                        $("#printout").html(obj);
+                    }
+                    ,
+                    getSelectedItem: function () {
+                        trace(this.target.getSelectedItem());
+                        toast.push('콘솔창에 데이터를 출력하였습니다.');
+                    }
+                    ,
+                    append: function () {
+                        this.target.pushList(
+                                {
+                                    no: this.target.list.length,
+                                    codeGroupId: "",
+                                    vn: "",
+                                    en: "",
+                                    useYn: 'Y'
+                                }
+                        );
+                        this.target.setFocus(this.target.list.length - 1);
+                    }
+                    ,
+                    remove: function () {
+                        var checkedList = myGridCodeGroup.getCheckedListWithIndex(0);// colSeq
+                        if (checkedList.length == 0) {
+                            alert("선택된 목록이 없습니다. 삭제하시려는 목록을 체크하세요");
+                            return;
+                        }
+                        this.target.removeListIndex(checkedList);
+                    },
+                save: function () {
+                    myGridCodeGroup.validateCheck("C");
+                    var param = myGridCodeGroup.getList();
+                    console.log(param);
+                }
                 }
             };
 
@@ -342,13 +563,23 @@
             <div id="AXPageBody" class="SampleAXSelect">
                 <div id="demoPageTabTarget" class="AXdemoPageTabTarget"></div>
                 <div class="AXdemoPageContent">
-
-                    <div class="title">
-                        <h1>Code management</h1>
+                    <div style="padding: 10px 0px;">
+                        <input type="button" value="ADD" class="AXButton Red" onclick="fnObj.gridCodeGroup.append();"/>
+                        <input type="button" value="REMOVE" class="AXButton Red" onclick="fnObj.gridCodeGroup.remove();"/>
+                        <input type="button" value="SAVE" class="AXButton" onclick="fnObj.gridCodeGroup.save();"/>
+                        <input type="button" value="DETAIL" class="AXButton" onclick="fnObj.gridCodeGroup.getSelectedItem();"/>
                     </div>
-                    <h2>Manage the code of whole application.</h2>
 
-                    <div id="AXGridTarget" style="height:400px;"></div>
+                    <div id="AXGridTargetCodeGroup"></div>
+                </div>
+                <div class="AXdemoPageContent">
+                    <div style="padding: 10px 0px;">
+                        <input type="button" value="ADD" class="AXButton Red" onclick="fnObj.gridCode.append();"/>
+                        <input type="button" value="REMOVE" class="AXButton Red" onclick="fnObj.gridCode.remove();"/>
+                        <input type="button" value="DETAIL" class="AXButton" onclick="fnObj.gridCode.getSelectedItem();"/>
+                    </div>
+
+                    <div id="AXGridTargetCode" style="height:400px;"></div>
                 </div>
             </div>
         </div>

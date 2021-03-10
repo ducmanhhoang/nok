@@ -24,4 +24,27 @@
         ORDER BY
             AC.SEQ
     </select>
+    
+    <select id="selectCodeGroupList" resultType="ResultVO" parameterType="F001211CodeGroupVO">
+        SELECT
+            ACG.CODE_GROUP_ID,
+            ACG.USE_YN,
+            ACGL1.CODE_GROUP_NM AS VN,
+            ACGL2.CODE_GROUP_NM AS EN
+        FROM
+            A_CODE_GROUP ACG
+        LEFT JOIN A_CODE_GROUP_LANG ACGL1 ON
+            ACG.CODE_GROUP_ID = ACGL1.CODE_GROUP_ID and ACGL1.LANG_CD = 'VN'
+        LEFT JOIN A_CODE_GROUP_LANG ACGL2 ON
+            ACG.CODE_GROUP_ID = ACGL2.CODE_GROUP_ID and ACGL2.LANG_CD = 'EN'
+    </select>
+    
+    <select id="selectCodeGroupIdExisted" resultType="ResultVO" parameterType="F001211CodeGroupVO">
+        SELECT
+            *
+        FROM
+            A_CODE_GROUP
+        WHERE
+            CODE_GROUP_ID = #{codeGroupId}
+    </select>
 </mapper>
