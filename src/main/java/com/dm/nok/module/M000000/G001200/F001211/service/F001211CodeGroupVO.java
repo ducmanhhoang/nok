@@ -14,6 +14,8 @@ import com.dm.nok.module.M000000.G000000.F000000.service.BaseVO;
 public class F001211CodeGroupVO extends BaseVO {
     private String codeGroupId;
     private String useYn;
+    private String en;
+    private String vn;
 
     public String getCodeGroupId() {
         return codeGroupId;
@@ -29,5 +31,21 @@ public class F001211CodeGroupVO extends BaseVO {
 
     public void setUseYn(String useYn) {
         this.useYn = useYn;
+    }
+
+    public String getEn() {
+        return en;
+    }
+
+    public void setEn(String en) {
+        this.en = en;
+    }
+
+    public String getVn() {
+        return vn;
+    }
+
+    public void setVn(String vn) {
+        this.vn = vn;
     }
 }

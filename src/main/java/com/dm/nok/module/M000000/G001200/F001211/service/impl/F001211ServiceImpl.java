@@ -40,5 +40,39 @@ public class F001211ServiceImpl implements F001211Service {
     public List<ResultVO> selectCodeGroupIdExisted(F001211CodeGroupVO param) throws Exception {
         return f001211Mapper.selectCodeGroupIdExisted(param);
     }
-    
+
+    @Override
+    public void saveCodeGroup(F001211CodeGroupVO param) throws Exception {
+        String cud = param.getCUD();
+        int count = 0;
+        try {
+            /*
+            switch (cud) {
+                case "C":
+                    count = f001211Mapper.insertCodeGroup(param);
+                    if (count == 0) {
+                        throw new Exception("100000");
+                    }
+                    break;
+                case "U":
+                    count = 0;
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    break;
+                case "D":
+                    count = 0;
+                    if (count == 0) {
+                        throw new Exception("100002");
+                    }
+                    break;
+                default:
+                    throw new Exception("100003");
+            }
+*/
+            System.out.println(param.getCodeGroupId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

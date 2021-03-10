@@ -340,6 +340,7 @@
                             fixedColSeq: 4,
                             //fitToWidth:true,
                             height: 300,
+                            passiveMode: true,
                             colGroup: [
                                 {key: "no", label: "번호", width: "50", align: "center", formatter: "checkbox"},
                                 {
@@ -365,22 +366,19 @@
                                             }
                                         },
                                         beforeUpdate: function (val) {
-                                            console.log(val);
+                                            //console.log(val);
 
                                             var valid = true;
-
                                             new AXReq("F001211/selectCodeGroupIdExisted.do",
                                                     {pars: {codeGroupId: val},
                                                         onsucc: function (res) {
                                                             trace(res);
                                                             if (!axf.isEmpty(res.list) && res.list.length != 0) {
                                                                 valid = false;
-                                                                toast.push({eatUpTime:1000, body:'<b>Warning</b>, The input is not valid!', type:'Warning'});
+                                                                toast.push({eatUpTime: 1000, body: '<b>Warning</b>, The input is not valid!', type: 'Warning'});
                                                             }
                                                         }, async: false
                                                     });
-
-                                            console.log(valid);
 
                                             if (valid)
                                                 return val;
@@ -392,7 +390,7 @@
                                             var pars = new Object();
                                             pars.codeGrpId = _this.item.codeGroupId;
                                             pars.code = val;
-                                            console.log(pars);
+                                            //console.log(pars);
                                         },
                                         notEmpty: true,
                                         maxLength: 50,
@@ -410,7 +408,7 @@
                                             return false;
                                         },
                                         beforeUpdate: function (val) {
-                                            console.log(val);
+                                            //console.log(val);
                                             if (val != null || val != '')
                                                 return val;
                                             else
@@ -418,12 +416,12 @@
                                         },
                                         afterUpdate: function (val) {
                                             var pars = new Object();
-                                            console.log(this.item);
+                                            //console.log(this.item);
                                             pars.codeGrpId = this.item.codeGroupId;
                                             pars.code = val;
-                                            console.log(pars);
+                                            //console.log(pars);
                                         },
-                                        required: true,
+                                        notEmpty: true,
                                         maxLength: 50,
                                         updateWith: ["_CUD"]
                                     }
@@ -440,7 +438,7 @@
                                         },
                                         beforeUpdate: function (val) {
                                             // 선택된 값은
-                                            console.log(val);
+                                            //console.log(val);
                                             return val;
                                         },
                                         afterUpdate: function (val) {
@@ -448,9 +446,9 @@
                                             var pars = new Object();
                                             pars.codeGrpId = _this.item.codeGrpId;
                                             pars.code = val;
-                                            console.log(pars);
+                                            //console.log(pars);
                                         },
-                                        required: true,
+                                        notEmpty: true,
                                         maxLength: 50,
                                         updateWith: ["_CUD"]
                                     }
@@ -488,6 +486,9 @@
                             body: {
                                 onclick: function () {
                                     //trace(this.index);
+                                },
+                                ondblclick: function () {
+                                    trace(this.index);
                                 }
                             }
                             ,
@@ -538,16 +539,30 @@
                     remove: function () {
                         var checkedList = myGridCodeGroup.getCheckedListWithIndex(0);// colSeq
                         if (checkedList.length == 0) {
-                            alert("선택된 목록이 없습니다. 삭제하시려는 목록을 체크하세요");
+                            toast.push("There is no selected list. Please check the list you want to delete.");
                             return;
                         }
                         this.target.removeListIndex(checkedList);
                     },
-                save: function () {
-                    myGridCodeGroup.validateCheck("C");
-                    var param = myGridCodeGroup.getList();
-                    console.log(param);
-                }
+                    save: function () {
+                        var validator = myGridCodeGroup.validateCheck("C,U");
+                        if (validator) {
+                            var list = myGridCodeGroup.getList();
+                            console.log(list);
+                            var param = {codeGroupList: list};
+                            console.log(param);
+                            new AXReq("F001211/saveCodeGroup.do",
+                                    {pars: JSON.stringify(param),
+                                        onsucc: function (res) {
+                                            trace(res);
+                                            if (!axf.isEmpty(res.list) && res.list.length != 0) {
+                                                valid = false;
+                                                toast.push({eatUpTime: 1000, body: '<b>Warning</b>, The input is not valid!', type: 'Warning'});
+                                            }
+                                        }, async: false
+                                    });
+                        }
+                    }
                 }
             };
 

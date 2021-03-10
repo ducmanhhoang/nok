@@ -38,4 +38,12 @@ public interface F001211Mapper {
      * @throws Exception 
      */
     public List<ResultVO> selectCodeGroupIdExisted(F001211CodeGroupVO param) throws Exception;
+    
+    /**
+     * Insert Code group
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int insertCodeGroup(F001211CodeGroupVO param) throws Exception;
 }

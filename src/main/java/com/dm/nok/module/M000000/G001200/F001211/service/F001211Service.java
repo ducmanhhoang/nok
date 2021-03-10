@@ -36,4 +36,11 @@ public interface F001211Service {
      * @throws Exception 
      */
     public List<ResultVO> selectCodeGroupIdExisted(F001211CodeGroupVO param) throws Exception;
+    
+    /**
+     * Save Code group
+     * @param param
+     * @throws Exception 
+     */
+    public void saveCodeGroup(F001211CodeGroupVO param) throws Exception;
 }

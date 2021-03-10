@@ -7,14 +7,17 @@ package com.dm.nok.module.M000000.G001200.F001211.web;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultListVO;
 import com.dm.nok.module.M000000.G000000.F000000.web.BaseController;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupListVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211Service;
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,7 +39,7 @@ public class F001211Controller extends BaseController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "F001211/selectCodeList.do")
+    @RequestMapping(value = "F001211/selectCodeList.json")
     public ResultListVO selectCodeList(F001211CodeVO param, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
@@ -57,12 +60,30 @@ public class F001211Controller extends BaseController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "F001211/selectCodeGroupIdExisted.do")
+    @RequestMapping(value = "F001211/selectCodeGroupIdExisted.json")
     public ResultListVO selectCodeGroupIdExisted(F001211CodeGroupVO param, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
         
         return this.addResult(f001211Service.selectCodeGroupIdExisted(bindAuditData(param)));
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "F001211/saveCodeGroup.do")
+    public ResultListVO saveCodeGroup(@RequestBody F001211CodeGroupListVO param, BindingResult bindingResult) throws Exception {
+        
+        if (bindingResult.hasErrors()) {
+            throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
+        }
+        
+        int i = 0;
+        if (param.getCodeGroupList() != null)
+            for (F001211CodeGroupVO item: param.getCodeGroupList()) {
+                f001211Service.saveCodeGroup(bindAuditData(item));
+                i = i + 1;
+            }
+        
+        return this.addResult(i);
     }
 }

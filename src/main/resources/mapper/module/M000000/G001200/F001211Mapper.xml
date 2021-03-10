@@ -47,4 +47,14 @@
         WHERE
             CODE_GROUP_ID = #{codeGroupId}
     </select>
+    
+    <insert id="insertCodeGroup" parameterType="F001211CodeGroupVO">
+        INSERT INTO A_CODE_GROUP (
+            CODE_GROUP_ID,
+            USE_YN
+        ) VALUES (
+            #{codeGroupId},
+            #{useYn}
+        )
+    </insert>
 </mapper>
