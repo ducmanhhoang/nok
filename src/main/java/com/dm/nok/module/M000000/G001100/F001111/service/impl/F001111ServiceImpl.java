@@ -50,7 +50,7 @@ public class F001111ServiceImpl implements F001111Service {
         file.setFileSize(String.valueOf(param.getSize()));
         file.setUploadedPath("../../M000000/G001100/F001111/downloadFile.do?name=" + file.getName() + "&saveName=");
         file.setThumbPath("../../M000000/G001100/F001111/downloadFile.do?name=" + file.getName() + "&saveName=" + file.getSaveName());
-        file.setCUD("C");
+        file.set_CUD("C");
         saveFile(file);
 
         // Creating directory
@@ -100,7 +100,7 @@ public class F001111ServiceImpl implements F001111Service {
     }
 
     public void saveFile(F001111FileVO param) throws Exception {
-        String cud = param.getCUD();
+        String cud = param.get_CUD();
         int count = 0;
         try {
             switch (cud) {

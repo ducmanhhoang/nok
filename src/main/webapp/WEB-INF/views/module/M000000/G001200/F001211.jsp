@@ -3,7 +3,7 @@
     Created on : Jan 21, 2021, 10:53:37 AM
     Author     : Hoang Duc Manh
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,6 +18,8 @@
              * CSS            : AXJ.css, AXGrid.css, AXButton.css, AXInput.css, AXSelect.css
              */
             var menuId = "F001211";
+            var langCd = '${langCd}';
+            var langList = '${langList}';
             var fnObj = {
                 pageStart: function () {
                     fnObj.gridCode.bind();
@@ -369,16 +371,29 @@
                                             //console.log(val);
 
                                             var valid = true;
-                                            new AXReq("F001211/selectCodeGroupIdExisted.do",
-                                                    {pars: {codeGroupId: val},
-                                                        onsucc: function (res) {
-                                                            trace(res);
-                                                            if (!axf.isEmpty(res.list) && res.list.length != 0) {
-                                                                valid = false;
-                                                                toast.push({eatUpTime: 1000, body: '<b>Warning</b>, The input is not valid!', type: 'Warning'});
-                                                            }
-                                                        }, async: false
-                                                    });
+                                            var url = "F001211/selectCodeGroupIdExisted.do";
+                                            var param = {codeGroupId: val};
+
+                                            new AXReq(url, {
+                                                debug: false,
+                                                async: false,
+                                                pars: JSON.stringify(param),
+                                                onsucc: function (res) {
+                                                    if (res.result == AXUtil.ajaxOkCode) {
+                                                        trace("requestOk");
+                                                    } else {
+                                                        trace(res);
+                                                        if (!axf.isEmpty(res.list) && res.list.length != 0) {
+                                                            valid = false;
+                                                            toast.push({eatUpTime: 1000, body: '<b>Warning</b>\n Code Group ID is existed.', type: 'Warning'});
+                                                        }
+                                                    }
+                                                },
+                                                onerr: function (res) {
+                                                    valid = false;
+                                                    toast.push("onFail:" + req.responseText);
+                                                }
+                                            });
 
                                             if (valid)
                                                 return val;
@@ -397,37 +412,9 @@
                                         updateWith: ["_CUD"]
                                     }
                                 },
+                                <c:forEach var="result" items="${langList}" varStatus="status">
                                 {
-                                    key: "vn", label: "Vietnamese", width: "300",
-                                    formatter: function () {
-                                        return this.value;
-                                    },
-                                    editor: {
-                                        type: "text",
-                                        disabled: function () {
-                                            return false;
-                                        },
-                                        beforeUpdate: function (val) {
-                                            //console.log(val);
-                                            if (val != null || val != '')
-                                                return val;
-                                            else
-                                                return "";
-                                        },
-                                        afterUpdate: function (val) {
-                                            var pars = new Object();
-                                            //console.log(this.item);
-                                            pars.codeGrpId = this.item.codeGroupId;
-                                            pars.code = val;
-                                            //console.log(pars);
-                                        },
-                                        notEmpty: true,
-                                        maxLength: 50,
-                                        updateWith: ["_CUD"]
-                                    }
-                                },
-                                {
-                                    key: "en", label: "English", width: "300",
+                                    key: "${result.langCd}", label: "${result.langNm}", width: "300",
                                     formatter: function () {
                                         return this.value;
                                     },
@@ -453,6 +440,7 @@
                                         updateWith: ["_CUD"]
                                     }
                                 },
+                                </c:forEach>
                                 {
                                     key: "useYn", label: "Use Y/N", width: "80", align: "center",
                                     editor: {
@@ -539,7 +527,7 @@
                     remove: function () {
                         var checkedList = myGridCodeGroup.getCheckedListWithIndex(0);// colSeq
                         if (checkedList.length == 0) {
-                            toast.push("There is no selected list. Please check the list you want to delete.");
+                            toast.push({eatUpTime: 1000, body: '<b>Warning</b>\n Please check the list you want to delete.', type: 'Warning'});
                             return;
                         }
                         this.target.removeListIndex(checkedList);
@@ -547,20 +535,30 @@
                     save: function () {
                         var validator = myGridCodeGroup.validateCheck("C,U");
                         if (validator) {
-                            var list = myGridCodeGroup.getList();
+                            var list = myGridCodeGroup.getList("C,U,D");
                             console.log(list);
                             var param = {codeGroupList: list};
                             console.log(param);
-                            new AXReq("F001211/saveCodeGroup.do",
-                                    {pars: JSON.stringify(param),
-                                        onsucc: function (res) {
-                                            trace(res);
-                                            if (!axf.isEmpty(res.list) && res.list.length != 0) {
-                                                valid = false;
-                                                toast.push({eatUpTime: 1000, body: '<b>Warning</b>, The input is not valid!', type: 'Warning'});
-                                            }
-                                        }, async: false
-                                    });
+
+                            var url = "F001211/saveCodeGroup.do";
+                            new AXReq(url, {
+                                debug: false,
+                                async: false,
+                                pars: JSON.stringify(param),
+                                onsucc: function (res) {
+                                    if (res.result == AXUtil.ajaxOkCode) {
+                                        trace("requestOk");
+                                    } else {
+                                        trace(res);
+                                        if (!axf.isEmpty(res.list) && res.list.length != 0) {
+                                            toast.push({eatUpTime: 1000, body: '<b>Complete</b>\n Complete messange send.', type: 'Complete'});
+                                        }
+                                    }
+                                },
+                                onerr: function (res) {
+                                    toast.push("onFail:" + req.responseText);
+                                }
+                            });
                         }
                     }
                 }
@@ -568,6 +566,7 @@
 
             jQuery(document.body).ready(function () {
                 fnObj.pageStart();
+                console.log(langList);
             });
         </script>
     </head>
@@ -597,6 +596,10 @@
                     <div id="AXGridTargetCode" style="height:400px;"></div>
                 </div>
             </div>
+            
+            <c:forEach var="result" items="${langList}" varStatus="status">
+                            ${result.langCd}
+                            </c:forEach>
         </div>
 
     </body>

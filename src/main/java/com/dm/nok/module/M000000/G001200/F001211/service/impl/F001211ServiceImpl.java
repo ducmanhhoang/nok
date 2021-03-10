@@ -43,10 +43,10 @@ public class F001211ServiceImpl implements F001211Service {
 
     @Override
     public void saveCodeGroup(F001211CodeGroupVO param) throws Exception {
-        String cud = param.getCUD();
+        String cud = param.get_CUD();
         int count = 0;
         try {
-            /*
+            
             switch (cud) {
                 case "C":
                     count = f001211Mapper.insertCodeGroup(param);
@@ -69,8 +69,6 @@ public class F001211ServiceImpl implements F001211Service {
                 default:
                     throw new Exception("100003");
             }
-*/
-            System.out.println(param.getCodeGroupId());
         } catch (Exception e) {
             e.printStackTrace();
         }

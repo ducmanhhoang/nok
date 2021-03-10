@@ -60,8 +60,8 @@ public class F001211Controller extends BaseController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "F001211/selectCodeGroupIdExisted.json")
-    public ResultListVO selectCodeGroupIdExisted(F001211CodeGroupVO param, BindingResult bindingResult) throws Exception {
+    @RequestMapping(value = "F001211/selectCodeGroupIdExisted.do")
+    public ResultListVO selectCodeGroupIdExisted(@RequestBody F001211CodeGroupVO param, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
@@ -77,13 +77,11 @@ public class F001211Controller extends BaseController {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
         
-        int i = 0;
         if (param.getCodeGroupList() != null)
             for (F001211CodeGroupVO item: param.getCodeGroupList()) {
                 f001211Service.saveCodeGroup(bindAuditData(item));
-                i = i + 1;
             }
         
-        return this.addResult(i);
+        return this.addResult(param);
     }
 }

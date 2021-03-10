@@ -29,14 +29,14 @@
         SELECT
             ACG.CODE_GROUP_ID,
             ACG.USE_YN,
-            ACGL1.CODE_GROUP_NM AS VN,
+            ACGL1.CODE_GROUP_NM AS VI,
             ACGL2.CODE_GROUP_NM AS EN
         FROM
             A_CODE_GROUP ACG
         LEFT JOIN A_CODE_GROUP_LANG ACGL1 ON
-            ACG.CODE_GROUP_ID = ACGL1.CODE_GROUP_ID and ACGL1.LANG_CD = 'VN'
+            ACG.CODE_GROUP_ID = ACGL1.CODE_GROUP_ID and ACGL1.LANG_CD = 'vi'
         LEFT JOIN A_CODE_GROUP_LANG ACGL2 ON
-            ACG.CODE_GROUP_ID = ACGL2.CODE_GROUP_ID and ACGL2.LANG_CD = 'EN'
+            ACG.CODE_GROUP_ID = ACGL2.CODE_GROUP_ID and ACGL2.LANG_CD = 'en'
     </select>
     
     <select id="selectCodeGroupIdExisted" resultType="ResultVO" parameterType="F001211CodeGroupVO">

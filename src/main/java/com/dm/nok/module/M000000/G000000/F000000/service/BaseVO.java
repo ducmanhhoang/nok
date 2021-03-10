@@ -77,11 +77,11 @@ public class BaseVO {
         this.updtDt = updtDt;
     }
 
-    public String getCUD() {
+    public String get_CUD() {
         return _CUD;
     }
 
-    public void setCUD(String _CUD) {
+    public void set_CUD(String _CUD) {
         this._CUD = _CUD;
     }
 }
