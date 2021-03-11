@@ -6,6 +6,7 @@
 package com.dm.nok.module.M000000.G001200.F001211.service.impl;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import java.util.List;
@@ -20,11 +21,10 @@ import com.dm.nok.module.M000000.G001200.F001211.service.F001211Service;
  */
 @Service(value = "f001211Service")
 public class F001211ServiceImpl implements F001211Service {
-    
+
     @Autowired
     @Resource(name = "f001211Mapper")
     private F001211Mapper f001211Mapper;
-    
 
     @Override
     public List<ResultVO> selectCodeList(F001211CodeVO param) throws Exception {
@@ -33,7 +33,26 @@ public class F001211ServiceImpl implements F001211Service {
 
     @Override
     public List<ResultVO> selectCodeGroupList(F001211CodeGroupVO param) throws Exception {
-        return f001211Mapper.selectCodeGroupList(param);
+        String sql = "SELECT\n"
+                + "            ACG.CODE_GROUP_ID,\n"
+                + "            ACG.USE_YN";
+        int i = 0;
+        for (F001211CodeGroupLangVO item : param.getCodeGroupLangList()) {
+            sql = sql + ",\n            ACGL" + i + ".CODE_GROUP_NM AS " + item.getLangCd();
+            i = i + 1;
+        }
+
+        sql = sql + "\n        FROM\n"
+                + "            A_CODE_GROUP ACG\n";
+        i = 0;
+        for (F001211CodeGroupLangVO item : param.getCodeGroupLangList()) {
+            sql = sql + "        LEFT JOIN A_CODE_GROUP_LANG ACGL" + i + " ON\n"
+                    + "            ACG.CODE_GROUP_ID = ACGL" + i + ".CODE_GROUP_ID\n"
+                    + "            AND ACGL" + i + ".LANG_CD = '" + item.getLangCd() + "'\n";
+            i = i + 1;
+        }
+
+        return f001211Mapper.selectCodeGroupList(sql);
     }
 
     @Override
@@ -46,28 +65,76 @@ public class F001211ServiceImpl implements F001211Service {
         String cud = param.get_CUD();
         int count = 0;
         try {
-            
+
             switch (cud) {
                 case "C":
                     count = f001211Mapper.insertCodeGroup(param);
                     if (count == 0) {
-                        throw new Exception("100000");
+                        throw new Exception("100001");
+                    }
+                    if (param.getCodeGroupLangList() != null) {
+                        for (F001211CodeGroupLangVO item : param.getCodeGroupLangList()) {
+                            saveCodeGroupLang(item);
+                        }
                     }
                     break;
                 case "U":
-                    count = 0;
+                    count = f001211Mapper.updateCodeGroup(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    if (param.getCodeGroupLangList() != null) {
+                        for (F001211CodeGroupLangVO item : param.getCodeGroupLangList()) {
+                            saveCodeGroupLang(item);
+                        }
+                    }
+                    break;
+                case "D":
+                    count = f001211Mapper.deleteCodeGroup(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    if (param.getCodeGroupLangList() != null) {
+                        for (F001211CodeGroupLangVO item : param.getCodeGroupLangList()) {
+                            saveCodeGroupLang(item);
+                        }
+                    }
+                    break;
+                default:
+                    throw new Exception("100001");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveCodeGroupLang(F001211CodeGroupLangVO param) throws Exception {
+        String cud = param.get_CUD();
+        int count = 0;
+        try {
+
+            switch (cud) {
+                case "C":
+                    count = f001211Mapper.mergeCodeGroupLang(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    break;
+                case "U":
+                    count = f001211Mapper.mergeCodeGroupLang(param);
                     if (count == 0) {
                         throw new Exception("100001");
                     }
                     break;
                 case "D":
-                    count = 0;
+                    count = f001211Mapper.deleteCodeGroupLang(param);
                     if (count == 0) {
-                        throw new Exception("100002");
+                        throw new Exception("100001");
                     }
                     break;
                 default:
-                    throw new Exception("100003");
+                    throw new Exception("100001");
             }
         } catch (Exception e) {
             e.printStackTrace();

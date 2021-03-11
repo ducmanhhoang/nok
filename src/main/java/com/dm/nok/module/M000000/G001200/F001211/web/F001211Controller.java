@@ -7,12 +7,15 @@ package com.dm.nok.module.M000000.G001200.F001211.web;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultListVO;
 import com.dm.nok.module.M000000.G000000.F000000.web.BaseController;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupListVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211Service;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,6 +58,16 @@ public class F001211Controller extends BaseController {
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
+        
+        List<F001211CodeGroupLangVO> codeGroupLangList = new ArrayList<F001211CodeGroupLangVO>();
+        List<Map<String, String>> langList = this.getlangList();
+        for(Map<String, String> item: langList) {
+            System.out.println(item.get("langCd"));
+            F001211CodeGroupLangVO codeGroupLang = new F001211CodeGroupLangVO();
+            codeGroupLang.setLangCd(item.get("langCd"));
+            codeGroupLangList.add(codeGroupLang);
+        }
+        param.setCodeGroupLangList(codeGroupLangList);
         
         return this.addResult(f001211Service.selectCodeGroupList(bindAuditData(param)));
     }

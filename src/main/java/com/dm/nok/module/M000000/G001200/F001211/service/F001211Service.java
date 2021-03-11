@@ -43,4 +43,11 @@ public interface F001211Service {
      * @throws Exception 
      */
     public void saveCodeGroup(F001211CodeGroupVO param) throws Exception;
+    
+    /**
+     * Save Code group lang
+     * @param param
+     * @throws Exception 
+     */
+    public void saveCodeGroupLang(F001211CodeGroupLangVO param) throws Exception;
 }

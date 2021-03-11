@@ -6,16 +6,15 @@
 package com.dm.nok.module.M000000.G001200.F001211.service;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.BaseVO;
-import java.util.List;
 
 /**
  *
  * @author Hoang Duc Manh
  */
-public class F001211CodeGroupVO extends BaseVO {
+public class F001211CodeGroupLangVO extends BaseVO {
     private String codeGroupId;
-    private String useYn;
-    private List<F001211CodeGroupLangVO> codeGroupLangList;
+    private String langCd;
+    private String codeGroupNm;
 
     public String getCodeGroupId() {
         return codeGroupId;
@@ -25,19 +24,20 @@ public class F001211CodeGroupVO extends BaseVO {
         this.codeGroupId = codeGroupId;
     }
 
-    public String getUseYn() {
-        return useYn;
+    public String getLangCd() {
+        return langCd;
     }
 
-    public void setUseYn(String useYn) {
-        this.useYn = useYn;
+    public void setLangCd(String langCd) {
+        this.langCd = langCd;
     }
 
-    public List<F001211CodeGroupLangVO> getCodeGroupLangList() {
-        return codeGroupLangList;
+    public String getCodeGroupNm() {
+        return codeGroupNm;
     }
 
-    public void setCodeGroupLangList(List<F001211CodeGroupLangVO> codeGroupLangList) {
-        this.codeGroupLangList = codeGroupLangList;
+    public void setCodeGroupNm(String codeGroupNm) {
+        this.codeGroupNm = codeGroupNm;
     }
+    
 }

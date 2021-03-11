@@ -25,18 +25,8 @@
             AC.SEQ
     </select>
     
-    <select id="selectCodeGroupList" resultType="ResultVO" parameterType="F001211CodeGroupVO">
-        SELECT
-            ACG.CODE_GROUP_ID,
-            ACG.USE_YN,
-            ACGL1.CODE_GROUP_NM AS VI,
-            ACGL2.CODE_GROUP_NM AS EN
-        FROM
-            A_CODE_GROUP ACG
-        LEFT JOIN A_CODE_GROUP_LANG ACGL1 ON
-            ACG.CODE_GROUP_ID = ACGL1.CODE_GROUP_ID and ACGL1.LANG_CD = 'vi'
-        LEFT JOIN A_CODE_GROUP_LANG ACGL2 ON
-            ACG.CODE_GROUP_ID = ACGL2.CODE_GROUP_ID and ACGL2.LANG_CD = 'en'
+    <select id="selectCodeGroupList" resultType="ResultVO" parameterType="String">
+        ${sql}
     </select>
     
     <select id="selectCodeGroupIdExisted" resultType="ResultVO" parameterType="F001211CodeGroupVO">
@@ -57,4 +47,52 @@
             #{useYn}
         )
     </insert>
+    
+    <update id="updateCodeGroup" parameterType="F001211CodeGroupVO">
+        UPDATE A_CODE_GROUP
+        SET
+            USE_YN = #{useYn}
+        WHERE
+            CODE_GROUP_ID = #{codeGroupId}
+    </update>
+    
+    <delete id="deleteCodeGroup" parameterType="F001211CodeGroupVO">
+        DELETE A_CODE_GROUP
+        WHERE CODE_GROUP_ID = #{codeGroupId}
+    </delete>
+    
+    <insert id="mergeCodeGroupLang" parameterType="F001211CodeGroupLangVO">
+        INSERT INTO A_CODE_GROUP_LANG (
+            CODE_GROUP_ID, 
+            LANG_CD, 
+            CODE_GROUP_NM
+        ) VALUES (
+            #{codeGroupId}, 
+            #{langCd}, 
+            #{codeGroupNm}
+        )
+        ON DUPLICATE KEY
+        UPDATE 
+            CODE_GROUP_NM = #{codeGroupNm}
+    </insert>
+    
+    <delete id="deleteCodeGroupLang" parameterType="F001211CodeGroupLangVO">
+        DELETE A_CODE_GROUP_LANG
+        WHERE
+            CODE_GROUP_ID = #{codeGroupId}
+            AND LANG_CD = #{langCd}
+    </delete>
+    
+    <select id="selectCode" resultType="ResultVO" parameterType="F001211CodeVO">
+        SELECT
+            CODE_ID,
+            CODE_GROUP_ID,
+            OPTION1,
+            OPTION2,
+            OPTION3,
+            SEQ,
+        FROM
+            A_CODE AC
+        LEFT JOIN A_CODE
+    </select>
 </mapper>

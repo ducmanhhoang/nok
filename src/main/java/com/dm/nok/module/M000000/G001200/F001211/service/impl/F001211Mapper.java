@@ -6,6 +6,7 @@
 package com.dm.nok.module.M000000.G001200.F001211.service.impl;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import java.util.List;
@@ -25,11 +26,11 @@ public interface F001211Mapper {
     
     /**
      * Select Code group list
-     * @param param
+     * @param sql
      * @return
      * @throws Exception 
      */
-    public List<ResultVO> selectCodeGroupList(F001211CodeGroupVO param) throws Exception;
+    public List<ResultVO> selectCodeGroupList(String sql) throws Exception;
     
     /**
      * Select Code group ID existed
@@ -46,4 +47,36 @@ public interface F001211Mapper {
      * @throws Exception 
      */
     public int insertCodeGroup(F001211CodeGroupVO param) throws Exception;
+    
+    /**
+     * Update Code group
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int updateCodeGroup(F001211CodeGroupVO param) throws Exception;
+    
+    /**
+     * Delete Code group
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int deleteCodeGroup(F001211CodeGroupVO param) throws Exception;
+    
+    /**
+     * Merge Code group lang
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int mergeCodeGroupLang(F001211CodeGroupLangVO param) throws Exception;
+    
+    /**
+     * Delete Code group lang
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int deleteCodeGroupLang(F001211CodeGroupLangVO param) throws Exception;
 }

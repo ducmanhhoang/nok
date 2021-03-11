@@ -4,6 +4,7 @@
     Author     : Hoang Duc Manh
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,6 @@
              */
             var menuId = "F001211";
             var langCd = '${langCd}';
-            var langList = '${langList}';
             var fnObj = {
                 pageStart: function () {
                     fnObj.gridCode.bind();
@@ -32,12 +32,16 @@
 
                         myGridCode.setConfig({
                             targetID: "AXGridTargetCode",
+                            theme: "AXGrid",
                             sort: false,
-                            fixedColSeq: 3,
+                            fixedColSeq: 4,
+                            //fitToWidth:true,
+                            height: 300,
+                            passiveMode: true,
                             colGroup: [
-                                {key: "no", label: "번호", width: "50", align: "center", formatter: "checkbox"},
+                                {key: "no", label: "No.", width: "50", align: "center", formatter: "checkbox"},
                                 {
-                                    key: "_CUD", label: "상태", width: "50", align: "center"
+                                    key: "_CUD", label: "State", width: "50", align: "center"
                                 },
                                 {
                                     key: "string", label: "String", width: "200",
@@ -344,9 +348,9 @@
                             height: 300,
                             passiveMode: true,
                             colGroup: [
-                                {key: "no", label: "번호", width: "50", align: "center", formatter: "checkbox"},
+                                {key: "no", label: "No.", width: "50", align: "center", formatter: "checkbox"},
                                 {
-                                    key: "_CUD", label: "상태", width: "50", align: "center"
+                                    key: "_CUD", label: "State", width: "50", align: "center"
                                 },
                                 {
                                     key: "codeGroupId", label: "Code Group ID", width: "200",
@@ -459,12 +463,13 @@
                                         {key: "no", rowspan: 2},
                                         {key: "_CUD", rowspan: 2},
                                         {key: "codeGroupId", rowspan: 2},
-                                        {colspan: 2, label: "Language", align: "center", valign: "middle"}, // 3,4
+                                        {colspan: ${fn:length(langList)}, label: "Code Group Name", align: "center", valign: "middle"}, // 3,4
                                         {key: "useYn", rowspan: 2}
                                     ],
                                     [
-                                        {key: 'vn'},
-                                        {key: 'en'}
+                                        <c:forEach var="result" items="${langList}" varStatus="status">
+                                        {key: '${result.langCd}'},
+                                        </c:forEach>
                                     ]
                                 ],
                                 onclick: function () {
@@ -473,7 +478,7 @@
                             },
                             body: {
                                 onclick: function () {
-                                    //trace(this.index);
+                                    trace(this.index);
                                 },
                                 ondblclick: function () {
                                     trace(this.index);
@@ -516,7 +521,7 @@
                                 {
                                     no: this.target.list.length,
                                     codeGroupId: "",
-                                    vn: "",
+                                    vi: "",
                                     en: "",
                                     useYn: 'Y'
                                 }
@@ -537,6 +542,15 @@
                         if (validator) {
                             var list = myGridCodeGroup.getList("C,U,D");
                             console.log(list);
+                            
+                            $.each(list, function(k, v) {
+                                var codeGroupLangList = [];
+                                <c:forEach var="result" items="${langList}" varStatus="status">
+                                    codeGroupLangList.push({codeGroupId: v.codeGroupId, langCd: '${result.langCd}', codeGroupNm: v['${result.langCd}'], _CUD: v._CUD});
+                                </c:forEach>
+                                v.codeGroupLangList = codeGroupLangList;
+                            });
+                            
                             var param = {codeGroupList: list};
                             console.log(param);
 
@@ -551,7 +565,8 @@
                                     } else {
                                         trace(res);
                                         if (!axf.isEmpty(res.list) && res.list.length != 0) {
-                                            toast.push({eatUpTime: 1000, body: '<b>Complete</b>\n Complete messange send.', type: 'Complete'});
+                                            myGridCodeGroup.reloadList();
+                                            toast.push({eatUpTime: 1000, body: '<b>Complete</b>\n Complete saving.', type: 'Complete'});
                                         }
                                     }
                                 },
@@ -566,7 +581,6 @@
 
             jQuery(document.body).ready(function () {
                 fnObj.pageStart();
-                console.log(langList);
             });
         </script>
     </head>
@@ -577,29 +591,28 @@
             <div id="AXPageBody" class="SampleAXSelect">
                 <div id="demoPageTabTarget" class="AXdemoPageTabTarget"></div>
                 <div class="AXdemoPageContent">
+                    <h2>Code group</h2>
                     <div style="padding: 10px 0px;">
                         <input type="button" value="ADD" class="AXButton Red" onclick="fnObj.gridCodeGroup.append();"/>
                         <input type="button" value="REMOVE" class="AXButton Red" onclick="fnObj.gridCodeGroup.remove();"/>
                         <input type="button" value="SAVE" class="AXButton" onclick="fnObj.gridCodeGroup.save();"/>
                         <input type="button" value="DETAIL" class="AXButton" onclick="fnObj.gridCodeGroup.getSelectedItem();"/>
                     </div>
-
                     <div id="AXGridTargetCodeGroup"></div>
-                </div>
-                <div class="AXdemoPageContent">
+                    
+                    <h2>Code</h2>
                     <div style="padding: 10px 0px;">
                         <input type="button" value="ADD" class="AXButton Red" onclick="fnObj.gridCode.append();"/>
                         <input type="button" value="REMOVE" class="AXButton Red" onclick="fnObj.gridCode.remove();"/>
                         <input type="button" value="DETAIL" class="AXButton" onclick="fnObj.gridCode.getSelectedItem();"/>
                     </div>
-
-                    <div id="AXGridTargetCode" style="height:400px;"></div>
+                    <div id="AXGridTargetCode"></div>
+                </div>
+                
+                <div class="AXdemoPageContent">
+                    
                 </div>
             </div>
-            
-            <c:forEach var="result" items="${langList}" varStatus="status">
-                            ${result.langCd}
-                            </c:forEach>
         </div>
 
     </body>
