@@ -57,7 +57,7 @@
     </update>
     
     <delete id="deleteCodeGroup" parameterType="F001211CodeGroupVO">
-        DELETE A_CODE_GROUP
+        DELETE FROM A_CODE_GROUP
         WHERE CODE_GROUP_ID = #{codeGroupId}
     </delete>
     
@@ -77,7 +77,7 @@
     </insert>
     
     <delete id="deleteCodeGroupLang" parameterType="F001211CodeGroupLangVO">
-        DELETE A_CODE_GROUP_LANG
+        DELETE FROM A_CODE_GROUP_LANG
         WHERE
             CODE_GROUP_ID = #{codeGroupId}
             AND LANG_CD = #{langCd}

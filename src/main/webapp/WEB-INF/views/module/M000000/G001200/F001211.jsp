@@ -343,7 +343,7 @@
                             targetID: "AXGridTargetCodeGroup",
                             theme: "AXGrid",
                             sort: false,
-                            fixedColSeq: 4,
+                            fixedColSeq: 2,
                             //fitToWidth:true,
                             height: 300,
                             passiveMode: true,
