@@ -11,6 +11,7 @@ import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupListVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeLangVO;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeListVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211Service;
 import java.io.IOException;
@@ -102,8 +103,6 @@ public class F001211Controller extends BaseController {
     @RequestMapping(value = "F001211/selectCodeList2.do")
     public ResultListVO selectCodeList2(@RequestBody F001211CodeVO param, BindingResult bindingResult) throws Exception {
         
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@: " + param.getCodeGroupId());
-        
         if (bindingResult.hasErrors()) {
             throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
         }
@@ -118,5 +117,21 @@ public class F001211Controller extends BaseController {
         param.setCodeLangList(codeLangList);
         
         return this.addResult(f001211Service.selectCodeList2(bindAuditData(param)));
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "F001211/saveCode.do")
+    public ResultListVO saveCode(@RequestBody F001211CodeListVO param, BindingResult bindingResult) throws Exception {
+        
+        if (bindingResult.hasErrors()) {
+            throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
+        }
+        
+        if (param.getCodeList() != null)
+            for (F001211CodeVO item: param.getCodeList()) {
+                f001211Service.saveCode(bindAuditData(item));
+            }
+        
+        return this.addResult(param);
     }
 }

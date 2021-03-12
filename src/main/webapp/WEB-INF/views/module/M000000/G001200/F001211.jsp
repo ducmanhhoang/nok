@@ -34,7 +34,7 @@
                             targetID: "AXGridTargetCode",
                             theme: "AXGrid",
                             sort: false,
-                            fixedColSeq: 4,
+                            //fixedColSeq: 4,
                             //fitToWidth:true,
                             height: 300,
                             passiveMode: true,
@@ -72,7 +72,7 @@
                                             new AXReq(url, {
                                                 debug: false,
                                                 async: false,
-                                                pars: JSON.stringify(param),
+                                                pars: param,
                                                 onsucc: function (res) {
                                                     if (res.result == AXUtil.ajaxOkCode) {
                                                         trace("requestOk");
@@ -158,7 +158,7 @@
                                             pars.code = val;
                                             //console.log(pars);
                                         },
-                                        notEmpty: true,
+                                        //notEmpty: true,
                                         maxLength: 50,
                                         updateWith: ["_CUD"]
                                     }
@@ -185,7 +185,7 @@
                                             pars.code = val;
                                             //console.log(pars);
                                         },
-                                        notEmpty: true,
+                                        //notEmpty: true,
                                         maxLength: 50,
                                         updateWith: ["_CUD"]
                                     }
@@ -212,7 +212,7 @@
                                             pars.code = val;
                                             //console.log(pars);
                                         },
-                                        notEmpty: true,
+                                        //notEmpty: true,
                                         maxLength: 50,
                                         updateWith: ["_CUD"]
                                     }
@@ -258,7 +258,7 @@
                         }
                         );
 
-                        
+                        /*
                         myGridCode.setList({
                             ajaxUrl: "F001211/selectCodeList2.do",
                             ajaxPars: {},
@@ -267,6 +267,7 @@
                                 //myGrid.setFocus(this.list.length - 1);
                             }
                         });
+                         */
                         trace(myGridCode.getSortParam());
 
                     },
@@ -286,16 +287,12 @@
                         this.target.pushList(
                                 {
                                     no: this.target.list.length,
-                                    string: "",
-                                    combobox: {optionValue: 1, optionText: "김기영"},
-                                    combobox1: {CD: '1', NM: '김동근', options: [{CD: 1, NM: "김동근"}, {CD: 2, NM: "박동근"}, {CD: 3, NM: "장동근"}]},
-                                    combobox2: {CD: 1, NM: "김기영"},
-                                    date: "2013-01-18",
-                                    money: 1709401,
-                                    number: 10,
-                                    checkbox: 1,
-                                    radio: 1,
-                                    finder: "선택"
+                                    codeId: "",
+                                    codeGroupId: fnObj.gridCodeGroup.getSelectedItem2().item.codeGroupId,
+                                    option1: null,
+                                    option2: null,
+                                    option3: null,
+                                    seq: 0
                                 }
                         );
                         this.target.setFocus(this.target.list.length - 1);
@@ -308,6 +305,45 @@
                             return;
                         }
                         this.target.removeListIndex(checkedList);
+                    },
+                    save: function () {
+                        var validator = myGridCode.validateCheck("C,U");
+                        if (validator) {
+                            var list = myGridCode.getList("C,U,D");
+                            console.log(list);
+                            
+                            $.each(list, function(k, v) {
+                                var codeLangList = [];
+                                <c:forEach var="result" items="${langList}" varStatus="status">
+                                    codeLangList.push({codeId: v.codeId, codeGroupId: v.codeGroupId, langCd: '${result.langCd}', codeNm: v['${result.langCd}'], _CUD: v._CUD});
+                                </c:forEach>
+                                v.codeLangList = codeLangList;
+                            });
+                            
+                            var param = {codeList: list};
+                            console.log(param);
+
+                            var url = "F001211/saveCode.do";
+                            new AXReq(url, {
+                                debug: false,
+                                async: false,
+                                pars: param,
+                                onsucc: function (res) {
+                                    if (res.result == AXUtil.ajaxOkCode) {
+                                        trace("requestOk");
+                                    } else {
+                                        trace(res);
+                                        if (!axf.isEmpty(res.list) && res.list.length != 0) {
+                                            myGridCode.reloadList();
+                                            toast.push({eatUpTime: 1000, body: '<b>Complete</b>\n Complete saving.', type: 'Complete'});
+                                        }
+                                    }
+                                },
+                                onerr: function (res) {
+                                    toast.push("onFail:" + req.responseText);
+                                }
+                            });
+                        }
                     }
                 },
                 gridCodeGroup: {
@@ -319,7 +355,7 @@
                             targetID: "AXGridTargetCodeGroup",
                             theme: "AXGrid",
                             sort: false,
-                            fixedColSeq: 2,
+                            //fixedColSeq: 2,
                             //fitToWidth:true,
                             height: 300,
                             passiveMode: true,
@@ -357,7 +393,7 @@
                                             new AXReq(url, {
                                                 debug: false,
                                                 async: false,
-                                                pars: JSON.stringify(param),
+                                                pars: param,
                                                 onsucc: function (res) {
                                                     if (res.result == AXUtil.ajaxOkCode) {
                                                         trace("requestOk");
@@ -479,8 +515,16 @@
                             ajaxUrl: "F001211/selectCodeGroupList.do",
                             ajaxPars: {},
                             onLoad: function () {
-                                //trace(this);
-                                //myGrid.setFocus(this.list.length - 1);
+                                trace(this);
+                                myGridCodeGroup.setFocus(this.list.length - 1);
+                                myGridCode.setList({
+                                        ajaxUrl: "F001211/selectCodeList2.do",
+                                        ajaxPars: this.list[this.list.length - 1],
+                                        onLoad: function () {
+                                            //trace(this);
+                                            //myGrid.setFocus(this.list.length - 1);
+                                        }
+                                    });
                             }
                         });
                         trace(myGridCodeGroup.getSortParam());
@@ -497,13 +541,16 @@
                         toast.push('콘솔창에 데이터를 출력하였습니다.');
                     }
                     ,
+                    getSelectedItem2: function () {
+                        trace(this.target.getSelectedItem());
+                        return this.target.getSelectedItem();
+                    }
+                    ,
                     append: function () {
                         this.target.pushList(
                                 {
                                     no: this.target.list.length,
                                     codeGroupId: "",
-                                    vi: "",
-                                    en: "",
                                     useYn: 'Y'
                                 }
                         );
@@ -539,7 +586,7 @@
                             new AXReq(url, {
                                 debug: false,
                                 async: false,
-                                pars: JSON.stringify(param),
+                                pars: param,
                                 onsucc: function (res) {
                                     if (res.result == AXUtil.ajaxOkCode) {
                                         trace("requestOk");
@@ -577,7 +624,7 @@
                         <input type="button" value="ADD" class="AXButton Red" onclick="fnObj.gridCodeGroup.append();"/>
                         <input type="button" value="REMOVE" class="AXButton Red" onclick="fnObj.gridCodeGroup.remove();"/>
                         <input type="button" value="SAVE" class="AXButton" onclick="fnObj.gridCodeGroup.save();"/>
-                        <input type="button" value="DETAIL" class="AXButton" onclick="fnObj.gridCodeGroup.getSelectedItem();"/>
+                        <!--<input type="button" value="DETAIL" class="AXButton" onclick="fnObj.gridCodeGroup.getSelectedItem();"/>-->
                     </div>
                     <div id="AXGridTargetCodeGroup"></div>
                     
@@ -585,7 +632,8 @@
                     <div style="padding: 10px 0px;">
                         <input type="button" value="ADD" class="AXButton Red" onclick="fnObj.gridCode.append();"/>
                         <input type="button" value="REMOVE" class="AXButton Red" onclick="fnObj.gridCode.remove();"/>
-                        <input type="button" value="DETAIL" class="AXButton" onclick="fnObj.gridCode.getSelectedItem();"/>
+                        <input type="button" value="SAVE" class="AXButton" onclick="fnObj.gridCode.save();"/>
+                        <!--<input type="button" value="DETAIL" class="AXButton" onclick="fnObj.gridCode.getSelectedItem();"/>-->
                     </div>
                     <div id="AXGridTargetCode"></div>
                 </div>

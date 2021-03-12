@@ -86,4 +86,70 @@
     <select id="selectCodeList2" resultType="ResultVO" parameterType="String">
         ${sql}
     </select>
+    
+    
+    
+    
+    
+    <insert id="insertCode" parameterType="F001211CodeVO">
+        INSERT INTO A_CODE (
+            CODE_ID,
+            CODE_GROUP_ID,
+            OPTION1,
+            OPTION2,
+            OPTION3,
+            SEQ
+        ) VALUES (
+            #{codeId},
+            #{codeGroupId},
+            #{option1},
+            #{option2},
+            #{option3},
+            #{seq}
+        )
+    </insert>
+    
+    <update id="updateCode" parameterType="F001211CodeVO">
+        UPDATE A_CODE
+        SET
+            OPTION1 = #{option1},
+            OPTION2 = #{option2},
+            OPTION3 = #{option3},
+            SEQ = #{seq}
+        WHERE
+            CODE_ID = #{codeId}
+            AND CODE_GROUP_ID = #{codeGroupId}
+    </update>
+    
+    <delete id="deleteCode" parameterType="F001211CodeVO">
+        DELETE FROM A_CODE
+        WHERE
+            CODE_ID = #{codeId}
+            AND CODE_GROUP_ID = #{codeGroupId}
+    </delete>
+    
+    <insert id="mergeCodeLang" parameterType="F001211CodeLangVO">
+        INSERT INTO A_CODE_LANG (
+            CODE_ID,
+            CODE_GROUP_ID, 
+            LANG_CD, 
+            CODE_NM
+        ) VALUES (
+            #{codeId},
+            #{codeGroupId}, 
+            #{langCd}, 
+            #{codeNm}
+        )
+        ON DUPLICATE KEY
+        UPDATE 
+            CODE_NM = #{codeNm}
+    </insert>
+    
+    <delete id="deleteCodeLang" parameterType="F001211CodeLangVO">
+        DELETE FROM A_CODE_LANG
+        WHERE
+            CODE_ID = #{codeId}
+            AND CODE_GROUP_ID = #{codeGroupId}
+            AND LANG_CD = #{langCd}
+    </delete>
 </mapper>

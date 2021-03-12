@@ -8,6 +8,7 @@ package com.dm.nok.module.M000000.G001200.F001211.service.impl;
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import java.util.List;
 
@@ -87,4 +88,44 @@ public interface F001211Mapper {
      * @throws Exception 
      */
     public List<ResultVO> selectCodeList2(String sql) throws Exception;
+    
+    /**
+     * Insert Code
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int insertCode(F001211CodeVO param) throws Exception;
+    
+    /**
+     * Update Code
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int updateCode(F001211CodeVO param) throws Exception;
+    
+    /**
+     * Delete Code
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int deleteCode(F001211CodeVO param) throws Exception;
+    
+    /**
+     * Merge Code lang
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int mergeCodeLang(F001211CodeLangVO param) throws Exception;
+    
+    /**
+     * Delete Code lang
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public int deleteCodeLang(F001211CodeLangVO param) throws Exception;
 }

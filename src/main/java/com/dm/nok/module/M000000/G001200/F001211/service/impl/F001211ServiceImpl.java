@@ -175,4 +175,85 @@ public class F001211ServiceImpl implements F001211Service {
         
         return f001211Mapper.selectCodeList2(sql);
     }
+
+    @Override
+    public void saveCode(F001211CodeVO param) throws Exception {
+        String cud = param.get_CUD();
+        int count = 0;
+        try {
+
+            switch (cud) {
+                case "C":
+                    count = f001211Mapper.insertCode(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    if (param.getCodeLangList()!= null) {
+                        for (F001211CodeLangVO item : param.getCodeLangList()) {
+                            saveCodeLang(item);
+                        }
+                    }
+                    break;
+                case "U":
+                    count = f001211Mapper.updateCode(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    if (param.getCodeLangList() != null) {
+                        for (F001211CodeLangVO item : param.getCodeLangList()) {
+                            saveCodeLang(item);
+                        }
+                    }
+                    break;
+                case "D":
+                    count = f001211Mapper.deleteCode(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    if (param.getCodeLangList() != null) {
+                        for (F001211CodeLangVO item : param.getCodeLangList()) {
+                            saveCodeLang(item);
+                        }
+                    }
+                    break;
+                default:
+                    throw new Exception("100001");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveCodeLang(F001211CodeLangVO param) throws Exception {
+        String cud = param.get_CUD();
+        int count = 0;
+        try {
+
+            switch (cud) {
+                case "C":
+                    count = f001211Mapper.mergeCodeLang(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    break;
+                case "U":
+                    count = f001211Mapper.mergeCodeLang(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    break;
+                case "D":
+                    count = f001211Mapper.deleteCodeLang(param);
+                    if (count == 0) {
+                        throw new Exception("100001");
+                    }
+                    break;
+                default:
+                    throw new Exception("100001");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

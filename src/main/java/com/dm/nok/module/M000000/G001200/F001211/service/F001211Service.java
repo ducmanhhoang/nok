@@ -58,4 +58,18 @@ public interface F001211Service {
      * @throws Exception 
      */
     public List<ResultVO> selectCodeList2(F001211CodeVO param) throws Exception;
+    
+    /**
+     * Save Code
+     * @param param
+     * @throws Exception 
+     */
+    public void saveCode(F001211CodeVO param) throws Exception;
+    
+    /**
+     * Save Code lang
+     * @param param
+     * @throws Exception 
+     */
+    public void saveCodeLang(F001211CodeLangVO param) throws Exception;
 }
