@@ -8,6 +8,7 @@ package com.dm.nok.module.M000000.G001200.F001211.service.impl;
 import com.dm.nok.module.M000000.G000000.F000000.service.ResultVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import java.util.List;
 import javax.annotation.Resource;
@@ -139,5 +140,39 @@ public class F001211ServiceImpl implements F001211Service {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<ResultVO> selectCodeList2(F001211CodeVO param) throws Exception {
+        String sql = "SELECT\n"
+                + "	AC.CODE_ID,\n"
+                + "	AC.CODE_GROUP_ID,\n"
+                + "	AC.OPTION1,\n"
+                + "	AC.OPTION2,\n"
+                + "	AC.OPTION3,\n"
+                + "	AC.SEQ";
+
+        int i = 0;
+        for (F001211CodeLangVO item : param.getCodeLangList()) {
+            sql = sql + ",\n	ACL" + i + ".CODE_NM AS " + item.getLangCd();
+            i = i + 1;
+        }
+
+        sql = sql + "\nFROM\n"
+                + "	A_CODE AC";
+
+        i = 0;
+        for (F001211CodeLangVO item : param.getCodeLangList()) {
+            sql = sql + "\nINNER JOIN A_CODE_LANG ACL" + i + " ON\n"
+                    + "	AC.CODE_ID = ACL" + i + ".CODE_ID\n"
+                    + "	AND AC.CODE_GROUP_ID = ACL" + i + ".CODE_GROUP_ID\n"
+                    + "	AND ACL" + i + ".LANG_CD = '" + item.getLangCd() + "'";
+            i = i + 1;
+        }
+        if (param.getCodeGroupId() != null)
+            sql = sql + "\nWHERE AC.CODE_GROUP_ID = '" + param.getCodeGroupId() + "'";
+        sql = sql + "\nORDER BY AC.SEQ";
+        
+        return f001211Mapper.selectCodeList2(sql);
     }
 }

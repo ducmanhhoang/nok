@@ -44,195 +44,204 @@
                                     key: "_CUD", label: "State", width: "50", align: "center"
                                 },
                                 {
-                                    key: "string", label: "String", width: "200",
+                                    key: "codeId", label: "Code ID", width: "200",
                                     formatter: function (val) {
                                         if (Object.isObject(this.value)) {
-                                            return this.value.codeGroupNm;
+                                            return this.value.codeNm;
                                         } else {
                                             return this.value;
                                         }
                                     },
-                                    editor: {
-                                        type: "AXSelector",
-                                        config: {
-                                            reserveKeys: {
-                                                options: "list",
-                                                optionValue: "codeGroupId",
-                                                optionText: "codeGroupNm"
-                                            },
-                                            ajaxUrl: "F001211/selectCodeGroupList.do",
-                                            ajaxPars: "",
-                                            onchange: function () {
-                                                // inline editor 에 선언한 onchange함수는 AXGrid내부에서 사용하는 onchange 함수로 변경되어 사용할 수 없습니다.
-                                            }
-                                        },
-                                        beforeUpdate: function (val) { // 수정이 되기전 value를 처리 할 수 있음.
-                                            // 선택된 값은
-                                            console.log(val);
-                                            return val;
-                                        },
-                                        afterUpdate: function (val) { // 수정이 처리된 후
-                                            // 수정이 된 후 액션.
-                                            console.log(this);
-                                        },
 
-                                        /*
-                                         type: "text",
-                                         //textType: "password",
-                                         //maxLength: 5,
-                                         */
-                                        updateWith: ["_CUD"]
-
-                                    }
-                                },
-                                {
-                                    key: "combobox", label: "combobox", width: "100",
                                     editor: {
-                                        type: "select",
-                                        optionValue: "CD",
-                                        optionText: "NM",
-                                        options: [
-                                            {CD: 1, NM: "김기영"},
-                                            {CD: 2, NM: "장기영"},
-                                            {CD: 3, NM: "장서우"}
-                                        ],
-                                        beforeUpdate: function (val) { // 수정이 되기전 value를 처리 할 수 있음.
-                                            // 선택된 값은
-                                            console.log(val);
-                                            return val;
-                                        },
-                                        afterUpdate: function (val) { // 수정이 처리된 후
-                                            // 수정이 된 후 액션.
-                                            console.log(this);
-                                        }
-                                    }
-                                },
-                                {
-                                    key: "combobox1", label: "combobox1", width: "100",
-                                    formatter: function () {
-                                        return this.value.NM;
-                                    },
-                                    editor: {
-                                        type: "select",
-                                        optionValue: "CD",
-                                        optionText: "NM",
-                                        options: function () {
-                                            return this.value.options;
-                                        },
-                                        beforeUpdate: function (val) { // 수정이 되기전 value를 처리 할 수 있음.
-                                            // 선택된 값은
-                                            var NM = "";
-                                            for (var oi = 0, l = this.value.options.length; oi < l; oi++) {
-                                                if (this.value.options[oi].CD == val) {
-                                                    NM = this.value.options[oi].NM;
-                                                    break;
-                                                }
-                                            }
-                                            this.value.CD = val;
-                                            this.value.NM = NM;
-                                            return this.value;
-                                        },
-                                        afterUpdate: function (val) { // 수정이 처리된 후
-                                            // 수정이 된 후 액션.
-                                            console.log(this);
-                                        }
-                                    }
-                                },
-                                {
-                                    key: "combobox2", label: "combobox2", width: "100",
-                                    formatter: function (val) {
-                                        if (Object.isObject(this.value)) {
-                                            return this.value.NM;
-                                        } else {
-                                            return this.value;
-                                        }
-                                    },
-                                    editor: {
-                                        type: "AXSelect",
-                                        config: {
-                                            reserveKeys: {
-                                                options: "list",
-                                                optionValue: "CD",
-                                                optionText: "NM"
-                                            }
-                                            ,
-                                            ajaxUrl: "selectData-01.php",
-                                            ajaxPars: "",
-                                            onchange: function () {
-                                                // inline editor 에 선언한 onchange함수는 AXGrid내부에서 사용하는 onchange 함수로 변경되어 사용할 수 없습니다.
-                                            }
-                                        }
-                                        ,
-                                        beforeUpdate: function (val) { // 수정이 되기전 value를 처리 할 수 있음.
-                                            // 선택된 값은
-                                            console.log(val);
-                                            return val;
-                                        }
-                                        ,
-                                        afterUpdate: function (val) { // 수정이 처리된 후
-                                            // 수정이 된 후 액션.
-                                            //console.log(this);
-                                        }
-                                    }
-                                },
-                                {
-                                    key: "date", label: "date", width: "105", align: "center",
-                                    editor: {
-                                        type: "calendar",
-                                        config: {
-                                            separator: "-"
-                                        },
+                                        type: "text",
                                         disabled: function () {
-                                            return this.item._CUD != "C";
+                                            if (this.item._CUD == 'C') {
+                                                return false;
+                                            } else {
+                                                return true;
+                                            }
                                         },
+                                        beforeUpdate: function (val) {
+                                            //console.log(val);
+
+                                            var valid = true;
+                                            var url = "F001211/selectCodeGroupIdExisted.do";
+                                            var param = {codeGroupId: val};
+
+                                            new AXReq(url, {
+                                                debug: false,
+                                                async: false,
+                                                pars: JSON.stringify(param),
+                                                onsucc: function (res) {
+                                                    if (res.result == AXUtil.ajaxOkCode) {
+                                                        trace("requestOk");
+                                                    } else {
+                                                        trace(res);
+                                                        if (!axf.isEmpty(res.list) && res.list.length != 0) {
+                                                            valid = false;
+                                                            toast.push({eatUpTime: 1000, body: '<b>Warning</b>\n Code Group ID is existed.', type: 'Warning'});
+                                                        }
+                                                    }
+                                                },
+                                                onerr: function (res) {
+                                                    valid = false;
+                                                    toast.push("onFail:" + req.responseText);
+                                                }
+                                            });
+
+                                            if (valid)
+                                                return val;
+                                            else
+                                                return "";
+                                        },
+                                        afterUpdate: function (val) {
+                                            var _this = this;
+                                            var pars = new Object();
+                                            pars.codeGrpId = _this.item.codeGroupId;
+                                            pars.code = val;
+                                            //console.log(pars);
+                                        },
+                                        notEmpty: true,
+                                        maxLength: 50,
+                                        updateWith: ["_CUD"]
+                                    }
+                                },
+                                <c:forEach var="result" items="${langList}" varStatus="status">
+                                {
+                                    key: "${result.langCd}", label: "${result.langNm}", width: "300",
+                                    formatter: function () {
+                                        return this.value;
+                                    },
+                                    editor: {
+                                        type: "text",
+                                        disabled: function () {
+                                            return false;
+                                        },
+                                        beforeUpdate: function (val) {
+                                            // 선택된 값은
+                                            //console.log(val);
+                                            return val;
+                                        },
+                                        afterUpdate: function (val) {
+                                            var _this = this;
+                                            var pars = new Object();
+                                            pars.codeGrpId = _this.item.codeGrpId;
+                                            pars.code = val;
+                                            //console.log(pars);
+                                        },
+                                        notEmpty: true,
+                                        maxLength: 50,
+                                        updateWith: ["_CUD"]
+                                    }
+                                },
+                                </c:forEach>
+                                {
+                                    key: "option1", label: "Option 1", width: "80",
+                                    formatter: function () {
+                                        return this.value;
+                                    },
+                                    editor: {
+                                        type: "text",
+                                        disabled: function () {
+                                            return false;
+                                        },
+                                        beforeUpdate: function (val) {
+                                            // 선택된 값은
+                                            //console.log(val);
+                                            return val;
+                                        },
+                                        afterUpdate: function (val) {
+                                            var _this = this;
+                                            var pars = new Object();
+                                            pars.codeGrpId = _this.item.codeGrpId;
+                                            pars.code = val;
+                                            //console.log(pars);
+                                        },
+                                        notEmpty: true,
+                                        maxLength: 50,
                                         updateWith: ["_CUD"]
                                     }
                                 },
                                 {
-                                    key: "money", label: "money", width: "100", align: "right",
-                                    formatter: "money",
+                                    key: "option2", label: "Option 2", width: "80",
+                                    formatter: function () {
+                                        return this.value;
+                                    },
                                     editor: {
-                                        type: "money",
-                                        updateWith: ["number", "_CUD"]
+                                        type: "text",
+                                        disabled: function () {
+                                            return false;
+                                        },
+                                        beforeUpdate: function (val) {
+                                            // 선택된 값은
+                                            //console.log(val);
+                                            return val;
+                                        },
+                                        afterUpdate: function (val) {
+                                            var _this = this;
+                                            var pars = new Object();
+                                            pars.codeGrpId = _this.item.codeGrpId;
+                                            pars.code = val;
+                                            //console.log(pars);
+                                        },
+                                        notEmpty: true,
+                                        maxLength: 50,
+                                        updateWith: ["_CUD"]
                                     }
                                 },
                                 {
-                                    key: "number", label: "number", width: "80", align: "right",
-                                    formatter: "money",
+                                    key: "option3", label: "Option 3", width: "80",
+                                    formatter: function () {
+                                        return this.value;
+                                    },
+                                    editor: {
+                                        type: "text",
+                                        disabled: function () {
+                                            return false;
+                                        },
+                                        beforeUpdate: function (val) {
+                                            // 선택된 값은
+                                            //console.log(val);
+                                            return val;
+                                        },
+                                        afterUpdate: function (val) {
+                                            var _this = this;
+                                            var pars = new Object();
+                                            pars.codeGrpId = _this.item.codeGrpId;
+                                            pars.code = val;
+                                            //console.log(pars);
+                                        },
+                                        notEmpty: true,
+                                        maxLength: 50,
+                                        updateWith: ["_CUD"]
+                                    }
+                                },
+                                {
+                                    key: "seq", label: "Sequence", width: "80",
+                                    formatter: function () {
+                                        return this.value;
+                                    },
                                     editor: {
                                         type: "number",
-                                        updateWith: ["money", "_CUD"]
-                                    }
-                                },
-                                {
-                                    key: "checkbox", label: "checkbox", width: "50", align: "center",
-                                    editor: {
-                                        type: "checkbox",
+                                        disabled: function () {
+                                            return false;
+                                        },
                                         beforeUpdate: function (val) {
-                                            return (val == true) ? "Y" : "N";
-                                        }
-                                    }
-                                },
-                                {
-                                    key: "radio", label: "radio", width: "50", align: "center",
-                                    editor: {
-                                        type: "radio"
-                                    }
-                                },
-                                {
-                                    key: "finder", label: "finder", width: "100", align: "center",
-                                    editor: {
-                                        type: "finder",
-                                        formatter: function () {
-                                            return (this.item.finder || "");
-                                        }
-
-                                        ,
-                                        finder: {
-                                            onclick: function () {
-                                                alert("새창 열기");
-                                            }
-                                        }
+                                            // 선택된 값은
+                                            //console.log(val);
+                                            return val;
+                                        },
+                                        afterUpdate: function (val) {
+                                            var _this = this;
+                                            var pars = new Object();
+                                            pars.codeGrpId = _this.item.codeGrpId;
+                                            pars.code = val;
+                                            //console.log(pars);
+                                        },
+                                        notEmpty: true,
+                                        maxLength: 50,
+                                        updateWith: ["_CUD"]
                                     }
                                 }
                             ],
@@ -249,49 +258,16 @@
                         }
                         );
 
-                        var list = [
-                            {
-                                no: 1,
-                                string: {codeGroupId: 'A_PROGRAM_TYPE', codeGroupNm: 'Program type'},
-                                combobox: 1,
-                                combobox1: {CD: '1', NM: '김기영', options: [{CD: 1, NM: "김기영"}, {CD: 2, NM: "장기영"}, {CD: 3, NM: "장서우"}]},
-                                combobox2: {CD: 1, NM: "김기영"},
-                                date: "2013-01-18",
-                                money: 1709401,
-                                number: 10,
-                                checkbox: 1,
-                                radio: 1,
-                                finder: "선택"
-                            },
-                            {
-                                no: 2,
-                                string: "AXGrid 첫번째 줄 입니다.",
-                                combobox: 2,
-                                combobox1: {CD: '1', NM: '황인서', options: [{CD: 1, NM: "황인서"}, {CD: 2, NM: "장인서"}, {CD: 3, NM: "김인서"}]},
-                                combobox2: {CD: 1, NM: "김기영"},
-                                date: "2013-01-18",
-                                money: 1709401,
-                                number: 10,
-                                checkbox: 1,
-                                radio: 1,
-                                finder: "선택"
-                            },
-                            {
-                                no: 3,
-                                string: "AXGrid 첫번째 줄 입니다.",
-                                combobox: 3,
-                                combobox1: {CD: '1', NM: '김동근', options: [{CD: 1, NM: "김동근"}, {CD: 2, NM: "박동근"}, {CD: 3, NM: "장동근"}]},
-                                combobox2: {CD: 1, NM: "김기영"},
-                                date: "2013-01-18",
-                                money: 1709401,
-                                number: 10,
-                                checkbox: 1,
-                                radio: 1,
-                                finder: "선택"
+                        
+                        myGridCode.setList({
+                            ajaxUrl: "F001211/selectCodeList2.do",
+                            ajaxPars: {},
+                            onLoad: function () {
+                                //trace(this);
+                                //myGrid.setFocus(this.list.length - 1);
                             }
-                        ];
-                        myGridCode.setList(list);
-                        //trace(myGridCode.getSortParam());
+                        });
+                        trace(myGridCode.getSortParam());
 
                     },
                     getExcel: function (type) {
@@ -479,6 +455,14 @@
                             body: {
                                 onclick: function () {
                                     trace(this.index);
+                                    myGridCode.setList({
+                                        ajaxUrl: "F001211/selectCodeList2.do",
+                                        ajaxPars: this.item,
+                                        onLoad: function () {
+                                            //trace(this);
+                                            //myGrid.setFocus(this.list.length - 1);
+                                        }
+                                    });
                                 },
                                 ondblclick: function () {
                                     trace(this.index);
@@ -493,10 +477,7 @@
 
                         myGridCodeGroup.setList({
                             ajaxUrl: "F001211/selectCodeGroupList.do",
-                            ajaxPars: {
-                                "param1": "액시스제이",
-                                "param2": "AXU4J"
-                            },
+                            ajaxPars: {},
                             onLoad: function () {
                                 //trace(this);
                                 //myGrid.setFocus(this.list.length - 1);

@@ -6,6 +6,7 @@
 package com.dm.nok.module.M000000.G001200.F001211.service;
 
 import com.dm.nok.module.M000000.G000000.F000000.service.BaseVO;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,7 @@ public class F001211CodeVO extends BaseVO {
     private String option2;
     private String option3;
     private int seq;
+    private List<F001211CodeLangVO> codeLangList;
 
     public String getCodeId() {
         return codeId;
@@ -65,5 +67,13 @@ public class F001211CodeVO extends BaseVO {
 
     public void setSeq(int seq) {
         this.seq = seq;
+    }
+
+    public List<F001211CodeLangVO> getCodeLangList() {
+        return codeLangList;
+    }
+
+    public void setCodeLangList(List<F001211CodeLangVO> codeLangList) {
+        this.codeLangList = codeLangList;
     }
 }

@@ -79,4 +79,12 @@ public interface F001211Mapper {
      * @throws Exception 
      */
     public int deleteCodeGroupLang(F001211CodeGroupLangVO param) throws Exception;
+    
+    /**
+     * Select Code list
+     * @param sql
+     * @return
+     * @throws Exception 
+     */
+    public List<ResultVO> selectCodeList2(String sql) throws Exception;
 }

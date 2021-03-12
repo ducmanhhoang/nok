@@ -50,4 +50,12 @@ public interface F001211Service {
      * @throws Exception 
      */
     public void saveCodeGroupLang(F001211CodeGroupLangVO param) throws Exception;
+    
+    /**
+     * Select Code list
+     * @param param
+     * @return
+     * @throws Exception 
+     */
+    public List<ResultVO> selectCodeList2(F001211CodeVO param) throws Exception;
 }

@@ -83,16 +83,7 @@
             AND LANG_CD = #{langCd}
     </delete>
     
-    <select id="selectCode" resultType="ResultVO" parameterType="F001211CodeVO">
-        SELECT
-            CODE_ID,
-            CODE_GROUP_ID,
-            OPTION1,
-            OPTION2,
-            OPTION3,
-            SEQ,
-        FROM
-            A_CODE AC
-        LEFT JOIN A_CODE
+    <select id="selectCodeList2" resultType="ResultVO" parameterType="String">
+        ${sql}
     </select>
 </mapper>

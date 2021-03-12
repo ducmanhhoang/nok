@@ -10,6 +10,7 @@ import com.dm.nok.module.M000000.G000000.F000000.web.BaseController;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupListVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeGroupVO;
+import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeLangVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211CodeVO;
 import com.dm.nok.module.M000000.G001200.F001211.service.F001211Service;
 import java.io.IOException;
@@ -62,7 +63,6 @@ public class F001211Controller extends BaseController {
         List<F001211CodeGroupLangVO> codeGroupLangList = new ArrayList<F001211CodeGroupLangVO>();
         List<Map<String, String>> langList = this.getlangList();
         for(Map<String, String> item: langList) {
-            System.out.println(item.get("langCd"));
             F001211CodeGroupLangVO codeGroupLang = new F001211CodeGroupLangVO();
             codeGroupLang.setLangCd(item.get("langCd"));
             codeGroupLangList.add(codeGroupLang);
@@ -96,5 +96,27 @@ public class F001211Controller extends BaseController {
             }
         
         return this.addResult(param);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "F001211/selectCodeList2.do")
+    public ResultListVO selectCodeList2(@RequestBody F001211CodeVO param, BindingResult bindingResult) throws Exception {
+        
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@: " + param.getCodeGroupId());
+        
+        if (bindingResult.hasErrors()) {
+            throw new IOException(bindingResult.getGlobalError().getDefaultMessage());
+        }
+        
+        List<F001211CodeLangVO> codeLangList = new ArrayList<F001211CodeLangVO>();
+        List<Map<String, String>> langList = this.getlangList();
+        for(Map<String, String> item: langList) {
+            F001211CodeLangVO codeLang = new F001211CodeLangVO();
+            codeLang.setLangCd(item.get("langCd"));
+            codeLangList.add(codeLang);
+        }
+        param.setCodeLangList(codeLangList);
+        
+        return this.addResult(f001211Service.selectCodeList2(bindAuditData(param)));
     }
 }
